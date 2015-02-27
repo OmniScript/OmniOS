@@ -1,0 +1,29 @@
+function DrawButton(v)
+	paintutils.drawFilledBox(v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[5])
+	term.setTextColor(v[9])
+	term.setCursorPos(v[1]+v[6]-1,v[2]+v[7]-1)
+	local textToPrint = string.sub(v[8],1,v[1]+v[3]-v[6])
+	term.write(textToPrint)
+	buttonsMain[#buttonsMain+1] = {v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[10]}
+end
+
+function DetectButtonHit(buttonsToTest,keysToTest)
+	local event, button, x, y
+	repeat
+		event, button, x, y = os.pullEvent()
+	until (event == "mouse_click" and buttonsToTest ~= nil) or (event == "key" and keysToTest ~= nil)
+	if event == "mouse_click" then
+		for i,v in pairs(buttonsToTest) do
+			if v[1] <= x and x <= v[3] and v[2] <= y and y <= v[4] then
+				return {v[5], button, x, y}
+			end
+		end
+	elseif event == "key" then
+		for i,v in pairs(keysToTest) do
+			if button == v[1] then
+				return v[2]
+			end
+		end
+	end
+	return {"pong"}
+end
