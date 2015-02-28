@@ -24,7 +24,9 @@ function AddField(v)
 end
 
 local function LocalDrawButton(v)
-	paintutils.drawFilledBox(v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[5])
+	if v[5] ~= nil then
+		paintutils.drawFilledBox(v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[5])
+	end
 	term.setTextColor(v[9])
 	term.setCursorPos(v[1]+v[6]-1,v[2]+v[7]-1)
 	local textToPrint = string.sub(v[8],1,v[1]+v[3]-v[6])
@@ -49,6 +51,8 @@ function DrawButton(v)
 			textColor,
 			returnValue,
 		}
+		You can have the option to not use the background color.
+		You can do this by simply setting color of button to nil.
 		]])
 	end
 end
