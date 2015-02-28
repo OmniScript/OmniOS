@@ -1,1 +1,78 @@
-load apis
+--TheOS: Boot--
+--by Creator--
+
+--Variables--
+local tasks = 7
+local finishedTasks = 0
+_G = nil
+term.redirect(term.native())
+local w,h = term.getSize()
+local textutilsserialize = textutils.serialize
+local textutilsunserialize = textutils.unserialize
+local APIlist = {}
+local oldPullEvent = os.pullEvent
+local whichLang = nil
+local lang = {}
+local oldFs = {}
+local logo  = paintutils.loadImage("TheOS/Media/Boot/Boot_Logo.nfp")
+local hideLogo = paintutils.loadImage("TheOS/Media/Boot/Boot_Hide.nfp")
+local logoWide = 18
+--Functions--
+
+function cPrint(text)
+	finishedTasks = finishedTasks + 1
+	local txt = "theOS by Creator"
+	term.setBackgroundColor(colors.white)
+	term.setTextColor(colors.lightGray)
+	term.clear()
+	term.setCursorPos(math.floor((w-#txt)/2),math.floor(h/2)-1)
+	term.write(txt)
+	term.setTextColor(colors.gray)
+	term.setCursorPos(math.floor((w-#text)/2),math.floor(h/2))
+	term.write(text)
+	paintutils.drawImage(logo,math.floor((w-logoWide)/2),math.floor(h/2)+3)
+	paintutils.drawImage(hideLogo,math.floor((w-logoWide)/2)+math.ceil((finishedTasks/tasks)*logoWide),math.floor(h/2)+3)
+	sleep(.05)
+end
+
+--Code--
+
+term.setTextColor(colors.white)
+term.setBackgroundColor(colors.white)
+term.clear()
+term.setCursorPos(1,1)
+
+--Load language file--
+langFile = fs.open("TheOS/Languages/CurrentLang","r")
+whichLang = langFile.readAll()
+langFile.close()
+
+langFile = fs.open("TheOS/Languages/Boot_"..whichLang..".lang","r")
+lang = textutilsunserialize(langFile.readAll())
+langFile.close()
+
+
+--Load API list--
+cPrint(lang[1])
+tAPIlist = fs.open("TheOS/Core/API/APIlist","r")
+APIlist = textutilsunserialize(tAPIlist.readAll())
+tAPIlist.close()
+cPrint(lang[2])
+
+
+--Load APIs--
+cPrint(lang[3])
+for i,v in pairs(APIlist) do
+	os.loadAPI("TheOS/Core/API/"..v)
+	cPrint("Loading "..v)
+end
+cPrint(lang[4])
+
+--Overwrite os.pullEventFunctions--
+
+oldPullEvent = os.pullEvent
+os.pullEvent = os.pullEventRaw
+
+--Go to next
+
+shell.run("TheOS/Core/Login")

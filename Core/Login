@@ -1,0 +1,18 @@
+--Code--
+term.setBackgroundColor()
+GUI.ResetButtons()
+
+
+
+GUI.DrawButton({
+	1,
+	1,
+	5,
+	6,
+	colors.blue,
+	2,
+	2,
+	"Hi",
+	colors.black,
+	"hi",
+})

@@ -1,14 +1,16 @@
---------------FileX v1.0-------------
+--------------FileX v1.2-------------
 ---------------Program---------------
 --------------by Creator-------------
 
 --Variables--
 term.current(term.native())
+local copyPath = ""
+local copyHelp = ""
 local settDir = "FTPconfig"
+local progsDir = "subPrograms"
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 local w, h = term.getSize()
-local pathToCopy = ""
 local folderMenu = {
 	term.current(),
 	16,
@@ -35,6 +37,10 @@ local folderMenu = {
 			"move",
 		},
 		{
+			"Copy",
+			"copy",
+		},
+		{
 			"Cancel",
 			"cancel",
 		},
@@ -43,7 +49,7 @@ local folderMenu = {
 local fileMenu = {
 	term.current(),
 	16,
-	"Folder Options",
+	"File Options",
 	colors.white,
 	colors.blue,
 	colors.black,
@@ -68,6 +74,18 @@ local fileMenu = {
 		{
 			"Cancel",
 			"cancel",
+		},
+		{
+			"Run",
+			"run",
+		},
+		{
+			"Copy",
+			"copy",
+		},
+		{
+			"Open with",
+			"openWith",
 		},
 	},
 }
@@ -184,9 +202,101 @@ local Buttons = {
 		colors.green,
 		"up"
 	},
+	{
+		15,
+		2,
+		5,
+		1,
+		"Paste",
+		colors.white,
+		colors.green,
+		"paste"
+	},
 }
-local folderIcon = paintutils.loadImage(settDir.."/folderIcon")
-local fileIcon = paintutils.loadImage(settDir.."/fileIcon")
+local folderIcon = {
+	{
+	2,
+	2,
+	2,
+	2,
+	16,
+	16,
+	16,
+	16,
+	},
+	{
+	2,
+	2,
+	2,
+	2,
+	2,
+	2,
+	2,
+	2,
+	},
+	{
+	2,
+	2,
+	2,
+	2,
+	2,
+	2,
+	2,
+	2,
+	},
+	{
+	2,
+	2,
+	2,
+	2,
+	2,
+	2,
+	2,
+	2,
+	},
+}
+local fileIcon = {
+	{
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	},
+	{
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	},
+	{
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	},
+	{
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	8192,
+	},
+}
 local scroll = 0
 local globalButtonList = {}
 local notEnded = true
@@ -194,8 +304,8 @@ local fileExtensions = {
 nfp = "nPaintPro",
 nfa = "nPaintPro",
 txt = "edit",
-exe = "shell"
-lua = "shell"
+exe = "shell",
+lua = "shell",
 }
 
 --Functions--
@@ -553,8 +663,8 @@ local function main(filesToDisplay,buttonsToDisplay)
 						end
 					end
 				end
+				files = refresh(currDir)
 			end
-			files = refresh(currDir)
 		elseif action == "refresh" then
 			files = refresh(currDir)
 		elseif action == "scrollUp" then
@@ -567,6 +677,15 @@ local function main(filesToDisplay,buttonsToDisplay)
 			if scroll > numItemsY*6 - h then
 				scroll = scroll - 1
 			end
+		elseif action == "paste" then
+			term.setCursorPos(1,1)
+			print(pathToCopy)
+			print(currDir)
+			print(copyHelp)
+			sleep(3)
+			fs.copy(copyPath,currDir.."/"..copyHelp)
+			files = refresh(currDir)
+			
 		end
 	elseif detectedButtonParsedTable[1] == "key" then
 		if tonumber(action) == keys.up then
@@ -607,6 +726,9 @@ local function main(filesToDisplay,buttonsToDisplay)
 				end
 				fs.move(currDir.."/"..action,answ)
 				files = refresh(currDir)
+			elseif result == "copy" then
+				copyPath = currDir.."/"..action
+				copyHelp = action
 			end
 		end
 	elseif detectedButtonParsedTable[1] == "file" then
@@ -619,7 +741,7 @@ local function main(filesToDisplay,buttonsToDisplay)
 				fileExtension = "txt"
 			end
 			programT = program(fileExtension)
-			shell.run("subPrograms/"..programT.." "..currDir.."/"..action)
+			shell.run(progsDir.."/"..programT.." "..currDir.."/"..action)
 		elseif button == 2 then
 			local result = dropDownMenu(fileMenu,false,detectedButtonUnparsedTable[3],detectedButtonUnparsedTable[4])
 			if result == "open" then
@@ -631,7 +753,7 @@ local function main(filesToDisplay,buttonsToDisplay)
 					fileExtension = "txt"
 				end
 				programT = program(fileExtension)
-				shell.run("subPrograms/"..programT.." "..currDir.."/"..action)
+				shell.run(progsDir.."/"..programT.." "..currDir.."/"..action)
 			elseif result == "delete" then
 				fs.delete(currDir.."/"..action)
 				files = refresh(currDir)
@@ -646,6 +768,41 @@ local function main(filesToDisplay,buttonsToDisplay)
 				end
 				fs.move(currDir.."/"..action,answ)
 				files = refresh(currDir)
+			elseif result == "run" then
+				shell.run(progsDir.."/shell "..currDir.."/"..action)
+			elseif result == "openWith" then
+				local possibleExtensions = {}
+				for i,v in pairs(fileExtensions) do
+					local alreadyRegistered = false
+					for m,k in pairs(possibleExtensions) do
+						if v == k then
+							alreadyRegistered = true
+						end
+					end
+					if not alreadyRegistered then
+						possibleExtensions[#possibleExtensions+1] = v
+					end
+				end
+				local openWith = {
+					term.current(),
+					16,
+					"Open with:",
+					colors.white,
+					colors.blue,
+					colors.black,
+					colors.lightGray,
+					{}
+				}
+				for i,v in pairs(possibleExtensions) do
+					openWith[8][#openWith[8]+1] = {v,v}
+				end
+				openWith[8][#openWith[8]+1] = {"Cancel","cancel"}
+				globalButtonList = {}
+				result = dropDownMenu(openWith,false,detectedButtonUnparsedTable[3],detectedButtonUnparsedTable[4]+6)
+				shell.run(progsDir.."/"..result.." "..currDir.."/"..action)
+			elseif result == "copy" then
+				copyPath = currDir.."/"..action
+				copyHelp = action
 			end
 		end
 	elseif detectedButtonParsedTable[1] == "nil" then
