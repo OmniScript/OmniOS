@@ -1,6 +1,8 @@
 --Variables--
 
 local notLogin = true
+local w,h = term.getSize()
+term.redirect(term.native())
 
 --Code--
 
@@ -12,16 +14,8 @@ term.clear()
 
 while notLogin do
 	GUI.ResetButtons()
-	GUI.DrawButton({
-		1,
-		1,
-		5,
-		6,
-		colors.blue,
-		2,
-		2,
-		"Hi",
-		colors.black,
-		"hi",
-	})
+	GUI.cPrint("Login",colors.black,nil,3,3)
+	GUI.cPrint("Username: >",colors.gray,nil,3,6)
+	GUI.cPrint("Password: >",colors.gray,nil,3,8)
+	os.pullEvent()
 end

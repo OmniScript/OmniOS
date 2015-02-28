@@ -88,7 +88,9 @@ function LocalCPrint(txt,color,bgColor,x,y,maxLenght)
 		txt = string.sub(txt,1,maxLenght)
 	end
 	term.setTextColor(color)
-	term.setBackgroundColor(bgColor)
+	if not bgColor == nil then
+		term.setBackgroundColor(bgColor)
+	end
 	term.setCursorPos(x,y)
 	term.write(txt)
 end
@@ -97,7 +99,14 @@ function cPrint(txt,color,bgColor,x,y,maxLenght)
 	if not pcall(LocalCPrint,txt,color,bgColor,x,y,maxLenght) then
 		print([[
 			Usage:
-			Arguments are as foll
+			Arguments are as follws:
+			Text to print
+			Text color
+			Background color
+			xPos
+			yPos
+			Maximal lenght of the string
+			It can be left nil
 		]])
 	end
 end
