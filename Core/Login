@@ -3,6 +3,8 @@
 local notLogin = true
 local w,h = term.getSize()
 term.redirect(term.native())
+local user
+local pass
 
 --Code--
 
@@ -14,8 +16,14 @@ term.clear()
 
 while notLogin do
 	GUI.ResetButtons()
-	GUI.cPrint("Login",colors.black,nil,3,3)
-	GUI.cPrint("Username: >",colors.gray,nil,3,6)
-	GUI.cPrint("Password: >",colors.gray,nil,3,8)
-	os.pullEvent()
+	GUI.cPrint({"Login",colors.black,nil,3,3})
+	GUI.cPrint({"Username: >",colors.gray,nil,3,6})
+	GUI.cPrint({"Password: >",colors.gray,nil,3,8})
+	GUI.AddField({15,6,35,6,"userField"})
+	paintutils.drawFilledBox(15,6,35,6,colors.gray)
+	GUI.AddField({15,8,35,8,"userField"})
+	paintutils.drawFilledBox(15,8,35,8,colors.gray)
+	local result = GUI.DetectButtonOrKeyHit()
+	print(result)
+	sleep(3)
 end

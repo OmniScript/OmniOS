@@ -3,7 +3,7 @@ local buttonsMain = {}
 local keysMain = {}
 --Functions--
 
-local function LocalAddField()
+local function LocalAddField(v)
 	buttonsMain[#buttonsMain+1] = {v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[5]}
 end
 
@@ -83,20 +83,20 @@ function ResetButtons()
 	buttonsMain = {}
 end
 
-function LocalCPrint(txt,color,bgColor,x,y,maxLenght)
-	if not maxLenght == nil then
-		txt = string.sub(txt,1,maxLenght)
+local function LocalCPrint(v)
+	if not v[6]t == nil then
+		v[1] = string.sub(v[1],1,v[6])
 	end
-	term.setTextColor(color)
-	if not bgColor == nil then
-		term.setBackgroundColor(bgColor)
+	term.setTextColor(v[2])
+	if not v[3] == nil then
+		term.setBackgroundColor(v[3])
 	end
-	term.setCursorPos(x,y)
-	term.write(txt)
+	term.setCursorPos(v[4],v[5])
+	term.write(v[1])
 end
 
-function cPrint(txt,color,bgColor,x,y,maxLenght)
-	if not pcall(LocalCPrint,txt,color,bgColor,x,y,maxLenght) then
+function cPrint(v)
+	if not pcall(LocalCPrint,v) then
 		print([[
 			Usage:
 			Arguments are as follws:
