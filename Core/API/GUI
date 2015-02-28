@@ -82,3 +82,17 @@ end
 function ResetButtons()
 	buttonsMain = {}
 end
+
+function LocalCPrint(txt,color,bgColor,x,y,maxLenght)
+	if not maxLenght == nil then
+		txt = string.sub(txt,1,maxLenght)
+	end
+	term.setTextColor(color)
+	term.setBackgroundColor(bgColor)
+	term.setCursorPos(x,y)
+	term.write(txt)
+end
+
+function cPrint(txt,color,bgColor,x,y,maxLenght)
+	
+end
