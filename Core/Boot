@@ -43,7 +43,7 @@ term.clear()
 term.setCursorPos(1,1)
 
 --Load language file--
-langFile = fs.open("TheOS/Languages/CurrentLang","r")
+langFile = fs.open("TheOS/Settings/Language/CurrentLang","r")
 whichLang = langFile.readAll()
 langFile.close()
 

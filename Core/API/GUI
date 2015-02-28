@@ -94,5 +94,10 @@ function LocalCPrint(txt,color,bgColor,x,y,maxLenght)
 end
 
 function cPrint(txt,color,bgColor,x,y,maxLenght)
-	
+	if not pcall(LocalCPrint,txt,color,bgColor,x,y,maxLenght) then
+		print([[
+			Usage:
+			Arguments are as foll
+		]])
+	end
 end
