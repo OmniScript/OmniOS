@@ -76,15 +76,11 @@ os.pullEvent = os.pullEventRaw
 --Go to next
 function goOn()
 	--shell.run("TheOS/Core/Login")
-	local login = loadFile("TheOS/Core/Login")
+	local login = loadfile("TheOS/Core/Login")
 	login()
 end
 
 ok, err = pcall(goOn)
-
-term.setCursorPos(4,4)
-print(err)
-sleep(30)
 
 if not ok then
 	pcall(shell.run("TheOS/Core/Crash "..err))
