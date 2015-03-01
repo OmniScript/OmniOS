@@ -25,7 +25,8 @@ paintutils.drawFilledBox(15,6,35,6,colors.lightGray)
 gui.addField(15,8,20,1,"passField")
 paintutils.drawFilledBox(15,8,35,8,colors.lightGray)
 gui.addKey(keys.enter,"Enter")
-
+gui.drawButton(15,10,6,3,colors.lightGray,2,2,"Ready!",colors.black,"ready")
+sleep(3)
 
 --Main Loop--
 while notLogin do
@@ -41,7 +42,7 @@ while notLogin do
 		term.setCursorPos(15,8)
 		term.setTextColor(colors.black)
 		pass = read("*")
-	elseif result[1] == "Enter" then
+	elseif result[1] == "Enter" or result[1] == "ready" then
 		print("yay")
 	end
 end
