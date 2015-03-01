@@ -1,5 +1,4 @@
 --Variables--
-os.loadAPI("TheOS/Core/API/gui")
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 local notLogin = true
@@ -9,7 +8,6 @@ local user
 local pass
 
 --Code--
-
 --Startup script--
 term.setBackgroundColor(colors.white)
 term.clear()
