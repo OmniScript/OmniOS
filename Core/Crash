@@ -1,0 +1,16 @@
+
+os.pullEvent = os.pullEventRaw
+tArgs = {...}
+
+term.redirect(term.native())
+term.setBackgroundColor(colors.gray)
+term.clear()
+term.setTextColor(colors.lightGray)
+term.setCursorPos(2,4)
+term.write("TheOS has crashed :(")
+term.setCursorPos(2,5)
+term.write("Click anywhere to restart the system, if the problem persists send the error message to Creator.")
+term.setCursorPos(2,8)
+term.write("Error message")
+term.setCursorPos(2,9)
+term.write(tArgs[1])
