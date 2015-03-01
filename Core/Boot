@@ -54,9 +54,7 @@ langFile.close()
 
 --Load API list--
 nPrint(lang[1])
-tAPIlist = fs.open("TheOS/Core/API/APIlist","r")
-APIlist = textutilsunserialize(tAPIlist.readAll())
-tAPIlist.close()
+APIlist = fs.list("TheOS/Core/API/")
 nPrint(lang[2])
 
 
@@ -68,7 +66,7 @@ for i,v in pairs(APIlist) do
 end
 nPrint(lang[4])
 
-os.loadAPI("TheOS/Core/API/GUI")
+os.loadAPI("TheOS/Core/API/lagalagea")
 
 --Overwrite os.pullEventFunctions--
 
@@ -76,5 +74,18 @@ oldPullEvent = os.pullEvent
 os.pullEvent = os.pullEventRaw
 
 --Go to next
+function goOn()
+	--shell.run("TheOS/Core/Login")
+	local login = loadFile("TheOS/Core/Login")
+	login()
+end
 
-shell.run("TheOS/Core/Login")
+ok, err = pcall(goOn)
+
+term.setCursorPos(4,4)
+print(err)
+sleep(30)
+
+if not ok then
+	pcall(shell.run("TheOS/Core/Crash "..err))
+end
