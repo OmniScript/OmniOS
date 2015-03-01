@@ -1,7 +1,0 @@
-function newProcess(program, path, permission)
-	if permission == "admin" then
-		
-	else
-	
-	end
-end

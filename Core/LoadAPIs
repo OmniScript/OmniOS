@@ -1,10 +1,10 @@
 --Code--
-local apis = fs.list("TheOS/Core/API/")
+local apis = fs.list("TheOS/API/")
 for i,v in pairs(apis) do
-	if fs.isDir("TheOS/Core/API/"..v) then
+	if fs.isDir("TheOS/API/"..v) then
 		apis[i] = nil
 	end
 end
 for i,v in pairs(apis) do
-	os.loadAPI("TheOS/Core/API/"..v)
+	os.loadAPI("TheOS/API/"..v)
 end

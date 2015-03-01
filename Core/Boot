@@ -54,7 +54,7 @@ langFile.close()
 
 --Load API list--
 nPrint(lang[1])
-APIlist = fs.list("TheOS/Core/API/")
+APIlist = fs.list("TheOS/API/")
 nPrint(lang[2])
 
 

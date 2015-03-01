@@ -32,13 +32,15 @@ while notLogin do
 	--Script
 	local result = gui.detectButtonOrKeyHit()
 	if result[1] == "userField" then
+		paintutils.drawFilledBox(15,6,35,6,colors.lightGray)
 		term.setCursorPos(15,6)
 		term.setTextColor(colors.black)
 		user = read()
 	elseif result[1] == "passField" then
+		paintutils.drawFilledBox(15,8,35,8,colors.lightGray)
 		term.setCursorPos(15,8)
 		term.setTextColor(colors.black)
-		pass = read()
+		pass = read("*")
 	elseif result[1] == "Enter" then
 		print("yay")
 	end
