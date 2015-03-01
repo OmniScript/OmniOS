@@ -1,5 +1,7 @@
 --Variables--
 
+local textutilsserialize = textutils.serialize
+local textutilsunserialize = textutils.unserialize
 local notLogin = true
 local w,h = term.getSize()
 term.redirect(term.native())
@@ -14,8 +16,15 @@ term.clear()
 
 --Main Loop--
 
+for i,v in pairs(_G) do
+	if type(v) == "table" then
+		print(textutilsserialize(v))
+	end
+end
+
+--[[
 while notLogin do
-	GUI.ResetButtons()
+	--GUI.ResetButtons()
 	GUI.cPrint({"Login",colors.black,nil,3,3})
 	GUI.cPrint({"Username: >",colors.gray,nil,3,6})
 	GUI.cPrint({"Password: >",colors.gray,nil,3,8})
@@ -27,3 +36,4 @@ while notLogin do
 	print(result)
 	sleep(3)
 end
+]]--
