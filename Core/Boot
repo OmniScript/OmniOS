@@ -60,10 +60,7 @@ nPrint(lang[2])
 
 --Load APIs--
 nPrint(lang[3])
-for i,v in pairs(APIlist) do
-	os.loadAPI("TheOS/Core/API/"..v)
-	nPrint("Loading "..v)
-end
+dofile("TheOS/Core/LoadAPIs")
 term.clear()
 term.setCursorPos(1,1)
 term.write(textutilsserialize(APIlist))
