@@ -24,7 +24,7 @@ function AddField(v)
 end
 
 local function LocalDrawButton(v)
-	if v[5] ~= nil then
+	if v[5] ~= "nil" then
 		paintutils.drawFilledBox(v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[5])
 	end
 	term.setTextColor(v[9])
@@ -84,7 +84,7 @@ function ResetButtons()
 end
 
 local function LocalCPrint(v)
-	if not v[6]t == nil then
+	if not v[6]t == "nil" then
 		v[1] = string.sub(v[1],1,v[6])
 	end
 	term.setTextColor(v[2])
@@ -100,13 +100,15 @@ function cPrint(v)
 		print([[
 			Usage:
 			Arguments are as follws:
+			{
 			Text to print
 			Text color
 			Background color
 			xPos
 			yPos
 			Maximal lenght of the string
-			It can be left nil
+			}
+			Maximal lenght of the string can be left "nil" with qoutes
 		]])
 	end
 end
