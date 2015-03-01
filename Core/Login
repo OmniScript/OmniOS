@@ -1,5 +1,5 @@
 --Variables--
-
+os.loadAPI("TheOS/Core/API/gui")
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 local notLogin = true
@@ -14,18 +14,22 @@ local pass
 term.setBackgroundColor(colors.white)
 term.clear()
 term.setCursorPos(1,1)
+term.setTextColor(colors.black)
+print(Sha.sha256("Lazy dog"))
+term.setCursorPos(1,4)
+os.pullEvent()
 --Main Loop--
 
 while notLogin do
-	GUI.ResetButtons()
-	GUI.cPrint({"Login",colors.black,"nil",3,3})
-	GUI.cPrint({"Username: >",colors.gray,"nil",3,6})
-	GUI.cPrint({"Password: >",colors.gray,"nil",3,8})
-	GUI.AddField({15,6,35,6,"userField"})
+	gui.ResetButtons()
+	gui.cPrint({"Login",colors.black,"nil",3,3})
+	gui.cPrint({"Username: >",colors.gray,"nil",3,6})
+	gui.cPrint({"Password: >",colors.gray,"nil",3,8})
+	gui.AddField({15,6,35,6,"userField"})
 	paintutils.drawFilledBox(15,6,35,6,colors.gray)
-	GUI.AddField({15,8,35,8,"userField"})
+	gui.AddField({15,8,35,8,"userField"})
 	paintutils.drawFilledBox(15,8,35,8,colors.gray)
-	local result = GUI.DetectButtonOrKeyHit()
+	local result = gui.DetectButtonOrKeyHit()
 	print(result)
 	sleep(3)
 end
