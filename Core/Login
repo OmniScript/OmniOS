@@ -13,20 +13,22 @@ term.setBackgroundColor(colors.white)
 term.clear()
 term.setCursorPos(1,1)
 term.setTextColor(colors.black)
---Main Loop--
 
+--GUI
+gui.resetButtons()
+gui.resetKeys()
+gui.cPrint("Login",colors.black,nil,3,3)
+gui.cPrint("Username: >",colors.gray,nil,3,6)
+gui.cPrint("Password: >",colors.gray,nil,3,8)
+gui.addField(15,6,20,1,"userField")
+paintutils.drawFilledBox(15,6,35,6,colors.lightGray)
+gui.addField(15,8,20,1,"passField")
+paintutils.drawFilledBox(15,8,35,8,colors.lightGray)
+gui.addKey(keys.enter,"Enter")
+
+
+--Main Loop--
 while notLogin do
-	--GUI
-	gui.resetButtons()
-	gui.resetKeys()
-	gui.cPrint("Login",colors.black,nil,3,3)
-	gui.cPrint("Username: >",colors.gray,nil,3,6)
-	gui.cPrint("Password: >",colors.gray,nil,3,8)
-	gui.addField(15,6,20,1,"userField")
-	paintutils.drawFilledBox(15,6,35,6,colors.lightGray)
-	gui.addField(15,8,20,1,"passField")
-	paintutils.drawFilledBox(15,8,35,8,colors.lightGray)
-	gui.addKey(keys.enter,"Enter")
 	--Script
 	local result = gui.detectButtonOrKeyHit()
 	if result[1] == "userField" then
@@ -38,6 +40,6 @@ while notLogin do
 		term.setTextColor(colors.black)
 		pass = read()
 	elseif result[1] == "Enter" then
-		
+		print("yay")
 	end
 end
