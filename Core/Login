@@ -14,8 +14,6 @@ local pass
 term.setBackgroundColor(colors.white)
 term.clear()
 term.setCursorPos(1,1)
-print(textutilsserialize(_G["GUI"]))
-error()
 --Main Loop--
 
 while notLogin do
