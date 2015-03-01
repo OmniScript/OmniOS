@@ -3,12 +3,12 @@ local buttonsMain = {}
 local keysMain = {}
 --Functions--
 
-local function LocalAddField(v)
+local function localAddField(minX,minY,maxX,maxX,returnV)
 	buttonsMain[#buttonsMain+1] = {v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[5]}
 end
 
-function AddField(v)
-	if not pcall(LocalAddField,v) then
+function addField(minX,minY,maxX,maxX,returnV)
+	if not pcall(localAddField,minX,minY,maxX,maxX,returnV) then
 		print([[
 		Usage:
 		As an argument pass a table structured like this:
@@ -23,19 +23,19 @@ function AddField(v)
 	end
 end
 
-local function LocalDrawButton(v)
+local function localDrawButton(xPos,yPos,wide,height,colorOfButton,inButtonXPosOfLabel,inButtonYPosOfLabel,label,textColor,returnValue)
 	if v[5] ~= "nil" then
-		paintutils.drawFilledBox(v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[5])
+		paintutils.drawFilledBox(xPos,yPos,xPos+wide-1,yPos+height-1,colorOfButton)
 	end
 	term.setTextColor(v[9])
-	term.setCursorPos(v[1]+v[6]-1,v[2]+v[7]-1)
-	local textToPrint = string.sub(v[8],1,v[1]+v[3]-v[6])
+	term.setCursorPos(xPos+inButtonXPosOfLabel-1,yPos+inButtonYPosOfLabel-1)
+	local textToPrint = string.sub(v[8],1,xPos+v[3]-v[6])
 	term.write(textToPrint)
-	buttonsMain[#buttonsMain+1] = {v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[10]}
+	buttonsMain[#buttonsMain+1] = {xPos,yPos,xPos+wide-1,yPos+height-1,returnValue}
 end
 
-function DrawButton(v)
-	if not pcall(LocalDrawButton,v) then
+function drawButton(xPos,yPos,wide,height,colorOfButton,inButtonXPosOfLabel,inButtonYPosOfLabel,label,textColor,returnValue)
+	if not pcall(localDrawButton,xPos,yPos,wide,height,colorOfButton,inButtonXPosOfLabel,inButtonYPosOfLabel,label,textColor,returnValue) then
 		print([[
 		Usage:
 		As an argument pass a table structured like this:
@@ -57,7 +57,7 @@ function DrawButton(v)
 	end
 end
 
-function DetectButtonOrKeyHit()
+function detectButtonOrKeyHit()
 	while true do
 		local event, button, x, y
 		repeat
@@ -79,11 +79,11 @@ function DetectButtonOrKeyHit()
 	end
 end
 
-function ResetButtons()
+function resetButtons()
 	buttonsMain = {}
 end
 
-local function LocalCPrint(v)
+local function localCPrint(v)
 	if not v[6]t == "nil" then
 		v[1] = string.sub(v[1],1,v[6])
 	end
@@ -96,7 +96,7 @@ local function LocalCPrint(v)
 end
 
 function cPrint(v)
-	if not pcall(LocalCPrint,v) then
+	if not pcall(localCPrint,v) then
 		print([[
 			Usage:
 			Arguments are as follws:

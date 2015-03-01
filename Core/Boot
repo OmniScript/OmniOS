@@ -84,9 +84,6 @@ function goOn()
 end
 
 ok, err = pcall(goOn)
-print(err)
-sleep(3)
-os.pullEvent()
 
 if not ok then
 	pcall(shell.run("TheOS/Core/Crash "..err))
