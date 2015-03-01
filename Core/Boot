@@ -61,15 +61,9 @@ nPrint(lang[2])
 --Load APIs--
 nPrint(lang[3])
 dofile("TheOS/Core/LoadAPIs")
-term.clear()
-term.setCursorPos(1,1)
-term.write(textutilsserialize(APIlist))
-os.pullEvent()
 nPrint(lang[4])
 
-
 --Overwrite os.pullEventFunctions--
-
 oldPullEvent = os.pullEvent
 os.pullEvent = os.pullEventRaw
 

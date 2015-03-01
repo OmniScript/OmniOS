@@ -3,5 +3,5 @@ function newProcess(program, path, permission)
 		
 	else
 	
-	else
+	end
 end

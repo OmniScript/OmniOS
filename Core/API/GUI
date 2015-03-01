@@ -24,7 +24,7 @@ function addField(minX,minY,maxX,maxX,returnV)
 end
 
 local function localDrawButton(xPos,yPos,wide,height,colorOfButton,inButtonXPosOfLabel,inButtonYPosOfLabel,label,textColor,returnValue)
-	if v[5] ~= "nil" then
+	if v[5] ~= nil then
 		paintutils.drawFilledBox(xPos,yPos,xPos+wide-1,yPos+height-1,colorOfButton)
 	end
 	term.setTextColor(v[9])
@@ -83,20 +83,20 @@ function resetButtons()
 	buttonsMain = {}
 end
 
-local function localCPrint(v)
-	if not v[6]t == "nil" then
-		v[1] = string.sub(v[1],1,v[6])
+local function localCPrint(txt,color,bgColor,xPos,yPos,maxL)
+	if not maxL == nil then
+		txt = string.sub(txt,1,maxL)
 	end
-	term.setTextColor(v[2])
-	if not v[3] == nil then
-		term.setBackgroundColor(v[3])
+	term.setTextColor(color)
+	if not bgColor == nil then
+		term.setBackgroundColor(bgColor)
 	end
-	term.setCursorPos(v[4],v[5])
-	term.write(v[1])
+	term.setCursorPos(xPos,yPos)
+	term.write(txt)
 end
 
-function cPrint(v)
-	if not pcall(localCPrint,v) then
+function cPrint(txt,color,bgColor,xPos,yPos,maxL)
+	if not pcall(localCPrint,txt,color,bgColor,xPos,yPos,maxL) then
 		print([[
 			Usage:
 			Arguments are as follws:
