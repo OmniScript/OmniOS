@@ -25,6 +25,6 @@ while notLogin do
 	gui.addField(15,8,20,1,"userField")
 	paintutils.drawFilledBox(15,8,35,8,colors.gray)
 	local result = gui.detectButtonOrKeyHit()
-	print(result)
+	print(textutilsserialize(result))
 	sleep(3)
 end

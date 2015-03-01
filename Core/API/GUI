@@ -3,12 +3,12 @@ local buttonsMain = {}
 local keysMain = {}
 --Functions--
 
-local function localAddField(minX,minY,maxX,maxX,returnV)
-	buttonsMain[#buttonsMain+1] = {v[1],v[2],v[1]+v[3]-1,v[2]+v[4]-1,v[5]}
+local function localAddField(minX,minY,maxX,maxY,returnV)
+	buttonsMain[#buttonsMain+1] = {minX,minY,minX+maxX-1,minY+maxY-1,returnV}
 end
 
-function addField(minX,minY,maxX,maxX,returnV)
-	if not pcall(localAddField,minX,minY,maxX,maxX,returnV) then
+function addField(minX,minY,maxX,maxY,returnV)
+	if not pcall(localAddField,minX,minY,maxX,maxY,returnV) then
 		print([[
 		Usage:
 		As an argument pass a table structured like this:
@@ -27,9 +27,9 @@ local function localDrawButton(xPos,yPos,wide,height,colorOfButton,inButtonXPosO
 	if v[5] ~= nil then
 		paintutils.drawFilledBox(xPos,yPos,xPos+wide-1,yPos+height-1,colorOfButton)
 	end
-	term.setTextColor(v[9])
+	term.setTextColor(textColor)
 	term.setCursorPos(xPos+inButtonXPosOfLabel-1,yPos+inButtonYPosOfLabel-1)
-	local textToPrint = string.sub(v[8],1,xPos+v[3]-v[6])
+	local textToPrint = string.sub(label,1,xPos+wide-inButtonXPosOfLabel)
 	term.write(textToPrint)
 	buttonsMain[#buttonsMain+1] = {xPos,yPos,xPos+wide-1,yPos+height-1,returnValue}
 end
@@ -64,12 +64,16 @@ function detectButtonOrKeyHit()
 			event, button, x, y = os.pullEvent()
 		until (event == "mouse_click" and buttonsToTest ~= nil) or (event == "key" and keysToTest ~= nil)
 		if event == "mouse_click" then
+			print("mouse_click")
+			sleep(3)
 			for i,v in pairs(buttonsMain) do
 				if v[1] <= x and x <= v[3] and v[2] <= y and y <= v[4] then
 					return {v[5], button, x, y}
 				end
 			end
 		elseif event == "key" then
+			print("key")
+			sleep(3)
 			for i,v in pairs(keysMain) do
 				if button == v[1] then
 					return {v[2]}
