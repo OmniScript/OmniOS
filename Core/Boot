@@ -19,7 +19,7 @@ local hideLogo = paintutils.loadImage("TheOS/Media/Boot/Boot_Hide.nfp")
 local logoWide = 18
 --Functions--
 
-function cPrint(text)
+local function cPrint(text)
 	finishedTasks = finishedTasks + 1
 	local txt = "theOS by Creator"
 	term.setBackgroundColor(colors.white)
