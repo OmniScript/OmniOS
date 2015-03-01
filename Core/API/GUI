@@ -3,6 +3,14 @@ local buttonsMain = {}
 local keysMain = {}
 --Functions--
 
+function addKey(key,returnValue)
+	keysMain[#keysMain+1] = {key,returnValue}
+end
+
+function resetKeys()
+	keysMain = {}
+end
+
 local function localAddField(minX,minY,maxX,maxY,returnV)
 	buttonsMain[#buttonsMain+1] = {minX,minY,minX+maxX-1,minY+maxY-1,returnV}
 end
@@ -62,18 +70,14 @@ function detectButtonOrKeyHit()
 		local event, button, x, y
 		repeat
 			event, button, x, y = os.pullEvent()
-		until (event == "mouse_click" and buttonsToTest ~= nil) or (event == "key" and keysToTest ~= nil)
+		until (event == "mouse_click" and buttonsMain ~= nil) or (event == "key" and keysMain ~= nil)
 		if event == "mouse_click" then
-			print("mouse_click")
-			sleep(3)
 			for i,v in pairs(buttonsMain) do
 				if v[1] <= x and x <= v[3] and v[2] <= y and y <= v[4] then
 					return {v[5], button, x, y}
 				end
 			end
 		elseif event == "key" then
-			print("key")
-			sleep(3)
 			for i,v in pairs(keysMain) do
 				if button == v[1] then
 					return {v[2]}
