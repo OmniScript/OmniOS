@@ -1,6 +1,7 @@
-
 os.pullEvent = os.pullEventRaw
 tArgs = {...}
+
+err = ""
 
 term.redirect(term.native())
 term.setBackgroundColor(colors.gray)
@@ -13,5 +14,8 @@ print("Click anywhere to restart the system, if the\n problem persists send the 
 term.setCursorPos(2,10)
 term.write("Error message: ")
 term.setCursorPos(2,11)
-term.write(tArgs[1])
+for i,v in pairs(tArgs) do
+	err = err.." "..v
+end
+term.write(err)
 os.pullEvent("mouse_click")

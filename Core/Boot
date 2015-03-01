@@ -64,9 +64,12 @@ for i,v in pairs(APIlist) do
 	os.loadAPI("TheOS/Core/API/"..v)
 	nPrint("Loading "..v)
 end
+term.clear()
+term.setCursorPos(1,1)
+term.write(textutilsserialize(APIlist))
+os.pullEvent()
 nPrint(lang[4])
 
-os.loadAPI("TheOS/Core/API/lagalagea")
 
 --Overwrite os.pullEventFunctions--
 
