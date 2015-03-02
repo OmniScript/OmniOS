@@ -14,19 +14,18 @@ local function loadShortcut(x)
 end
 
 
-
 --Code--
 
 --Load Settings
-f = fs.open("TheOS/Desktop/Settings","r")
-Settings = textutilsunserialize(f.readAll())
-term.setCursorPos(1,1)
-print(textutilsserialize(f.readAll()))
-os.pullEvent()
-f.close()
+n = fs.open("TheOS/Desktop/Settings","r")
+Settings = textutilsunserialize(n.readAll())
+n.close()
 
 --Load Shortcuts--
 loadShortcut(currWindow)
+term.setCursorPos(1,1)
+print(textutilsserialize(Shortcuts))
+os.pullEvent()
 
 term.setCursorPos(1,1)
 print(textutilsserialize(Settings))
