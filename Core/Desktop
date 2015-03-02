@@ -8,7 +8,7 @@ term.redirect(term.native())
 
 --Functions--
 local function loadShortcut(x)
-	m = fs.open(tostring(x)..".shortcut","r")
+	m = fs.open("TheOS/Desktop/"..tostring(x)..".shortcuts","r")
 	Shortcuts = textutilsunserialize(m.readAll())
 	m.close()
 end
@@ -20,11 +20,17 @@ end
 --Load Settings
 f = fs.open("TheOS/Desktop/Settings","r")
 Settings = textutilsunserialize(f.readAll())
+term.setCursorPos(1,1)
+print(textutilsserialize(f.readAll()))
+os.pullEvent()
 f.close()
 
 --Load Shortcuts--
 loadShortcut(currWindow)
 
+term.setCursorPos(1,1)
+print(textutilsserialize(Settings))
+os.pullEvent()
 
-term.setBackgroundColor(Settings.bgColor)
+term.setBackgroundColor(Settings[1])
 term.clear()
