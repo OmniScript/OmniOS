@@ -17,7 +17,7 @@ term.setTextColor(colors.black)
 --GUI
 gui.resetButtons()
 gui.resetKeys()
-gui.cPrint("Login",colors.black,nil,3,3)
+gui.cPrint("Login",colors.black,nil,math.floor((w-5)/2),3)
 gui.cPrint("Username: >",colors.gray,nil,3,6)
 gui.cPrint("Password: >",colors.gray,nil,3,8)
 gui.addField(15,6,20,1,"userField")

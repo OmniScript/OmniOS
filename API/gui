@@ -36,6 +36,7 @@ local function localDrawButton(xPos,yPos,wide,height,colorOfButton,inButtonXPosO
 		paintutils.drawFilledBox(xPos,yPos,xPos+wide-1,yPos+height-1,colorOfButton)
 	end
 	term.setCursorPos(1,1)
+	term.setTextColor(colors.black)
 	print("1")
 	term.setTextColor(textColor)
 	term.setCursorPos(xPos+inButtonXPosOfLabel-1,yPos+inButtonYPosOfLabel-1)
