@@ -32,24 +32,18 @@ function addField(minX,minY,maxX,maxY,returnV)
 end
 
 local function localDrawButton(xPos,yPos,wide,height,colorOfButton,inButtonXPosOfLabel,inButtonYPosOfLabel,label,textColor,returnValue)
-	if v[5] ~= nil then
+	if colorOfButton ~= nil then
 		paintutils.drawFilledBox(xPos,yPos,xPos+wide-1,yPos+height-1,colorOfButton)
 	end
-	term.setCursorPos(1,1)
-	term.setTextColor(colors.black)
-	print("1")
 	term.setTextColor(textColor)
 	term.setCursorPos(xPos+inButtonXPosOfLabel-1,yPos+inButtonYPosOfLabel-1)
-	print("2")
 	local textToPrint = string.sub(label,1,xPos+wide-inButtonXPosOfLabel)
 	term.write(textToPrint)
 	buttonsMain[#buttonsMain+1] = {xPos,yPos,xPos+wide-1,yPos+height-1,returnValue}
-	print("3")
-	sleep(3)
 end
 
 function drawButton(xPos,yPos,wide,height,colorOfButton,inButtonXPosOfLabel,inButtonYPosOfLabel,label,textColor,returnValue)
-	if pcall(localDrawButton,xPos,yPos,wide,height,colorOfButton,inButtonXPosOfLabel,inButtonYPosOfLabel,label,textColor,returnValue) then
+	if not pcall(localDrawButton,xPos,yPos,wide,height,colorOfButton,inButtonXPosOfLabel,inButtonYPosOfLabel,label,textColor,returnValue) then
 		print([[
 		Usage:
 		As an argument pass a table structured like this:
