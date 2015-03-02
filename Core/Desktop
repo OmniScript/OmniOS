@@ -7,6 +7,13 @@ local textutilsunserialize = textutils.unserialize
 term.redirect(term.native())
 
 --Functions--
+local function loadShortcut(x)
+	m = fs.open(tostring(x)..".shortcut","r")
+	Shortcuts = textutilsunserialize(m.readAll())
+	m.close()
+end
+
+
 
 --Code--
 
@@ -16,5 +23,8 @@ Settings = textutilsunserialize(f.readAll())
 f.close()
 
 --Load Shortcuts--
-term.setBackgroundColor(colors.black)
+loadShortcut(currWindow)
+
+
+term.setBackgroundColor(Settings.bgColor)
 term.clear()
