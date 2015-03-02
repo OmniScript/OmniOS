@@ -2,7 +2,7 @@
 --by Creator--
 
 --Variables--
-local tasks = 7
+local tasks = 4
 local finishedTasks = 0
 _G = nil
 term.redirect(term.native())
@@ -32,7 +32,7 @@ local function nPrint(text)
 	term.write(text)
 	paintutils.drawImage(logo,math.floor((w-logoWide)/2),math.floor(h/2)+3)
 	paintutils.drawImage(hideLogo,math.floor((w-logoWide)/2)+math.ceil((finishedTasks/tasks)*logoWide),math.floor(h/2)+3)
-	sleep(0)
+	sleep(.5)
 end
 
 --Code--

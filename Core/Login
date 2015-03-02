@@ -2,8 +2,8 @@
 local notLogin = true
 local w,h = term.getSize()
 term.redirect(term.native())
-local user
-local pass
+local user = nil
+local pass = nil
 
 --Code--
 --Startup script--
@@ -40,6 +40,7 @@ while notLogin do
 		term.setTextColor(colors.black)
 		pass = read("*")
 	elseif result[1] == "Enter" or result[1] == "ready" then
+		paintutils.drawFilledBox(15,6,35,6,colors.lightGray)
 		local realPass
 		ok = pcall( function()
 		f = fs.open("TheOS/Settings/Users/"..user,"r")
@@ -50,7 +51,7 @@ while notLogin do
 			notLogin = false
 		end
 		if ok == false or notLogin then
-			gui.cPrint("Wrong username or password!",colors.red,colors.white,math.floor((w-25)/2),15)
+			gui.cPrint("Wrong username or password!",colors.red,colors.white,13,15)
 		end
 	end
 end

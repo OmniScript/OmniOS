@@ -1,2 +1,4 @@
 --Variables--
 currWindow = 1
+term.setBackgroundColor(colors.black)
+term.clear()
