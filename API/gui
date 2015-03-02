@@ -96,7 +96,7 @@ local function localCPrint(txt,color,bgColor,xPos,yPos,maxL)
 		txt = string.sub(txt,1,maxL)
 	end
 	term.setTextColor(color)
-	if not bgColor == nil then
+	if bgColor ~= nil then
 		term.setBackgroundColor(bgColor)
 	end
 	term.setCursorPos(xPos,yPos)
