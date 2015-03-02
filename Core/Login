@@ -1,6 +1,4 @@
 --Variables--
-local textutilsserialize = textutils.serialize
-local textutilsunserialize = textutils.unserialize
 local notLogin = true
 local w,h = term.getSize()
 term.redirect(term.native())
@@ -26,7 +24,6 @@ gui.addField(15,8,20,1,"passField")
 paintutils.drawFilledBox(15,8,35,8,colors.lightGray)
 gui.addKey(keys.enter,"Enter")
 gui.drawButton(15,10,8,3,colors.green,2,2,"Ready!",colors.black,"ready")
-sleep(3)
 
 --Main Loop--
 while notLogin do
@@ -43,8 +40,14 @@ while notLogin do
 		term.setTextColor(colors.black)
 		pass = read("*")
 	elseif result[1] == "Enter" or result[1] == "ready" then
-		term.setTextColor(colors.black)
-		term.setCursorPos(1,1)
-		print("yay")
+		f = fs.open("TheOS/Settings/Users/"..user,"r")
+		local realPass = f.readAll()
+		f.close()
+		if realPass == Sha.sha256(pass) then
+			notLogin = false
+		end
 	end
 end
+
+f = loadfile("TheOS/Core/Desktop")
+f()
