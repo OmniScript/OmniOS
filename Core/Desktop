@@ -1,4 +1,20 @@
 --Variables--
-currWindow = 1
+local currWindow = 1
+local Settings = {}
+local Shortcuts = {}
+local textutilsserialize = textutils.serialize
+local textutilsunserialize = textutils.unserialize
+term.redirect(term.native())
+
+--Functions--
+
+--Code--
+
+--Load Settings
+f = fs.open("TheOS/Desktop/Settings","r")
+Settings = textutilsunserialize(f.readAll())
+f.close()
+
+--Load Shortcuts--
 term.setBackgroundColor(colors.black)
 term.clear()
