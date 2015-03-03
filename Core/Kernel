@@ -7,9 +7,12 @@ function getPermission()
 
 end
 
-function newProcess(funcPath,title,permission)
+function newProcess(funcPath,title)
 	local routineIsPresent = false
-	local tFuncPath = funcPath
+	local func
+	local buffer = {}
+	local permission = nil
+	local base = ""
 	for i,v in pairs(routines) do
 		if i == title then
 			routineIsPresent = true
@@ -17,7 +20,14 @@ function newProcess(funcPath,title,permission)
 	end
 	if routineIsPresent then return false end
 	if type(funcPath) == "string" then
-		funcPath = loadfile(tFuncPath)
+		func = loadfile(funcPath)
+		for token in string.gmatch(funcPath) do
+			buffer[#buffer+1] =  token
+		end
+		for i = 1, #buffer-1 do
+			base = base..buffer[i]
+		end
+	else return false
 	end
 	
 	routines[title] = coroutine.create()
