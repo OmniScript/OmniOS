@@ -69,9 +69,10 @@ os.pullEvent = os.pullEventRaw
 
 --Go to next
 function goOn()
-	--shell.run("TheOS/Core/Login")
 	local login = loadfile("TheOS/Core/Login")
 	login()
+	local kernel = loadfile("TheOS/Core/Kernel")
+	kernel()
 end
 
 ok, err = pcall(goOn)

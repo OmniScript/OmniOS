@@ -1,10 +1,13 @@
 --Kernel--
 --Variables--
 local routines = {}
-
+local args = {...}
 --Functions--
-function getPermission()
-
+function getPermission(base,program)
+	local f = fs.open(base.."/"..program..".permission")
+	local m = f.readAll()
+	f.close()
+	return m
 end
 
 function newProcess(funcPath,title)
@@ -13,6 +16,7 @@ function newProcess(funcPath,title)
 	local buffer = {}
 	local permission = nil
 	local base = ""
+	local program = nil
 	for i,v in pairs(routines) do
 		if i == title then
 			routineIsPresent = true
@@ -21,14 +25,19 @@ function newProcess(funcPath,title)
 	if routineIsPresent then return false end
 	if type(funcPath) == "string" then
 		func = loadfile(funcPath)
-		for token in string.gmatch(funcPath) do
-			buffer[#buffer+1] =  token
-		end
-		for i = 1, #buffer-1 do
-			base = base..buffer[i]
-		end
-	else return false
-	end
+	else return false end
 	
+		for token in string.gmatch(funcPath) do
+		buffer[#buffer+1] =  token
+	end
+	for i = 1, #buffer-1 do
+		base = base..buffer[i]
+	end
+	program = buffer[#buffer]
+	if buffer[#buffer-2] == "Programs" then
+		permission = getPermission(base,program)
+	else
+		permission = "admin"
+	end
 	routines[title] = coroutine.create()
 end
