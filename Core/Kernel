@@ -1,1 +1,24 @@
 --Kernel--
+--Variables--
+local routines = {}
+
+--Functions--
+function getPermission()
+
+end
+
+function newProcess(funcPath,title,permission)
+	local routineIsPresent = false
+	local tFuncPath = funcPath
+	for i,v in pairs(routines) do
+		if i == title then
+			routineIsPresent = true
+		end
+	end
+	if routineIsPresent then return false end
+	if type(funcPath) == "string" then
+		funcPath = loadfile(tFuncPath)
+	end
+	
+	routines[title] = coroutine.create()
+end
