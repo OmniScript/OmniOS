@@ -21,6 +21,16 @@ n = fs.open("TheOS/Desktop/Settings","r")
 Settings = textutilsunserialize(n.readAll())
 n.close()
 
+if fs.exists("TheOS/Desktop/Settings") then
+	term.setCursorPos(1,1)
+	print("Victory")
+	os.pullEvent()
+else
+	term.setCursorPos(1,1)
+	print("boo")
+	os.pullEvent()
+end
+
 --Load Shortcuts--
 loadShortcut(currWindow)
 term.setCursorPos(1,1)
