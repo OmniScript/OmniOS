@@ -1,4 +1,4 @@
-function newProcess(tFunction, path, permission)
+function newEnvironement(path, permission)
 	if permission == "admin" then
 		
 	else

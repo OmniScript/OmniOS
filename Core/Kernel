@@ -27,7 +27,7 @@ function newProcess(funcPath,title)
 		func = loadfile(funcPath)
 	else return false end
 	
-		for token in string.gmatch(funcPath) do
+	for token in string.gmatch(funcPath,"(/[^/]+)") do
 		buffer[#buffer+1] =  token
 	end
 	for i = 1, #buffer-1 do
@@ -39,5 +39,9 @@ function newProcess(funcPath,title)
 	else
 		permission = "admin"
 	end
+	local environement = {}
+	environement = Sandbox.newEnvironement(funcPath,permission)
 	routines[title] = coroutine.create()
 end
+
+newProcess(args[1],args[2])

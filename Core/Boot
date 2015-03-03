@@ -72,7 +72,7 @@ function goOn()
 	local login = loadfile("TheOS/Core/Login")
 	login()
 	local kernel = loadfile("TheOS/Core/Kernel")
-	kernel()
+	kernel("TheOS/Core/Desktop","Desktop")
 end
 
 ok, err = pcall(goOn)

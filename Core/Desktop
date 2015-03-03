@@ -30,6 +30,3 @@ os.pullEvent()
 term.setCursorPos(1,1)
 print(textutilsserialize(Settings))
 os.pullEvent()
-
-term.setBackgroundColor(Settings[1])
-term.clear()
