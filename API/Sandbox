@@ -1,7 +1,9 @@
 function newEnvironement(path, permission)
 	if permission == "admin" then
+		return _G
+	elseif permission == "user" then
+		env = {
 		
-	else
-	
+		}
 	end
 end
