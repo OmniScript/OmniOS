@@ -23,9 +23,6 @@ n.close()
 
 --Load Shortcuts--
 loadShortcut(currWindow)
-term.setCursorPos(1,1)
-print(textutilsserialize(Shortcuts))
-os.pullEvent()
 
 term.setCursorPos(1,1)
 print(textutilsserialize(Settings))
