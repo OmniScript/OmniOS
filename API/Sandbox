@@ -3,6 +3,6 @@ function newEnvironement(path, permission)
 		return _G
 	elseif permission == "user" then
 		env = {}
-		env.fs.
+		env.fs
 	end
 end

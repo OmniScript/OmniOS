@@ -1,4 +1,5 @@
 --Variables--
+args = {...}
 local currWindow = 1
 local Settings = {}
 local Shortcuts = {}
@@ -25,5 +26,9 @@ n.close()
 loadShortcut(currWindow)
 
 term.setCursorPos(1,1)
-print(textutilsserialize(Settings))
+print("yay")
+print(textutilsserialize(args))
 os.pullEvent()
+
+term.setCursorPos(1,1)
+print(textutilsserialize(_G))

@@ -1,7 +1,13 @@
 --Kernel--
 --Variables--
 local routines = {}
+local arguments = {}
 local args = {...}
+local _funcPath = args[1]
+local _title = args[2]
+table.remove(args,2)
+table.remove(args,1)
+
 --Functions--
 function getPermission(base,program)
 	local f = fs.open(base.."/"..program..".permission")
@@ -10,7 +16,7 @@ function getPermission(base,program)
 	return m
 end
 
-function newProcess(funcPath,title)
+function newProcess(funcPath,title,_arguments)
 	local routineIsPresent = false
 	local func
 	local buffer = {}
@@ -41,7 +47,14 @@ function newProcess(funcPath,title)
 	end
 	local environement = {}
 	environement = Sandbox.newEnvironement(funcPath,permission)
-	routines[title] = coroutine.create()
+	routines[title] = coroutine.create(func)
+	arguments[title] = unpack(_arguments)
+end
+
+function coroutineManager()
+	for i,v in pairs(routines) do
+		coroutine.resume(v,arguments[i])
+	end
 end
 
 newProcess(args[1],args[2])
