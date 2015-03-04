@@ -24,11 +24,11 @@ n.close()
 
 --Load Shortcuts--
 loadShortcut(currWindow)
+term.setBackgroundColor(colors.black)
+term.clear()
+term.setTextColor(colors.white)
 
 term.setCursorPos(1,1)
 print("yay")
 print(textutilsserialize(args))
 os.pullEvent()
-
-term.setCursorPos(1,1)
-print(textutilsserialize(_G))

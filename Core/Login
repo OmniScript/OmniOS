@@ -55,6 +55,3 @@ while notLogin do
 		end
 	end
 end
-
-f = loadfile("TheOS/Core/Desktop")
-f()

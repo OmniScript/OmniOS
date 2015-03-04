@@ -19,3 +19,4 @@ for i,v in pairs(tArgs) do
 end
 term.write(err)
 os.pullEvent("mouse_click")
+os.reboot()
