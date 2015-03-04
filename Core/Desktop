@@ -20,6 +20,13 @@ end
 --Load Settings
 n = fs.open("TheOS/Desktop/Settings","r")
 Settings = textutilsunserialize(n.readAll())
+term.setBackgroundColor(colors.black)
+term.clear()
+term.setTextColor(colors.white)
+term.setCursorPos(1,1)
+print("meh")
+print(n.readAll())
+os.pullEvent()
 n.close()
 
 --Load Shortcuts--
@@ -27,8 +34,4 @@ loadShortcut(currWindow)
 term.setBackgroundColor(colors.black)
 term.clear()
 term.setTextColor(colors.white)
-
 term.setCursorPos(1,1)
-print("yay")
-print(textutilsserialize(args))
-os.pullEvent()

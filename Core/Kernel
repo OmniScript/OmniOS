@@ -48,8 +48,9 @@ function newProcess(funcPath,title,_arguments)
 	else
 		setmetatable(environement,{_index = _G})
 	end
+	setfenv(func,environement)
 	routines[title] = coroutine.create(func)
-	arguments[title] = unpack(_arguments)
+	arguments[title] = _arguments
 end
 
 function coroutineManager()
@@ -57,13 +58,14 @@ function coroutineManager()
 		for i,v in pairs(routines) do
 			print(v)
 			os.pullEvent()
-			coroutine.resume(v,
-			arguments[i])
+			coroutine.resume(v,arguments[i])
 		end
 	end
 end
 
 newProcess(_funcPath,_title,_arguments)
+term.clear()
+term.setCursorPos(1,1)
 for i,v in pairs(routines) do
 	print(i)
 end

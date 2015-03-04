@@ -71,6 +71,7 @@ os.pullEvent = os.pullEventRaw
 function goOn()
 	local login = loadfile("TheOS/Core/Login")
 	login()
+	--dofile("TheOS/Core/Desktop")
 	local kernel = loadfile("TheOS/Core/Kernel")
 	kernel("TheOS/Core/Desktop","Desktop","hi")
 end
