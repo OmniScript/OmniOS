@@ -23,14 +23,29 @@ end
 
 local function drawShortcuts(t)
 	for i,v in pairs(t) do
-		local xPos = (v[1]-1)*9+1 
-		local yPos = (v[2]-1)*7+1
+		local xPos = (v[1]-1)*9+2 
+		local yPos = (v[2]-1)*7+2
 		term.setCursorPos(xPos,yPos)
 		local image = {}
 		local f = fs.open(v[3]..".ico","r")
 		image = textutilsunserialize(f.readAll())
 		f.close()
-		paintutils.drawImage(image,xPos,yPos)
+		paintutils.drawImage(image[1],xPos,yPos)
+		
+		term.setBackgroundColor(colors.cyan)
+		term.setTextColor(colors.black)
+		local buffer = {}
+		for token in string.gmatch(image[2],"[^%s]") do
+			buffer[#buffer+1] = token
+		end
+		for i,v in pairs(buffer) do
+			if string.sub(v,1,1) == "<" then
+				local toAnalize = string.sub(v,2,-2)
+				print(toAnalize)
+			else
+				--term.write(v)
+			end
+		end
 	end
 end
 
@@ -42,7 +57,7 @@ loadSettings()
 loadShortcut(currWindow)
 
 --Code--
-term.setBackgroundColor(colors.purple)
+term.setBackgroundColor(colors.cyan)
 term.setTextColor(colors.black)
 term.clear()
 term.setCursorPos(1,1)
@@ -53,5 +68,6 @@ print(args[1])
 os.pullEvent()
 term.clear()
 drawShortcuts(Shortcuts)
+error()
 os.pullEvent()
 error()

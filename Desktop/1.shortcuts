@@ -3,10 +3,12 @@
 	1,
 	1,
 	"TheOS/Programs/FileX.app/FileX",
+	"FileX"
 	},
 	{
 	2,
 	1,
 	"TheOS/Programs/nPaintPro.app/nPaintPro",
+	"nPaintPro"
 	},
 }
