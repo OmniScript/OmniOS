@@ -1,4 +1,5 @@
 --Variables--
+os.loadAPI("TheOS/API/paint")
 args = {...}
 local currWindow = 1
 local Settings = {}
@@ -53,5 +54,10 @@ os.pullEvent()
 term.clear()
 term.setCursorPos(1,1)
 print("drawing shortcuts")
+l = fs.open("r","w")
+for i,v in pairs(_G) do
+	l.writeLine(i)
+end
+l.close()
 drawShortcuts(Shortcuts)
 os.pullEvent()

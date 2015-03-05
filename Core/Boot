@@ -32,7 +32,7 @@ local function nPrint(text)
 	term.write(text)
 	paintutils.drawImage(logo,math.floor((w-logoWide)/2),math.floor(h/2)+3)
 	paintutils.drawImage(hideLogo,math.floor((w-logoWide)/2)+math.ceil((finishedTasks/tasks)*logoWide),math.floor(h/2)+3)
-	sleep(2)
+	sleep(.2)
 end
 
 --Code--
