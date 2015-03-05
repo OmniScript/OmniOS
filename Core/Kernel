@@ -24,12 +24,12 @@ function newProcess(funcPath,title,_arguments)
 	local base = ""
 	local program = nil
 	local environement = {}
-	routines[title] = ""
 	for i,v in pairs(routines) do
 		if i == title then
 			routineIsPresent = true
 		end
 	end
+	routines[title] = ""
 	if routineIsPresent then return false end
 	if type(funcPath) == "string" then
 		func = loadfile(funcPath)
@@ -55,19 +55,20 @@ end
 
 function coroutineManager()
 	while true do
+	os.pullEvent()
 		for i,v in pairs(routines) do
-			print(v)
-			os.pullEvent()
-			coroutine.resume(v,arguments[i])
+			coroutine.resume(v,unpack(arguments[i]))
 		end
 	end
 end
 
-newProcess(_funcPath,_title,_arguments)
+newProcess(_funcPath,_title,arguments)
+term.setBackgroundColor(colors.cyan)
+term.setTextColor(colors.white)
 term.clear()
 term.setCursorPos(1,1)
-for i,v in pairs(routines) do
-	print(i)
-end
+print("Launching kernel...")
+print(routines)
+--print(textutils.serialize(routines))
 os.pullEvent()
 coroutineManager()
