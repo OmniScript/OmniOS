@@ -4,9 +4,9 @@ tArgs = {...}
 err = ""
 
 term.redirect(term.native())
-term.setBackgroundColor(colors.gray)
+term.setBackgroundColor(colors.blue)
 term.clear()
-term.setTextColor(colors.lightGray)
+term.setTextColor(colors.white)
 term.setCursorPos(2,4)
 term.write("TheOS has crashed :(")
 term.setCursorPos(2,6)

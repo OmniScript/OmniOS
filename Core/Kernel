@@ -57,6 +57,8 @@ function coroutineManager()
 	while true do
 	os.pullEvent()
 		for i,v in pairs(routines) do
+			print("Resuming coroutine...")
+			os.pullEvent()
 			coroutine.resume(v,unpack(arguments[i]))
 		end
 	end
@@ -69,6 +71,9 @@ term.clear()
 term.setCursorPos(1,1)
 print("Launching kernel...")
 print(routines)
---print(textutils.serialize(routines))
+for i,v in pairs(routines) do
+	print(v)
+end
+--error("Fuck you, little asshole!")
 os.pullEvent()
 coroutineManager()
