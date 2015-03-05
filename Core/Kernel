@@ -63,7 +63,8 @@ local function coroutineManager()
 	end
 end
 
-error()
+--Code--
+
 newProcess(funcPath,title,arguments)
 term.clear()
 term.setCursorPos(1,1)
