@@ -2,7 +2,7 @@
 --by Creator--
 
 --Variables--
-local tasks = 4
+local tasks = 2
 local finishedTasks = 0
 _G = nil
 term.redirect(term.native())
@@ -32,7 +32,7 @@ local function nPrint(text)
 	term.write(text)
 	paintutils.drawImage(logo,math.floor((w-logoWide)/2),math.floor(h/2)+3)
 	paintutils.drawImage(hideLogo,math.floor((w-logoWide)/2)+math.ceil((finishedTasks/tasks)*logoWide),math.floor(h/2)+3)
-	sleep(.25)
+	sleep(2)
 end
 
 --Code--
@@ -50,13 +50,6 @@ langFile.close()
 langFile = fs.open("TheOS/Languages/Boot_"..whichLang..".lang","r")
 lang = textutilsunserialize(langFile.readAll())
 langFile.close()
-
-
---Load API list--
-nPrint(lang[1])
-APIlist = fs.list("TheOS/API/")
-nPrint(lang[2])
-
 
 --Load APIs--
 nPrint(lang[3])
