@@ -46,5 +46,5 @@
 			1,
 		},
 	},
-	"This is <fgColor:yellow> a test"
+	"This is %<fgColor:yellow>% a test"
 }
