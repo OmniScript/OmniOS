@@ -50,23 +50,16 @@ function newProcess(_funcPath,_title,_arguments)
 		if v == title then return false end
 	end
 	routines[title] = ""
-	local function toRun()
-		os.run(env,_funcPath,unpack(_arguments))
-	end
+	toRun = loadfile(_funcPath)
 	routines[title] = coroutine.create(toRun)
 end
 
 local function coroutineManager()
 	while true do
-	os.pullEvent()
+	eventData = {os.pullEvent()}
 		for i,v in pairs(routines) do
 			term.clear()
-			term.setCursorPos(1,1)
-			print("Resuming coroutine...")
-			print(i)
-			print(v)
-			os.pullEvent()
-			coroutine.resume(v)
+			coroutine.resume(v,unpack(eventData))
 		end
 	end
 end
@@ -75,5 +68,4 @@ newProcess(funcPath,title,arguments)
 term.clear()
 term.setCursorPos(1,1)
 print("Booting into multitasking...")
-os.pullEvent()
 coroutineManager()
