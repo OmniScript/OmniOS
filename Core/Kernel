@@ -1,79 +1,67 @@
 --Kernel--
 --Variables--
 local routines = {}
-local arguments = {}
+local currRoutine = nil
 local args = {...}
-local _funcPath = args[1]
-local _title = args[2]
+local funcPath = args[1]
+local title = args[2]
 table.remove(args,2)
 table.remove(args,1)
 
 --Functions--
-function getPermission(base,program)
+local function getPermission(base,program)
 	local f = fs.open(base.."/"..program..".permission")
 	local m = f.readAll()
 	f.close()
 	return m
 end
 
-function newProcess(funcPath,title,_arguments)
-	local routineIsPresent = false
-	local func
+local function parsePath(_funcPath)
 	local buffer = {}
-	local permission = nil
-	local base = ""
-	local program = nil
-	local environement = {}
-	for i,v in pairs(routines) do
-		if i == title then
-			routineIsPresent = true
-		end
+	for token in string.gmatch(_funcPath,"[^/]+") do
+		buffer[#buffer + 1] = token
 	end
-	routines[title] = ""
-	if routineIsPresent then return false end
-	if type(funcPath) == "string" then
-		func = loadfile(funcPath)
-	else return false end
-	
-	for token in string.gmatch(funcPath,"(/[^/]+)") do
-		buffer[#buffer+1] =  token
-	end
-	for i = 1, #buffer-1 do
-		base = base..buffer[i]
-	end
-	program = buffer[#buffer]
-	if buffer[#buffer-2] == "Programs" then
-		permission = getPermission(base,program)
-		environement = Sandbox.newEnvironement(funcPath,permission)
-	else
-		setmetatable(environement,{_index = _G})
-	end
-	setfenv(func,environement)
-	routines[title] = coroutine.create(func)
-	arguments[title] = _arguments
+	return buffer
 end
 
-function coroutineManager()
+local function getEnvironment(nTable,_path)
+	if nTable[#nTable-3] == "Programs" then
+		local b = fs.open(_path..".permissions")
+		local tEnv = b.readLine()
+		b.close()
+		if tEnv == "admin" then
+			local mEnv = {}
+			setmetatable(mEnv,{_index = _G})
+			return mEnv
+		else
+			Sandbox.newEnvironement(_path, "semiadmin")
+		end
+	else
+		local mEnv = {}
+		setmetatable(mEnv,{_index = _G})
+		return mEnv
+	end
+end
+
+function newProcess(_funcPath,_title,_arguments)
+	local path = parsePath(_funcPath)
+	local env = getEnvironment(path,_funcPath)
+	for i,v in pairs(routines) do
+		if v == title then return false end
+	end
+	routine[title] = coroutine.create(function() os.run(env,_funcPath,unpack(_arguments)))
+end
+
+local function coroutineManager()
 	while true do
 	os.pullEvent()
 		for i,v in pairs(routines) do
 			print("Resuming coroutine...")
 			os.pullEvent()
-			coroutine.resume(v,unpack(arguments[i]))
+			coroutine.resume(v)
 		end
 	end
 end
 
-newProcess(_funcPath,_title,arguments)
-term.setBackgroundColor(colors.cyan)
-term.setTextColor(colors.white)
-term.clear()
-term.setCursorPos(1,1)
-print("Launching kernel...")
-print(routines)
-for i,v in pairs(routines) do
-	print(v)
-end
---error("Fuck you, little asshole!")
-os.pullEvent()
+newProcess(funcPath,title,arguments)
 coroutineManager()
