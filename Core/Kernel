@@ -58,12 +58,12 @@ local function coroutineManager()
 	while true do
 	eventData = {os.pullEvent()}
 		for i,v in pairs(routines) do
-			term.clear()
 			coroutine.resume(v,unpack(eventData))
 		end
 	end
 end
 
+error()
 newProcess(funcPath,title,arguments)
 term.clear()
 term.setCursorPos(1,1)

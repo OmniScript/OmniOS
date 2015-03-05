@@ -9,27 +9,49 @@ term.redirect(term.native())
 print(textutilsserialize(args))
 --Functions--
 local function loadShortcut(x)
-	m = fs.open("TheOS/Desktop/"..tostring(x)..".shortcuts","r")
+	local m = fs.open("TheOS/Desktop/"..tostring(x)..".shortcuts","r")
 	Shortcuts = textutilsunserialize(m.readAll())
 	m.close()
 end
 
+local function loadSettings()
+	local n = fs.open("TheOS/Desktop/Settings","r")
+	Settings = textutilsunserialize(n.readAll())
+	n.close()
+end
+
+
+local function drawShortcuts(t)
+	for i,v in pairs(t) do
+		local xPos = (v[1]-1)*9+1 
+		local yPos = (v[2]-1)*7+1
+		term.setCursorPos(xPos,yPos)
+		local image = {}
+		local f = fs.open(v[3]..".ico","r")
+		image = textutilsunserialize(f.readAll())
+		f.close()
+		paintutils.drawImage(image,xPos,yPos)
+	end
+end
 
 --Code--
-
 --Load Settings
-n = fs.open("TheOS/Desktop/Settings","r")
-Settings = textutilsunserialize(n.readAll())
-n.close()
+loadSettings()
 
 --Load Shortcuts--
 loadShortcut(currWindow)
 
 --Code--
 term.setBackgroundColor(colors.purple)
-term.setTextColor(colors.white)
+term.setTextColor(colors.black)
 term.clear()
 term.setCursorPos(1,1)
+print(fs.exists("TheOS/Desktop/Settings"))
+print(textutilsserialize(Settings))
 print("meh")
 print(args[1])
 os.pullEvent()
+term.clear()
+drawShortcuts(Shortcuts)
+os.pullEvent()
+error()
