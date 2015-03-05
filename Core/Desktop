@@ -6,7 +6,7 @@ local Shortcuts = {}
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 term.redirect(term.native())
-
+print(textutilsserialize(args))
 --Functions--
 local function loadShortcut(x)
 	m = fs.open("TheOS/Desktop/"..tostring(x)..".shortcuts","r")
