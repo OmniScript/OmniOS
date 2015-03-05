@@ -1,0 +1,10 @@
+--BetterPaintAPI--
+----by Creator----
+
+function local drawPixel(x,y,character,fgColor,bgColor)
+	term.setCursorPos(x,y)
+	term.setBackgroundColor(bgColor)
+	term.setTextColor(fgColor)
+	term.write(string.sub(character,1,1))
+end
+

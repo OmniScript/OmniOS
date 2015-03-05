@@ -22,7 +22,10 @@ end
 
 
 local function drawShortcuts(t)
+	local a = 0
 	for i,v in pairs(t) do
+		a = a + 1
+		local line = 0
 		local xPos = (v[1]-1)*9+2 
 		local yPos = (v[2]-1)*7+2
 		term.setCursorPos(xPos,yPos)
@@ -30,23 +33,38 @@ local function drawShortcuts(t)
 		local f = fs.open(v[3]..".ico","r")
 		image = textutilsunserialize(f.readAll())
 		f.close()
+		term.setBackgroundColor(colors.black)
 		paintutils.drawImage(image[1],xPos,yPos)
 		
 		term.setBackgroundColor(colors.cyan)
 		term.setTextColor(colors.black)
+		term.setCursorPos(xPos,yPos)
 		local buffer = {}
-		for token in string.gmatch(image[2],"[^%s]") do
+		for token in string.gmatch(image[2],"[^%s]+") do
 			buffer[#buffer+1] = token
 		end
 		for i,v in pairs(buffer) do
-			if string.sub(v,1,1) == "<" then
+			if string.sub(v,1,1) == "<" and string.sub(v,-1,-1) == ">"then
 				local toAnalize = string.sub(v,2,-2)
-				print(toAnalize)
+				if toAnalize == "newLine" then
+					line = line + 1
+					term.setCursorPos(xPos,yPos+line)
+				else
+					local internalBuffer = {}
+					for token in string.gmatch(toAnalize,"[^:]+") do
+						internalBuffer[#internalBuffer+1] = token
+					end
+					if internalBuffer[1] == "fgColor" then
+						term.setTextColor(colors[internalBuffer[2]])
+					end
+				end
 			else
-				--term.write(v)
+				term.write(v)
 			end
 		end
 	end
+	--term.setTextColor(colors.black)
+	--print(a)
 end
 
 --Code--
@@ -68,6 +86,4 @@ print(args[1])
 os.pullEvent()
 term.clear()
 drawShortcuts(Shortcuts)
-error()
 os.pullEvent()
-error()
