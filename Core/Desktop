@@ -1,5 +1,4 @@
 --Variables--
-os.loadAPI("TheOS/API/paint")
 args = {...}
 local currWindow = 1
 local Settings = {}
@@ -30,7 +29,7 @@ local function drawShortcuts(t)
 		local f = fs.open(v[3]..".ico","r")
 		image = textutilsunserialize(f.readAll())
 		f.close()
-		paint.betterPaint(xPos,yPos,image[1],image[2])
+		paint.advancedPaint(xPos,yPos,image[1],image[2])
 	end
 end
 
@@ -50,14 +49,5 @@ print(fs.exists("TheOS/Desktop/Settings"))
 print(textutilsserialize(Settings))
 print("meh")
 print(args[1])
-os.pullEvent()
-term.clear()
-term.setCursorPos(1,1)
-print("drawing shortcuts")
-l = fs.open("r","w")
-for i,v in pairs(_G) do
-	l.writeLine(i)
-end
-l.close()
 drawShortcuts(Shortcuts)
 os.pullEvent()

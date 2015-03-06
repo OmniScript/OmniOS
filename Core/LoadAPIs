@@ -7,8 +7,4 @@ for i,v in pairs(apis) do
 end
 for i,v in pairs(apis) do
 	os.loadAPI("TheOS/API/"..v)
-	print(v)
-	sleep(2)
 end
-os.pullEvent()
-error()
