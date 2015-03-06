@@ -19,6 +19,7 @@ function advancedPaint(x,y,image,text)
 	end
 	print("3")
 	print(textutils.serialize(buffer))
+	print(#buffer)
 	for i,v in pairs(buffer) do
 		if string.sub(v,1,1) == "<" and string.sub(v,-1,-1) == ">"then
 			print("ana")
@@ -38,6 +39,7 @@ function advancedPaint(x,y,image,text)
 		else
 			print("str")
 			for k=1,#v do
+				print(tostring(k))
 				currLeter = string.sub(v,k,k)
 				textTable[yPos][xPos][1] = currLeter
 				textTable[yPos][xPos][2] = currColor
