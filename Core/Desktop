@@ -29,7 +29,7 @@ local function drawShortcuts(t)
 		local f = fs.open(v[3]..".ico","r")
 		image = textutilsunserialize(f.readAll())
 		f.close()
-		paint.advancedPaint(xPos,yPos,image[1],"madafaka %<newline>")
+		paint.advancedPaint(xPos,yPos,image[1],"madafaka %<newline>% ddhasdj")
 	end
 end
 

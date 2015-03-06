@@ -63,7 +63,7 @@ os.pullEvent = os.pullEventRaw
 --Go to next
 function goOn()
 	local login = loadfile("TheOS/Core/Login")
-	login()
+	--login()
 	local kernel = loadfile("TheOS/Core/Kernel")
 	kernel("TheOS/Core/Desktop","Desktop","hi")
 end
