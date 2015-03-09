@@ -1,6 +1,23 @@
+--[[
+	GUI API in ComputerCraft
+	by Creator
+	Complete rewrite in OOP
+]]--
+
+--Buuton Class--
+
+Button = {}
+
+Button.new = function(_name,_label,_xPos,_yPos,_fgColor,_bgColor)
+	local self = {}
+	setmetatable(self,Button)
+	self.name = _name
+	self.label = _label
+	self
+end
+
+
 --Variables--
-local buttonsMain = {}
-local keysMain = {}
 --Functions--
 
 function addKey(key,returnValue)

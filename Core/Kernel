@@ -66,8 +66,5 @@ end
 --Code--
 
 newProcess(funcPath,title,arguments)
-term.clear()
-term.setCursorPos(1,1)
-print("Booting into multitasking...")
 --error()
 coroutineManager()
