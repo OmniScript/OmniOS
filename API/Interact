@@ -10,7 +10,9 @@
 function Initialize()
 	local toReturn = {}
 	toReturn.Button = localButton
-	toReturn.test = {"hi"}
+	toReturn.test = {"hi"}meh
+	sleep(3)
+	print("")
 	return toReturn
 end
 
