@@ -4,7 +4,6 @@
 --Variables--
 local tasks = 2
 local finishedTasks = 0
-_G = nil
 term.redirect(term.native())
 local w,h = term.getSize()
 local textutilsserialize = textutils.serialize
@@ -62,12 +61,13 @@ nPrint(lang[4])
 
 --Go to next
 function goOn()
-	local login = loadfile("TheOS/Core/Login")
+	--local login = loadfile("TheOS/Core/Login")
 	--login()
 	--local kernel = loadfile("TheOS/Core/Kernel")
 	--kernel("TheOS/Core/Desktop","Desktop","hi")
-	local desk = loadfile("TheOS/Core/Desktop")
-	desk()
+	--local desk = loadfile("TheOS/Core/Desktop")
+	--desk()
+	dofile("TheOS/Core/Desktop")
 end
 
 ok, err = pcall(goOn)

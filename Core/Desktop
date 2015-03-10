@@ -17,11 +17,7 @@ gui = Interact.Initialize()
 print("loading complete")
 for i,v in pairs(gui) do
 	print(i)
+	print(v)
 end
-f = fs.open("h","w")
-for i,v in pairs(_G) do
-	f.write
-	(i.."\n")
-end
-f.close()
-sleep(10)
+sleep(3)
+test = gui.Button.new("test","even",1,1,5,5,colors.red,colors.blue,"my")

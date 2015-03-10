@@ -8,5 +8,5 @@ end
 for i,v in pairs(apis) do
 	os.loadAPI("TheOS/API/"..v)
 	print(v)
-	sleep(3)
+	sleep(.5)
 end
