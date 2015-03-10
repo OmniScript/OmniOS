@@ -10,7 +10,12 @@ local textutilsunserialize = textutils.unserialize
 --Initializing GUI components
 local gui = Interact.Initialize()
 local test = gui.Button.new("test","even",24,13,23,5,colors.blue,colors.lightGray,"my")
+local meh = gui.Button.new("meh","meh",1,1,23,5,colors.blue,colors.lightGray,"my")
 local mainLayout = gui.Layout.new()
+
+--Initializing structures
+mainLayout:addButton(test:returnData())
+mainLayout:addButton(meh:returnData())
 
 --Code--
 term.setBackgroundColor(colors.black)
@@ -20,5 +25,5 @@ term.clear()
 
 
 
-test:draw()
-mainLayout:addButton(test:returnData())
+
+mainLayout:draw()

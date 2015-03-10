@@ -8,8 +8,11 @@
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 
---Class Layout--
+--Class declarations--
+local Button = {}
 local Layout = {}
+
+--Class Layout--
 
 --Layout initialization function--
 Layout.new = function()
@@ -26,8 +29,14 @@ Layout.addButton = function(self,_elementData)
 	= _elementData
 end
 
+Layout.draw = function(self)
+	local buttonTable = {}
+	setmetatable(buttonTable,{__index = Button})
+	for i,v in pairs(self.Button) do
+		buttonTable.draw(v)
+	end
+end
 --Class Button--
-local Button = {}
 
 --Button initialization function
 Button.new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_fgColor,_bgColor,_returnValue)
