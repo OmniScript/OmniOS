@@ -43,8 +43,7 @@ loadSettings()
 loadShortcut(currWindow)
 
 --Code--
-print("desktop")
-test = GUI.newButton("hi","man",1,1,colors.white,colors.black)
-term.setCursorPos(1,1)
+test = GUI.newButton("hi","man",4,7,5,5,colors.red,colors.green,"test")
+--test.GUI:draw()
 print(textutilsserialize(test))
-test:draw()
+print(textutilsserialize(getmetatable(test)))
