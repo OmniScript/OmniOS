@@ -57,8 +57,8 @@ dofile("TheOS/Core/LoadAPIs")
 nPrint(lang[4])
 
 --Overwrite os.pullEventFunctions--
-oldPullEvent = os.pullEvent
-os.pullEvent = os.pullEventRaw
+--oldPullEvent = os.pullEvent
+--os.pullEvent = os.pullEventRaw
 
 --Go to next
 function goOn()

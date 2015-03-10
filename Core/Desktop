@@ -6,7 +6,9 @@ local Shortcuts = {}
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 term.redirect(term.native())
-print(textutilsserialize(args))
+term.setBackgroundColor(colors.black)
+term.setTextColor(colors.white)
+term.clear()
 --Functions--
 local function loadShortcut(x)
 	local m = fs.open("TheOS/Desktop/"..tostring(x)..".shortcuts","r")
@@ -41,13 +43,8 @@ loadSettings()
 loadShortcut(currWindow)
 
 --Code--
-term.setBackgroundColor(colors.cyan)
-term.setTextColor(colors.black)
-term.clear()
+print("desktop")
+test = GUI.newButton("hi","man",1,1,colors.white,colors.black)
 term.setCursorPos(1,1)
---print(fs.exists("TheOS/Desktop/Settings"))
-print(textutilsserialize(Shortcuts))
---print("meh")
---print(args[1])
-drawShortcuts(Shortcuts)
-os.pullEvent()
+print(textutilsserialize(test))
+test:draw()

@@ -4,18 +4,29 @@
 	Complete rewrite in OOP
 ]]--
 
---Buuton Class--
+--Button Class--
 
 Button = {}
 
-Button.new = function(_name,_label,_xPos,_yPos,_fgColor,_bgColor)
+newButton = function(_name,_label,_xPos,_yPos,_fgColor,_bgColor)
 	local self = {}
-	setmetatable(self,Button)
+	setmetatable(self,{__index = Button})
 	self.name = _name
 	self.label = _label
-	self
+	self.xPos = _xPos
+	self.yPos = _yPos
+	self.fgColor = _fgColor
+	self.bgColor = _bgColor
+	return self
 end
 
+Button.draw = function(self)
+	term.setCursorPos(1,1)
+	term.write("h")
+	term.setCursorPos(self.xPos,self.yPos)
+	term.write("hiu")
+	
+end
 
 --Variables--
 --Functions--
