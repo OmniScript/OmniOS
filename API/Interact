@@ -26,8 +26,11 @@ end
 
 --Draw function
 Button.draw = function(self)
-	--term.setBackgroundColor(self.bgColor)
-	paintutils.drawFilledBox(self.xPos,self.yPos,self.xLength-1,self.yLength-1,self.bgColor)
+	local newText = string.sub(self.label,1,self.xLength)
+	paintutils.drawFilledBox(self.xPos,self.yPos,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.bgColor)
+	term.setTextColor(self.fgColor)
+	term.setCursorPos(self.xPos+math.floor((self.xLength-#newText)/2),self.yPos+(self.yLength/2))
+	term.write(self.label)
 end
 --End of Button class--
 

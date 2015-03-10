@@ -16,6 +16,6 @@ local gui = {}
 gui = Interact.Initialize()
 print("loading complete")
 
-test = gui.Button.new("test","even",1,1,5,5,colors.red,colors.blue,"my")
+test = gui.Button.new("test","even",24,13,23,5,colors.blue,colors.lightGray,"my")
 test:draw()
 sleep(10)
