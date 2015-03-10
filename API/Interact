@@ -5,6 +5,32 @@
 ]]--
 
 
+--Class Button--
+local Button = {}
+
+--Button initialization function
+Button.new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_fgColor,_bgColor,_returnValue)
+	local self = {}
+	setmetatable(self,{__index = Button})
+	self.name = _name
+	self.label = _label
+	self.xPos = _xPos
+	self.yPos = _yPos
+	self.fgColor = _fgColor
+	self.bgColor = _bgColor
+	self.xLength = _xLength
+	self.yLength = _yLength
+	self.returnValue = _returnValue
+	return self
+end
+
+--Draw function
+Button.draw = function(self)
+	--term.setBackgroundColor(self.bgColor)
+	paintutils.drawFilledBox(self.xPos,self.yPos,self.xLength-1,self.yLength-1,self.bgColor)
+end
+--End of Button class--
+
 --Load Function--
 
 function Initialize()
@@ -14,27 +40,3 @@ function Initialize()
 	toReturn.test = {"hi"}
 	return toReturn
 end
-
---Class Button--
-local Button = {
-	--Button initialization function
-	new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_fgColor,_bgColor,_returnValue)
-		local self = {}
-		setmetatable(self,{__index = Button})
-		self.name = _name
-		self.label = _label
-		self.xPos = _xPos
-		self.yPos = _yPos
-		self.fgColor = _fgColor
-		self.bgColor = _bgColor
-		self.xLength = _xLength
-		self.yLength = _yLength
-		self.returnValue = _returnValue
-		return self
-	end,
-	--Draw function
-	draw = function(self)
-		--term.setBackgroundColor(self.bgColor)
-		paintutils.drawFilledBox(self.xPos,self.yPos,self.xLength-1,self.yLength-1,self.bgColor)
-	end
-}
