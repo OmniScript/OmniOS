@@ -12,9 +12,6 @@ function Initialize()
 	toReturn.Button = {}
 	toReturn.Button = Button
 	toReturn.test = {"hi"}
-	print("meh")
-	sleep(3)
-	print("")
 	return toReturn
 end
 
