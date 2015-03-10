@@ -15,9 +15,7 @@ term.clear()
 local gui = {}
 gui = Interact.Initialize()
 print("loading complete")
-for i,v in pairs(gui) do
-	print(i)
-	print(v)
-end
-sleep(10)
+
 test = gui.Button.new("test","even",1,1,5,5,colors.red,colors.blue,"my")
+test:draw()
+sleep(10)
