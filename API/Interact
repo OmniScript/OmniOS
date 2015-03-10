@@ -1,5 +1,5 @@
 --[[
-	GUI API in ComputerCraft
+	Interact API in ComputerCraft
 	by Creator
 	Complete rewrite in OOP
 ]]--
@@ -7,16 +7,17 @@
 
 --Load Function--
 
-Initialize = function()
-	local self = {}
-	self.Button = Button
-	return self
+function Initialize()
+	local toReturn = {}
+	toReturn.Button = localButton
+	toReturn.test = {"hi"}
+	return toReturn
 end
 
 --Class Button--
-Main.Button = {}
+local localButton = {}
 
-Button.new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_fgColor,_bgColor,_returnValue)
+localButton.new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_fgColor,_bgColor,_returnValue)
 	local self = {}
 	setmetatable(self,{__index = Button})
 	self.name = _name
@@ -31,7 +32,7 @@ Button.new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_fgColor,_bgCol
 	return self
 end
 
-Button.draw = function(self)
+localButton.draw = function(self)
 	--term.setBackgroundColor(self.bgColor)
 	paintutils.drawFilledBox(self.xPos,self.yPos,self.xLength-1,self.yLength-1,self.bgColor)
 	

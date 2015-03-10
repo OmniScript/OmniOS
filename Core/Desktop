@@ -1,0 +1,27 @@
+--[[
+	Desktop in ComputerCraft
+	by Creator
+	for TheOS
+]]--
+
+local textutilsserialize = textutils.serialize
+local textutilsunserialize = textutils.unserialize
+
+term.setBackgroundColor(colors.black)
+term.setTextColor(colors.white)
+term.setCursorPos(1,1)
+term.clear()
+
+local gui = {}
+gui = Interact.Initialize()
+print("loading complete")
+for i,v in pairs(gui) do
+	print(i)
+end
+f = fs.open("h","w")
+for i,v in pairs(_G) do
+	f.write
+	(i.."\n")
+end
+f.close()
+sleep(10)

@@ -64,8 +64,10 @@ nPrint(lang[4])
 function goOn()
 	local login = loadfile("TheOS/Core/Login")
 	--login()
-	local kernel = loadfile("TheOS/Core/Kernel")
-	kernel("TheOS/Core/Desktop","Desktop","hi")
+	--local kernel = loadfile("TheOS/Core/Kernel")
+	--kernel("TheOS/Core/Desktop","Desktop","hi")
+	local desk = loadfile("TheOS/Core/Desktop")
+	desk()
 end
 
 ok, err = pcall(goOn)
