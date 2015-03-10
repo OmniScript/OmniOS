@@ -6,24 +6,23 @@
 --Variables--
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
+local w,h = term.getSize()
 
 --Initializing GUI components
 local gui = Interact.Initialize()
-local test = gui.Button.new("test","even",24,13,23,5,colors.blue,colors.lightGray,"my")
-local meh = gui.Button.new("meh","meh",1,1,23,5,colors.blue,colors.lightGray,"my")
+local quickSettings = gui.Button.new("quickSettings",">",1,h,1,h,1,1,colors.blue,colors.lightGray,"quickSettings")
+local meh = gui.Button.new("meh","meh",1,1,5,3,2,2,colors.blue,colors.lightGray,"my")
 local mainLayout = gui.Layout.new()
 
 --Initializing structures
-mainLayout:addButton(test:returnData())
+mainLayout:addButton(quickSettings:returnData())
 mainLayout:addButton(meh:returnData())
 
 --Code--
-term.setBackgroundColor(colors.black)
-term.setTextColor(colors.white)
+term.setBackgroundColor(colors.white)
+term.setTextColor(colors.black)
 term.setCursorPos(1,1)
 term.clear()
 
-
-
-
 mainLayout:draw()
+gui.eventHandler(mainLayout)

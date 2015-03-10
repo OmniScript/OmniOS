@@ -13,7 +13,6 @@ local Button = {}
 local Layout = {}
 
 --Class Layout--
-
 --Layout initialization function--
 Layout.new = function()
 	local self = {}
@@ -36,10 +35,10 @@ Layout.draw = function(self)
 		buttonTable.draw(v)
 	end
 end
---Class Button--
 
+--Class Button--
 --Button initialization function
-Button.new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_fgColor,_bgColor,_returnValue)
+Button.new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_xTextPos,_yTextPos,_fgColor,_bgColor,_returnValue)
 	local self = {}
 	setmetatable(self,{__index = Button})
 	self.name = _name
@@ -51,16 +50,23 @@ Button.new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_fgColor,_bgCol
 	self.xLength = _xLength
 	self.yLength = _yLength
 	self.returnValue = _returnValue
+	self.xTextPos = _xTextPos
+	self.yTextPos = _yTextPos
 	return self
 end
 
 --Draw function
 Button.draw = function(self)
-	local newText = string.sub(self.label,1,self.xLength)
+	local newText
+	if #self.label > self.xLength then
+		newText = string.sub(self.label,1,self.xLength)
+	else
+		newText = self.label
+	end
 	paintutils.drawFilledBox(self.xPos,self.yPos,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.bgColor)
 	term.setTextColor(self.fgColor)
-	term.setCursorPos(self.xPos+math.floor((self.xLength-#newText)/2),self.yPos+(self.yLength/2))
-	term.write(self.label)
+	term.setCursorPos(self.xPos+self.xTextPos-1,self.yPos+self.yTextPos-1)
+	term.write(newText)
 end
 
 Button.returnData = function(self)
@@ -70,13 +76,29 @@ Button.returnData = function(self)
 	end
 	return toReturn
 end
---End of Button class--
+
+--Event handler function--
+
+eventHandler = function(self)
+	while true do
+		local event, p1, p2, p3, p4, p5, p6 = os.pullEvent()
+		if event == "mouse_click" then
+			for i,v in pairs(self.Button) do
+				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
+					return v.returnValue
+				end
+			end
+		elseif event == "key" then
+			
+		end
+	end
+end
 
 --Load Function--
-
 function Initialize()
 	local toReturn = {}
 	toReturn.Button = Button
 	toReturn.Layout = Layout
+	toReturn.eventHandler = eventHandler
 	return toReturn
 end
