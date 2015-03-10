@@ -14,8 +14,11 @@ term.clear()
 
 local gui = {}
 gui = Interact.Initialize()
-print("loading complete")
 
-test = gui.Button.new("test","even",24,13,23,5,colors.blue,colors.lightGray,"my")
+local test = gui.Button.new("test","even",24,13,23,5,colors.blue,colors.lightGray,"my")
 test:draw()
-sleep(10)
+
+local mainLayout = gui.Layout.new()
+
+mainLayout:addButton({test:returnData()})
+print(textutilsserialize(mainLayout))

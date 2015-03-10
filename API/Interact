@@ -5,6 +5,25 @@
 ]]--
 
 
+local textutilsserialize = textutils.serialize
+local textutilsunserialize = textutils.unserialize
+
+--Class Layout--
+local Layout = {}
+
+--Layout initialization function--
+Layout.new = function()
+	local self = {}
+	setmetatable(self,{__index = Layout})
+	return self
+end
+
+--Add element function--
+Layout.addButton = function(self,_elementData)
+	print(textutilsserialize(_elementData))
+	self.Button.[_elementData.name] = _elementData
+end
+
 --Class Button--
 local Button = {}
 
@@ -32,14 +51,17 @@ Button.draw = function(self)
 	term.setCursorPos(self.xPos+math.floor((self.xLength-#newText)/2),self.yPos+(self.yLength/2))
 	term.write(self.label)
 end
+
+Button.returnData = function(self)
+	return self
+end
 --End of Button class--
 
 --Load Function--
 
 function Initialize()
 	local toReturn = {}
-	toReturn.Button = {}
 	toReturn.Button = Button
-	toReturn.test = {"hi"}
+	toReturn.Layout = Layout
 	return toReturn
 end
