@@ -3,22 +3,22 @@
 	by Creator
 	for TheOS
 ]]--
-
+--Variables--
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 
+--Initializing GUI components
+local gui = Interact.Initialize()
+local test = gui.Button.new("test","even",24,13,23,5,colors.blue,colors.lightGray,"my")
+local mainLayout = gui.Layout.new()
+
+--Code--
 term.setBackgroundColor(colors.black)
 term.setTextColor(colors.white)
 term.setCursorPos(1,1)
 term.clear()
 
-local gui = {}
-gui = Interact.Initialize()
 
-local test = gui.Button.new("test","even",24,13,23,5,colors.blue,colors.lightGray,"my")
+
 test:draw()
-
-local mainLayout = gui.Layout.new()
-
-mainLayout:addButton({test:returnData()})
-print(textutilsserialize(mainLayout))
+mainLayout:addButton(test:returnData())

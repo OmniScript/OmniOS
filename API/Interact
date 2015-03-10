@@ -15,13 +15,15 @@ local Layout = {}
 Layout.new = function()
 	local self = {}
 	setmetatable(self,{__index = Layout})
+	self.Button = {}
 	return self
 end
 
 --Add element function--
 Layout.addButton = function(self,_elementData)
-	print(textutilsserialize(_elementData))
-	self.Button.[_elementData.name] = _elementData
+	local _name = _elementData.name
+	self.Button[#self.Button + 1] 
+	= _elementData
 end
 
 --Class Button--
@@ -53,7 +55,11 @@ Button.draw = function(self)
 end
 
 Button.returnData = function(self)
-	return self
+	local toReturn = {}
+	for i,v in pairs(self) do
+		toReturn[i] = v
+	end
+	return toReturn
 end
 --End of Button class--
 
