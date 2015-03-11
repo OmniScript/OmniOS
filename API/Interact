@@ -149,26 +149,39 @@ Toggle.returnData = function(self)
 	return toReturn
 end
 
+Toggle.toggle = function(self)
+	if self.state == true then
+		self.state = false
+	else
+		self.state = true
+	end
+	ghy = fs.open("gdfdu","w")
+	for i,v in pairs(self) do
+		ghy.write(tostring(i)..tostring(v).."\n")
+	end
+	for i,v in pairs(getmetatable(self)) do
+		ghy.write(tostring(i)..tostring(v).."\n")
+	end
+	ghy.close()
+	return self
+end
 --Event handler function--
 
 eventHandler = function(self)
 	while true do
+	--term.setCursorPos(1,1)
+	--print(textutilsserialize(self))
 		local event, p1, p2, p3, p4, p5, p6 = os.pullEvent()
+		print("event "..event)
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
 				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
 					return "Button:"..tostring(v.returnValue)
 				end
 			end
-			for i,v in pairs(self.Button) do
+			for i,v in pairs(self.Toggle) do
 				if v.xPos <= p2 and p2 <= v.xPos + 3 and v.yPos == p3 then
-					if v.state == true then
-						self.Button[i]state = false
-					else
-						self.Button[i]state = true
-					end
-					print("yay")
-					return "Button:"..tostring(v.returnValue)..";"..tostring(v.state)
+					return "Toggle:"..tostring(v.returnValue)
 				end
 			end
 		elseif event == "key" then

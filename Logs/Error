@@ -1,6 +1,14 @@
- Interact:68: attempt to perform arithmetic __add on number and nil Interact:68: attempt to perform arithmetic __add on number and nil Desktop:41: attempt to index ? (a nil value)
- Desktop:50: attempt to index ? (a nil value)
- Desktop:50: attempt to index ? (a nil value)
- Desktop:57: attempt to index ? (a nil value)
- Desktop:57: attempt to index ? (a nil value)
- Desktop:57: attempt to index ? (a nil value)
+Desktop:50: attempt to index ? (a nil value)
+Desktop:50: attempt to index ? (a nil value)
+Desktop:57: attempt to index ? (a nil value)
+Desktop:57: attempt to index ? (a nil value)
+Desktop:57: attempt to index ? (a nil value)
+Desktop:57: attempt to index ? (a nil value)
+Desktop:57: attempt to index ? (a nil value)
+Desktop:57: attempt to index ? (a nil value)
+Desktop:57: attempt to index ? (a nil value)
+Desktop:57: attempt to index ? (a nil value)
+Interact:159: attempt to call table
+ Cannot serialize type function
+ Interact:160: attempt to concatenate boolean and string
+ Terminated

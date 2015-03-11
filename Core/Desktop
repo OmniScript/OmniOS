@@ -55,9 +55,9 @@ local ToggleTable = {
 
 --Initializing GUI components
 local gui = Interact.Initialize()
+local mainLayout = gui.Layout.new()
 local quickSettings = gui.Button.new(ButtonTable.quickSettings)
 local meh = gui.Button.new(ButtonTable.meh)
-local mainLayout = gui.Layout.new()
 local test = gui.Toggle.new(ToggleTable.test)
 
 --Initializing structures
@@ -67,10 +67,12 @@ mainLayout:addToggle(test:returnData())
 
 --Code--
 while true do
-term.setBackgroundColor(colors.white)
-term.setTextColor(colors.black)
-term.setCursorPos(1,1)
-term.clear()
-mainLayout:draw()
-gui.eventHandler(mainLayout)
+	term.setBackgroundColor(colors.white)
+	term.setTextColor(colors.black)
+	term.setCursorPos(1,1)
+	term.clear()
+	mainLayout:draw()
+	print(gui.eventHandler(mainLayout))
+	os.pullEvent()
+	test = test:toggle()
 end

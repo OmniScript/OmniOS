@@ -9,4 +9,4 @@ for i,v in pairs(apis) do
 	os.loadAPI("TheOS/API/"..v)
 	print(v)
 end
-sleep(10)
+--sleep(10)
