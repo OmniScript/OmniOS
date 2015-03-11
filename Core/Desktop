@@ -40,11 +40,16 @@ local ButtonTable = {
 local ToggleTable = {
 	test = {
 		name = "beu",
-		state = true,
+		state = false,
 		xPos = 7,
 		yPos = 8,
 		trueColor = colors.green,
 		falseColor = colors.red,
+		trueText = "T",
+		falseText = "F",
+		selectedBg = colors.gray,
+		notSelectedBg = colors.black,
+		returnValue = "yyy",
 	}
 }
 

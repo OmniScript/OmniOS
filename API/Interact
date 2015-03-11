@@ -112,17 +112,32 @@ Toggle.new = function(input)
 	self.state = input.state
 	self.xPos = input.xPos
 	self.yPos = input.yPos
-	self.trueColor = input.trueColor
-	self.falseColor = input.falseColor
+	self.trueColor = input.trueColor or colors.green
+	self.falseColor = input.falseColor or colors.red
+	self.trueText = input.trueText or "T"
+	self.falseText = input.falseText or "F"
+	self.selectedBg = input.selectedBg or colors.gray
+	self.notSelectedBg = input.notSelectedBg or colors.lightGray
+	self.returnValue = input.returnValue
 	return self
 end
 
 Toggle.draw = function(self)
 	term.setCursorPos(self.xPos,self.yPos)
-	if self.state == true then
-		
-	elseif self.state == false then
-		
+	if self.state == false then
+		term.setBackgroundColor(self.notSelectedBg)
+		term.setTextColor(self.trueColor)
+		term.write(string.sub(self.trueText,1,1))
+		term.setBackgroundColor(self.selectedBg)
+		term.setTextColor(self.falseColor)
+		term.write(" "..string.sub(self.falseText,1,1).." ")
+	elseif self.state == true then
+		term.setBackgroundColor(self.selectedBg)
+		term.setTextColor(self.trueColor)
+		term.write(" "..string.sub(self.trueText,1,1).." ")
+		term.setBackgroundColor(self.notSelectedBg)
+		term.setTextColor(self.falseColor)
+		term.write(string.sub(self.falseText,1,1))
 	end
 end
 
@@ -142,7 +157,12 @@ eventHandler = function(self)
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
 				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
-					return v.returnValue
+					return "Button:"..tostring(v.returnValue)
+				end
+			end
+			for i,v in pairs(self.Button) do
+				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
+					return "Button:"..tostring(v.returnValue)
 				end
 			end
 		elseif event == "key" then
