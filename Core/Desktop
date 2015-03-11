@@ -66,10 +66,11 @@ mainLayout:addButton(meh:returnData())
 mainLayout:addToggle(test:returnData())
 
 --Code--
+while true do
 term.setBackgroundColor(colors.white)
 term.setTextColor(colors.black)
 term.setCursorPos(1,1)
 term.clear()
-
 mainLayout:draw()
 gui.eventHandler(mainLayout)
+end

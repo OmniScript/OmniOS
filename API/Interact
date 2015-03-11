@@ -161,8 +161,14 @@ eventHandler = function(self)
 				end
 			end
 			for i,v in pairs(self.Button) do
-				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
-					return "Button:"..tostring(v.returnValue)
+				if v.xPos <= p2 and p2 <= v.xPos + 3 and v.yPos == p3 then
+					if v.state == true then
+						self.Button[i]state = false
+					else
+						self.Button[i]state = true
+					end
+					print("yay")
+					return "Button:"..tostring(v.returnValue)..";"..tostring(v.state)
 				end
 			end
 		elseif event == "key" then
