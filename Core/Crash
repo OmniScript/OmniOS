@@ -19,7 +19,7 @@ for i,v in pairs(tArgs) do
 end
 term.write(err)
 local m = fs.open("TheOS/Logs/Error","a")
-m.write(err)
+m.write(err.."\n")
 m.close()
 os.pullEvent("mouse_click")
 --os.reboot()
