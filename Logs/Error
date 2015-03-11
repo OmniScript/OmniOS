@@ -12,3 +12,10 @@ Interact:159: attempt to call table
  Cannot serialize type function
  Interact:160: attempt to concatenate boolean and string
  Terminated
+ Terminated
+ Desktop:57: attempt to index ? (a nil value)
+ Desktop:57: attempt to index ? (a nil value)
+ Terminated
+ Interact:53: attempt to index ? (a nil value)
+ Interact:53: attempt to index ? (a nil value)
+ Desktop:67: attempt to index ? (a nil value)

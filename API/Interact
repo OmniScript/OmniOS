@@ -25,11 +25,11 @@ end
 
 --Add element function--
 Layout.addButton = function(self,_elementData)
-	self.Button[#self.Button + 1] = _elementData
+	self.Button[_elementData.name] = _elementData
 end
 
 Layout.addToggle = function(self,_elementData)
-	self.Toggle[#self.Toggle + 1] = _elementData
+	self.Toggle[_elementData.name] = _elementData
 end
 
 Layout.draw = function(self)
@@ -108,17 +108,17 @@ example = [[
 Toggle.new = function(input)
 	local self = {}
 	setmetatable(self,{__index = Toggle})
-	self.name = input.name
-	self.state = input.state
-	self.xPos = input.xPos
-	self.yPos = input.yPos
+	self.name = input.name or "randomName"
+	self.state = input.state or true
+	self.xPos = input.xPos or 1
+	self.yPos = input.yPos or 1
 	self.trueColor = input.trueColor or colors.green
 	self.falseColor = input.falseColor or colors.red
 	self.trueText = input.trueText or "T"
 	self.falseText = input.falseText or "F"
 	self.selectedBg = input.selectedBg or colors.gray
 	self.notSelectedBg = input.notSelectedBg or colors.lightGray
-	self.returnValue = input.returnValue
+	self.returnValue = input.returnValue or "mmmmmmm"
 	return self
 end
 
@@ -149,30 +149,19 @@ Toggle.returnData = function(self)
 	return toReturn
 end
 
-Toggle.toggle = function(self)
+function Toggle.toggle(self)
 	if self.state == true then
 		self.state = false
 	else
 		self.state = true
 	end
-	ghy = fs.open("gdfdu","w")
-	for i,v in pairs(self) do
-		ghy.write(tostring(i)..tostring(v).."\n")
-	end
-	for i,v in pairs(getmetatable(self)) do
-		ghy.write(tostring(i)..tostring(v).."\n")
-	end
-	ghy.close()
-	return self
 end
+
 --Event handler function--
 
 eventHandler = function(self)
 	while true do
-	--term.setCursorPos(1,1)
-	--print(textutilsserialize(self))
 		local event, p1, p2, p3, p4, p5, p6 = os.pullEvent()
-		print("event "..event)
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
 				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then

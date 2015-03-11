@@ -23,18 +23,31 @@ local ButtonTable = {
 		bgColor = colors.lightGray,
 		returnValue = "quickSettings",
 	},
-	meh = {
-		name = "meh",
-		label = "meh",
-		xPos = 1,
+	windowPlus = {
+		name = "windowPlus",
+		label = "+",
+		xPos = w,
 		yPos = 1,
-		xLength = 5,
-		yLength = 3,
-		xTextPos = 2,
-		yTextPos = 2,
+		xLength = 1,
+		yLength = 1,
+		xTextPos = 1,
+		yTextPos = 1,
 		fgColor = colors.blue,
 		bgColor = colors.lightGray,
-		returnValue = "my",
+		returnValue = "windowPlus",
+	},
+	windowMinus = {
+		name = "windowMinus",
+		label = "-",
+		xPos = 1,
+		yPos = 1,
+		xLength = 1,
+		yLength = 1,
+		xTextPos = 1,
+		yTextPos = 1,
+		fgColor = colors.blue,
+		bgColor = colors.lightGray,
+		returnValue = "windowMinus",
 	},
 }
 local ToggleTable = {
@@ -56,14 +69,17 @@ local ToggleTable = {
 --Initializing GUI components
 local gui = Interact.Initialize()
 local mainLayout = gui.Layout.new()
+
+--Initializing Buttons--
 local quickSettings = gui.Button.new(ButtonTable.quickSettings)
-local meh = gui.Button.new(ButtonTable.meh)
-local test = gui.Toggle.new(ToggleTable.test)
+local windowPlus = gui.Button.new(ButtonTable.windowPlus)
+local windowMinus = gui.Button.new(ButtonTable.windowMinus)
 
 --Initializing structures
 mainLayout:addButton(quickSettings:returnData())
-mainLayout:addButton(meh:returnData())
-mainLayout:addToggle(test:returnData())
+mainLayout:addButton(windowPlus:returnData())
+mainLayout:addButton(windowMinus:returnData())
+
 
 --Code--
 while true do
@@ -72,7 +88,5 @@ while true do
 	term.setCursorPos(1,1)
 	term.clear()
 	mainLayout:draw()
-	print(gui.eventHandler(mainLayout))
-	os.pullEvent()
-	test = test:toggle()
+	gui.eventHandler(mainLayout)
 end
