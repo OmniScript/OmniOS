@@ -8,15 +8,57 @@ local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 local w,h = term.getSize()
 
+--Object table--
+local ButtonTable = {
+	quickSettings = {
+		name = "quickSettings",
+		label = ">",
+		xPos = 1,
+		yPos = h,
+		xLength = 1,
+		yLength = h,
+		xTextPos = 1,
+		yTextPos = 1,
+		fgColor = colors.blue,
+		bgColor = colors.lightGray,
+		returnValue = "quickSettings",
+	},
+	meh = {
+		name = "meh",
+		label = "meh",
+		xPos = 1,
+		yPos = 1,
+		xLength = 5,
+		yLength = 3,
+		xTextPos = 2,
+		yTextPos = 2,
+		fgColor = colors.blue,
+		bgColor = colors.lightGray,
+		returnValue = "my",
+	},
+}
+local ToggleTable = {
+	test = {
+		name = "beu",
+		state = true,
+		xPos = 7,
+		yPos = 8,
+		trueColor = colors.green,
+		falseColor = colors.red,
+	}
+}
+
 --Initializing GUI components
 local gui = Interact.Initialize()
-local quickSettings = gui.Button.new("quickSettings",">",1,h,1,h,1,1,colors.blue,colors.lightGray,"quickSettings")
-local meh = gui.Button.new("meh","meh",1,1,5,3,2,2,colors.blue,colors.lightGray,"my")
+local quickSettings = gui.Button.new(ButtonTable.quickSettings)
+local meh = gui.Button.new(ButtonTable.meh)
 local mainLayout = gui.Layout.new()
+local test = gui.Toggle.new(ToggleTable.test)
 
 --Initializing structures
 mainLayout:addButton(quickSettings:returnData())
 mainLayout:addButton(meh:returnData())
+mainLayout:addToggle(test:returnData())
 
 --Code--
 term.setBackgroundColor(colors.white)

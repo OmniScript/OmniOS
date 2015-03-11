@@ -11,6 +11,7 @@ local textutilsunserialize = textutils.unserialize
 --Class declarations--
 local Button = {}
 local Layout = {}
+local Toggle = {}
 
 --Class Layout--
 --Layout initialization function--
@@ -18,40 +19,48 @@ Layout.new = function()
 	local self = {}
 	setmetatable(self,{__index = Layout})
 	self.Button = {}
+	self.Toggle = {}
 	return self
 end
 
 --Add element function--
 Layout.addButton = function(self,_elementData)
-	local _name = _elementData.name
-	self.Button[#self.Button + 1] 
-	= _elementData
+	self.Button[#self.Button + 1] = _elementData
+end
+
+Layout.addToggle = function(self,_elementData)
+	self.Toggle[#self.Toggle + 1] = _elementData
 end
 
 Layout.draw = function(self)
-	local buttonTable = {}
-	setmetatable(buttonTable,{__index = Button})
+	local buttonFunctions = {}
+	local toggleFunctions = {}
+	setmetatable(buttonFunctions,{__index = Button})
+	setmetatable(toggleFunctions,{__index = Toggle})
 	for i,v in pairs(self.Button) do
-		buttonTable.draw(v)
+		buttonFunctions.draw(v)
+	end
+	for i,v in pairs(self.Toggle) do
+		toggleFunctions.draw(v)
 	end
 end
 
 --Class Button--
 --Button initialization function
-Button.new = function(_name,_label,_xPos,_yPos,_xLength,_yLength,_xTextPos,_yTextPos,_fgColor,_bgColor,_returnValue)
+Button.new = function(input)
 	local self = {}
 	setmetatable(self,{__index = Button})
-	self.name = _name
-	self.label = _label
-	self.xPos = _xPos
-	self.yPos = _yPos
-	self.fgColor = _fgColor
-	self.bgColor = _bgColor
-	self.xLength = _xLength
-	self.yLength = _yLength
-	self.returnValue = _returnValue
-	self.xTextPos = _xTextPos
-	self.yTextPos = _yTextPos
+	self.name = input.name
+	self.label = input.label
+	self.xPos = input.xPos
+	self.yPos = input.yPos
+	self.fgColor = input.fgColor
+	self.bgColor = input.bgColor
+	self.xLength = input.xLength
+	self.yLength = input.yLength
+	self.returnValue = input.returnValue
+	self.xTextPos = input.xTextPos
+	self.yTextPos = input.yTextPos
 	return self
 end
 
@@ -69,7 +78,55 @@ Button.draw = function(self)
 	term.write(newText)
 end
 
+--Return function--
 Button.returnData = function(self)
+	local toReturn = {}
+	for i,v in pairs(self) do
+		toReturn[i] = v
+	end
+	return toReturn
+end
+
+--Sample Input table--
+example = [[
+	example = {
+		name = "quickSettings",
+		label = ">",
+		xPos = 1,
+		yPos = 3,
+		xLength = 1,
+		yLength = 6,
+		xTextPos = 1,
+		yTextPos = 1,
+		fgColor = colors.blue,
+		bgColor = colors.lightGray,
+		returnValue = "quickSettings",
+	},
+]]
+--Class Toggle--
+--Initialize Toggle Object--
+Toggle.new = function(input)
+	local self = {}
+	setmetatable(self,{__index = Toggle})
+	self.name = input.name
+	self.state = input.state
+	self.xPos = input.xPos
+	self.yPos = input.yPos
+	self.trueColor = input.trueColor
+	self.falseColor = input.falseColor
+	return self
+end
+
+Toggle.draw = function(self)
+	term.setCursorPos(self.xPos,self.yPos)
+	if self.state == true then
+		
+	elseif self.state == false then
+		
+	end
+end
+
+Toggle.returnData = function(self)
 	local toReturn = {}
 	for i,v in pairs(self) do
 		toReturn[i] = v
@@ -99,6 +156,7 @@ function Initialize()
 	local toReturn = {}
 	toReturn.Button = Button
 	toReturn.Layout = Layout
+	toReturn.Toggle = Toggle
 	toReturn.eventHandler = eventHandler
 	return toReturn
 end

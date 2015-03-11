@@ -1,1 +1,3 @@
- Interact:68: attempt to perform arithmetic __add on number and nil Interact:68: attempt to perform arithmetic __add on number and nil
+ Interact:68: attempt to perform arithmetic __add on number and nil Interact:68: attempt to perform arithmetic __add on number and nil Desktop:41: attempt to index ? (a nil value)
+ Desktop:50: attempt to index ? (a nil value)
+ Desktop:50: attempt to index ? (a nil value)
