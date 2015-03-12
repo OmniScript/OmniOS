@@ -27,6 +27,11 @@ local function split(str,sep)
 	end
 	return buffer
 end
+
+--Loading settings--
+local buffer = readFile("TheOS/Desktop/Settings")
+Settings = textutils.unserialize( buffer )
+
 --Object table--
 Main.ButtonTable = {
 	quickSettings = {
@@ -80,29 +85,35 @@ QuickSettings.ButtonTable = {
 		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
-		fgColor = colors.white,
-		bgColor = Settings.bgColor,
+		fgColor = colors.black,
+		bgColor = colors.white,
 		returnValue = "Close",
 	},
 	Right = {
 		name = "Right",
 		label = ">",
-		xPos = w,
+		xPos = w-1,
 		yPos = h-4,
 		xLength = 1,
 		yLength = 3,
 		xTextPos = 1,
 		yTextPos = 2,
-		fgColor = colors.white,
-		bgColor = Settings.bgColor,
+		fgColor = Settings.bgColor,
+		bgColor = colors.white,
 		returnValue = "Close",
 	}
 }
 
---Loading settings--
-
-local buffer = readFile("TheOS/Desktop/Settings")
-Settings = textutils.unserialize( buffer )
+QuickSettings.ColorFieldTable = {
+	TopBar = {
+		name = "TopBar",
+		xMin = 1,
+		yMin = h-7,
+		xMax = w,
+		yMax = h-7,
+		color = colors.white,
+	}
+}
 
 --Initializing GUI components
 local gui = Interact.Initialize()
@@ -111,27 +122,36 @@ local quickSettingsLayout = gui.Layout.new({xMin = 1,yMin = h-7,xMax = w,yMax = 
 
 --Initializing Buttons--
 --Main--
-local quickSettings = gui.Button.new(Main.ButtonTable.quickSettings)
-local windowPlus = gui.Button.new(Main.ButtonTable.windowPlus)
-local windowMinus = gui.Button.new(Main.ButtonTable.windowMinus)
-local mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
+local mainLayoutTable = {}
+mainLayoutTable.quickSettings = gui.Button.new(Main.ButtonTable.quickSettings)
+mainLayoutTable.windowPlus = gui.Button.new(Main.ButtonTable.windowPlus)
+mainLayoutTable.windowMinus = gui.Button.new(Main.ButtonTable.windowMinus)
+mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
 
 --QuickSettings--
-local Close = gui.Button.new(QuickSettings.ButtonTable.Close)
-local Right = gui.Button.new(QuickSettings.ButtonTable.Right)
-local quickSettingsBgColor = gui.BackgroundColor.new({color = colors.gray})
+local quickSettingsLayoutTable = {}
+quickSettingsLayoutTable.Close = gui.Button.new(QuickSettings.ButtonTable.Close)
+quickSettingsLayoutTable.Right = gui.Button.new(QuickSettings.ButtonTable.Right)
+quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
+quickSettingsLayoutTable.TopBar = gui.ColorField.new(QuickSettings.ColorFieldTable.TopBar)
 
 --Initializing structures--
 --Main--
-mainLayout:addButton(quickSettings:returnData())
-mainLayout:addButton(windowPlus:returnData())
-mainLayout:addButton(windowMinus:returnData())
-mainLayout:addBackgroundColor(mainBgColor:returnData())
+for i,v in pairs(mainLayoutTable) do
+	--mainLayout:addButton(mainLayoutTable[v].returnData(mainLayoutTable[v]))
+	print(i)
+end
+os.pullEvent()
+--mainLayout:addButton(quickSettings:returnData())
+--mainLayout:addButton(windowPlus:returnData())
+--mainLayout:addButton(windowMinus:returnData())
+--mainLayout:addBackgroundColor(mainBgColor:returnData())
 
 --QuickSettings--
-quickSettingsLayout:addButton(Close:returnData())
-quickSettingsLayout:addButton(Right:returnData())
-quickSettingsLayout:addBackgroundColor(quickSettingsBgColor:returnData())
+--quickSettingsLayout:addButton(Close:returnData())
+--quickSettingsLayout:addButton(Right:returnData())
+--quickSettingsLayout:addBackgroundColor(quickSettingsBgColor:returnData())
+--quickSettingsLayout:addColorField(TopBar:returnData())
 
 
 function writeTable()
@@ -149,7 +169,9 @@ while true do
 	local resultRaw = gui.eventHandler(mainLayout)
 	result = split(resultRaw,"[^:]+")
 	if result[1] == "Button" then
-		quickSettingsLayout:draw()
-		gui.eventHandler(quickSettingsLayout)
+		if result[2] == "quickSettings" then
+			quickSettingsLayout:draw()
+			gui.eventHandler(quickSettingsLayout)
+		end
 	end
 end

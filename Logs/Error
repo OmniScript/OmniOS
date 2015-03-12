@@ -50,3 +50,10 @@ Interact:159: attempt to call table
  Terminated
  Terminated
  Terminated
+ Interact:58: bad argument: table expected, got nil
+ Boot:70: bios:367: [string Desktop ]:110: '}' expected (to close '{' at line 108)
+ Interact:211: attempt to index ? (a nil value)
+ Boot:70: bios:367: [string Desktop ]:126: unexpected symbol
+ Desktop:141: attempt to index ? (a nil value)
+ Desktop:142: attempt to index ? (a nil value)
+ Desktop:141: attempt to index ? (a nil value)

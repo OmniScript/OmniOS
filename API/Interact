@@ -13,6 +13,7 @@ local Button = {}
 local Layout = {}
 local Toggle = {}
 local BackgroundColor = {}
+local ColorField = {}
 
 --Class Layout--
 --Layout initialization function--
@@ -21,6 +22,7 @@ Layout.new = function(input)
 	setmetatable(self,{__index = Layout})
 	self.Button = {}
 	self.Toggle = {}
+	self.ColorField = {}
 	self.BackgroundColor = 1
 	self.xMin = input.xMin or 1
 	self.yMin = input.yMin or 1
@@ -42,12 +44,21 @@ Layout.addBackgroundColor = function(self,_elementData)
 	self.BackgroundColor = _elementData.color
 end
 
+Layout.addColorField = function(self,_elementData)
+	self.ColorField[_elementData.name] = _elementData
+end
+
 Layout.draw = function(self)
 	local buttonFunctions = {}
 	local toggleFunctions = {}
+	local colorFieldFunctions = {}
 	setmetatable(buttonFunctions,{__index = Button})
 	setmetatable(toggleFunctions,{__index = Toggle})
+	setmetatable(colorFieldFunctions,{__index = ColorField})
 	paintutils.drawFilledBox(self.xMin,self.yMin,self.xMax,self.yMax,self.BackgroundColor)
+	for i,v in pairs(self.ColorField) do
+		colorFieldFunctions.draw(v)
+	end
 	for i,v in pairs(self.Button) do
 		buttonFunctions.draw(v)
 	end
@@ -174,7 +185,6 @@ function Toggle.getState(self)
 end
 
 --BackgroundColor Class--
-
 function BackgroundColor.new(input)
 	local self = {}
 	setmetatable(self,{__index = BackgroundColor})
@@ -187,6 +197,31 @@ function BackgroundColor.setColor(self,color)
 end
 
 function BackgroundColor.returnData(self)
+	local toReturn = {}
+	for i,v in pairs(self) do
+		toReturn[i] = v
+	end
+	return toReturn
+end
+
+--ColorField Class--
+function ColorField.new(input)
+	local self = {}
+	setmetatable(self,{__index = ColorField})
+	self.name = input.name
+	self.xMin = input.xMin
+	self.yMin = input.yMin
+	self.xMax = input.xMax
+	self.yMax = input.yMax
+	self.color = input.color
+	return self
+end
+
+function  ColorField.draw(self)
+	paintutils.drawFilledBox(self.xMin,self.yMin,self.xMax,self.yMax,self.color)
+end
+
+function ColorField.returnData(self)
 	local toReturn = {}
 	for i,v in pairs(self) do
 		toReturn[i] = v
@@ -222,6 +257,7 @@ function Initialize()
 	toReturn.Layout = Layout
 	toReturn.Toggle = Toggle
 	toReturn.BackgroundColor = BackgroundColor
+	toReturn.ColorField = ColorField
 	toReturn.eventHandler = eventHandler
 	return toReturn
 end
