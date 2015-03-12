@@ -123,35 +123,37 @@ local quickSettingsLayout = gui.Layout.new({xMin = 1,yMin = h-7,xMax = w,yMax = 
 --Initializing Buttons--
 --Main--
 local mainLayoutTable = {}
-mainLayoutTable.quickSettings = gui.Button.new(Main.ButtonTable.quickSettings)
-mainLayoutTable.windowPlus = gui.Button.new(Main.ButtonTable.windowPlus)
-mainLayoutTable.windowMinus = gui.Button.new(Main.ButtonTable.windowMinus)
+mainLayoutTable.Button = {}
+mainLayoutTable.Button.quickSettings = gui.Button.new(Main.ButtonTable.quickSettings)
+mainLayoutTable.Button.windowPlus = gui.Button.new(Main.ButtonTable.windowPlus)
+mainLayoutTable.Button.windowMinus = gui.Button.new(Main.ButtonTable.windowMinus)
 mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
 
 --QuickSettings--
 local quickSettingsLayoutTable = {}
-quickSettingsLayoutTable.Close = gui.Button.new(QuickSettings.ButtonTable.Close)
-quickSettingsLayoutTable.Right = gui.Button.new(QuickSettings.ButtonTable.Right)
-quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
+quickSettingsLayoutTable.Button = {}
+quickSettingsLayoutTable.Button.Close = gui.Button.new(QuickSettings.ButtonTable.Close)
+quickSettingsLayoutTable.Button.Right = gui.Button.new(QuickSettings.ButtonTable.Right)
+quickSettingsLayoutTable.Button.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
 quickSettingsLayoutTable.TopBar = gui.ColorField.new(QuickSettings.ColorFieldTable.TopBar)
 
 --Initializing structures--
 --Main--
-for i,v in pairs(mainLayoutTable) do
-	--mainLayout:addButton(mainLayoutTable[v].returnData(mainLayoutTable[v]))
+for i,v in pairs(mainLayoutTable.Button) do
+	mainLayout:addButton(mainLayoutTable.Button[i]:returnData())
+end
+mainLayout:addBackgroundColor(mainLayoutTable.mainBgColor:returnData())
+
+--QuickSettings--
+for i,v in pairs(quickSettingsLayoutTable.Button) do
+	--quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
 	print(i)
 end
 os.pullEvent()
---mainLayout:addButton(quickSettings:returnData())
---mainLayout:addButton(windowPlus:returnData())
---mainLayout:addButton(windowMinus:returnData())
---mainLayout:addBackgroundColor(mainBgColor:returnData())
-
---QuickSettings--
 --quickSettingsLayout:addButton(Close:returnData())
 --quickSettingsLayout:addButton(Right:returnData())
 --quickSettingsLayout:addBackgroundColor(quickSettingsBgColor:returnData())
---quickSettingsLayout:addColorField(TopBar:returnData())
+quickSettingsLayout:addColorField(quickSettingsLayoutTable.TopBar:returnData())
 
 
 function writeTable()
