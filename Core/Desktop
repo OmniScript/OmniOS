@@ -131,7 +131,7 @@ QuickSettings.ColorFieldTable = {
 QuickSettings.BetterPaint = {
 	Restart = {
 		xPos = 4,
-		yPos = h - 5,
+		yPos = h - 6,
 		name = "restart",
 		path = "TheOS/Desktop/QuickSettings/restart.ico",
 	},
@@ -167,7 +167,6 @@ for i,v in pairs(mainLayoutTable.Button) do
 	mainLayout:addButton(mainLayoutTable.Button[i]:returnData())
 end
 mainLayout:addBackgroundColor(mainLayoutTable.mainBgColor:returnData())
---mainLayout:addBetterPaint(quickSettingsLayoutTable.Restart)
 
 --QuickSettings--
 for i,v in pairs(quickSettingsLayoutTable.Button) do

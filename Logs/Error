@@ -69,3 +69,6 @@ Interact:159: attempt to call table
  Interact:232: Expected startX, startY, endX, endY, colour
  Interact:232: Expected startX, startY, endX, endY, colour
  Interact:232: Expected startX, startY, endX, endY, colour
+ Interact:232: Expected startX, startY, endX, endY, colour
+ Interact:240: Expected startX, startY, endX, endY, colour
+ Interact:70: attempt to call nil

@@ -51,7 +51,7 @@ Layout.addColorField = function(self,_elementData)
 end
 
 Layout.addBetterPaint = function(self,_elementData)
-	self.ColorField[_elementData.name] = _elementData
+	self.BetterPaint[_elementData.name] = _elementData
 end
 
 Layout.draw = function(self)
