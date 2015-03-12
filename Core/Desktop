@@ -70,6 +70,21 @@ Main.ButtonTable = {
 	},
 }
 
+QuickSettings.ButtonTable = {
+	X = {
+		name = "X",
+		label = "X",
+		xPos = w,
+		yPos = h-7,
+		xLength = 1,
+		yLength = 1,
+		xTextPos = 1,
+		yTextPos = 1,
+		fgColor = colors.white,
+		bgColor = Settings.bgColor,
+		returnValue = "X",
+	},
+}
 
 --Loading settings--
 
@@ -79,22 +94,30 @@ Settings = textutils.unserialize( buffer )
 --Initializing GUI components
 local gui = Interact.Initialize()
 local mainLayout = gui.Layout.new()
+local quickSettingsLayout = gui.Layout.new()
 
 --Initializing Buttons--
+--Main--
 local quickSettings = gui.Button.new(Main.ButtonTable.quickSettings)
 local windowPlus = gui.Button.new(Main.ButtonTable.windowPlus)
 local windowMinus = gui.Button.new(Main.ButtonTable.windowMinus)
 local mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
 
---for i,v in pairs(ButtonTable) do
---	mainLayoutTableButtons[#mainLayoutTableButtons+1] = gui.Button.new(ButtonTable[v])
---end
+--QuickSettings--
+local X = gui.Button.new(QuickSettings.ButtonTable.X)
+local quickSettingsBgColor = gui.BackgroundColor.new({color = colors.grey})
 
---Initializing structures
+--Initializing structures--
+--Main--
 mainLayout:addButton(quickSettings:returnData())
 mainLayout:addButton(windowPlus:returnData())
 mainLayout:addButton(windowMinus:returnData())
 mainLayout:addBackgroundColor(mainBgColor:returnData())
+
+--QuickSettings--
+quickSettingsLayout:addButton(X:returnData())
+quickSettingsLayout:addBackgroundColor(quickSettingsBgColor:returnData())
+
 
 function writeTable()
 	file = fs.open("TheOS/Desktop/Settings","w")
@@ -110,11 +133,9 @@ while true do
 	mainLayout:draw()
 	local resultRaw = gui.eventHandler(mainLayout)
 	result = split(resultRaw,"[^:]+")
-	term.setCursorPos(1,1)
-	term.clear()
-	print(textutilsserialize(result))
 	if result[1] == "Button" then
-		print("yay")
+		quickSettingsLayout:draw()
+		gui.eventHandler(quickSettingsLayout)
 	end
 	os.pullEvent()
 end
