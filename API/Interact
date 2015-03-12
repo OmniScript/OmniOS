@@ -12,6 +12,7 @@ local textutilsunserialize = textutils.unserialize
 local Button = {}
 local Layout = {}
 local Toggle = {}
+local BackgroundColor = {}
 
 --Class Layout--
 --Layout initialization function--
@@ -20,6 +21,7 @@ Layout.new = function()
 	setmetatable(self,{__index = Layout})
 	self.Button = {}
 	self.Toggle = {}
+	self.BackgroundColor = 1
 	return self
 end
 
@@ -32,11 +34,17 @@ Layout.addToggle = function(self,_elementData)
 	self.Toggle[_elementData.name] = _elementData
 end
 
+Layout.addBackgroundColor = function(self,_elementData)
+	self.BackgroundColor = _elementData.color
+end
+
 Layout.draw = function(self)
 	local buttonFunctions = {}
 	local toggleFunctions = {}
 	setmetatable(buttonFunctions,{__index = Button})
 	setmetatable(toggleFunctions,{__index = Toggle})
+	term.setBackgroundColor(self.BackgroundColor)
+	term.clear()
 	for i,v in pairs(self.Button) do
 		buttonFunctions.draw(v)
 	end
@@ -103,6 +111,7 @@ example = [[
 		returnValue = "quickSettings",
 	},
 ]]
+
 --Class Toggle--
 --Initialize Toggle Object--
 Toggle.new = function(input)
@@ -157,8 +166,32 @@ function Toggle.toggle(self)
 	end
 end
 
---Event handler function--
+function Toggle.getState(self)
+	return self.state
+end
 
+--BackgroundColor Class--
+
+function BackgroundColor.new(input)
+	local self = {}
+	setmetatable(self,{__index = BackgroundColor})
+	self.color = input.color
+	return self
+end
+
+function BackgroundColor.setColor(self,color)
+	self.color = color
+end
+
+function BackgroundColor.returnData(self)
+	local toReturn = {}
+	for i,v in pairs(self) do
+		toReturn[i] = v
+	end
+	return toReturn
+end
+
+--Event handler function--
 eventHandler = function(self)
 	while true do
 		local event, p1, p2, p3, p4, p5, p6 = os.pullEvent()
@@ -185,6 +218,7 @@ function Initialize()
 	toReturn.Button = Button
 	toReturn.Layout = Layout
 	toReturn.Toggle = Toggle
+	toReturn.BackgroundColor = BackgroundColor
 	toReturn.eventHandler = eventHandler
 	return toReturn
 end

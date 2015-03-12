@@ -7,9 +7,28 @@
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 local w,h = term.getSize()
+local Settings = {}
+local result = {}
+local Main = {}
+local QuickSettings = {}
 
+--Functions--
+local function readFile(_path)
+	local file = fs.open(_path,"r")
+	local data = file.readAll()
+	file.close()
+	return data
+end
+
+local function split(str,sep)
+	local buffer = {}
+	for token in str:gmatch(sep) do
+		buffer[#buffer+1] = token
+	end
+	return buffer
+end
 --Object table--
-local ButtonTable = {
+Main.ButtonTable = {
 	quickSettings = {
 		name = "quickSettings",
 		label = ">",
@@ -19,8 +38,8 @@ local ButtonTable = {
 		yLength = h,
 		xTextPos = 1,
 		yTextPos = 1,
-		fgColor = colors.blue,
-		bgColor = colors.lightGray,
+		fgColor = colors.white,
+		bgColor = Settings.bgColor,
 		returnValue = "quickSettings",
 	},
 	windowPlus = {
@@ -32,8 +51,8 @@ local ButtonTable = {
 		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
-		fgColor = colors.blue,
-		bgColor = colors.lightGray,
+		fgColor = colors.white,
+		bgColor = Settings.bgColor,
 		returnValue = "windowPlus",
 	},
 	windowMinus = {
@@ -45,48 +64,57 @@ local ButtonTable = {
 		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
-		fgColor = colors.blue,
-		bgColor = colors.lightGray,
+		fgColor = colors.white,
+		bgColor = Settings.bgColor,
 		returnValue = "windowMinus",
 	},
 }
-local ToggleTable = {
-	test = {
-		name = "beu",
-		state = false,
-		xPos = 7,
-		yPos = 8,
-		trueColor = colors.green,
-		falseColor = colors.red,
-		trueText = "T",
-		falseText = "F",
-		selectedBg = colors.gray,
-		notSelectedBg = colors.black,
-		returnValue = "yyy",
-	}
-}
+
+
+--Loading settings--
+
+local buffer = readFile("TheOS/Desktop/Settings")
+Settings = textutils.unserialize( buffer )
 
 --Initializing GUI components
 local gui = Interact.Initialize()
 local mainLayout = gui.Layout.new()
 
 --Initializing Buttons--
-local quickSettings = gui.Button.new(ButtonTable.quickSettings)
-local windowPlus = gui.Button.new(ButtonTable.windowPlus)
-local windowMinus = gui.Button.new(ButtonTable.windowMinus)
+local quickSettings = gui.Button.new(Main.ButtonTable.quickSettings)
+local windowPlus = gui.Button.new(Main.ButtonTable.windowPlus)
+local windowMinus = gui.Button.new(Main.ButtonTable.windowMinus)
+local mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
+
+--for i,v in pairs(ButtonTable) do
+--	mainLayoutTableButtons[#mainLayoutTableButtons+1] = gui.Button.new(ButtonTable[v])
+--end
 
 --Initializing structures
 mainLayout:addButton(quickSettings:returnData())
 mainLayout:addButton(windowPlus:returnData())
 mainLayout:addButton(windowMinus:returnData())
+mainLayout:addBackgroundColor(mainBgColor:returnData())
 
+function writeTable()
+	file = fs.open("TheOS/Desktop/Settings","w")
+	file.write(textutilsserialize({
+		bgColor = colors.blue,
+	}))
+	file.close()
+end
+--writeTable()
 
 --Code--
 while true do
-	term.setBackgroundColor(colors.white)
-	term.setTextColor(colors.black)
+	mainLayout:draw()
+	local resultRaw = gui.eventHandler(mainLayout)
+	result = split(resultRaw,"[^:]+")
 	term.setCursorPos(1,1)
 	term.clear()
-	mainLayout:draw()
-	gui.eventHandler(mainLayout)
+	print(textutilsserialize(result))
+	if result[1] == "Button" then
+		print("yay")
+	end
+	os.pullEvent()
 end

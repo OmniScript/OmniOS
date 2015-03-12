@@ -19,3 +19,30 @@ Interact:159: attempt to call table
  Interact:53: attempt to index ? (a nil value)
  Interact:53: attempt to index ? (a nil value)
  Desktop:67: attempt to index ? (a nil value)
+ Desktop:100: Expected number
+ Desktop:99: attempt to index ? (a nil value)
+ Desktop:107: Expected number
+ Desktop:113: Expected number
+ Desktop:115: attempt to index ? (a nil value)
+ Desktop:116: attempt to index ? (a nil value)
+ Desktop:117: attempt to index ? (a nil value)
+ Desktop:117: attempt to index ? (a nil value)
+ Desktop:120: attempt to index ? (a nil value)
+ Desktop:120: attempt to index ? (a nil value)
+ Desktop:115: attempt to index ? (a nil value)
+ Desktop:120: attempt to index ? (a nil value)
+ Desktop:115: attempt to index ? (a nil value)
+ Desktop:120: attempt to index ? (a nil value)
+ Desktop:108: attempt to index ? (a nil value)
+ Desktop:114: attempt to index ? (a nil value)
+ Desktop:114: attempt to index ? (a nil value)
+ Desktop:114: attempt to index ? (a nil value)
+ Desktop:114: Expected number
+ Desktop:114: Expected number
+ Desktop:92: attempt to index ? (a nil value)
+ Boot:70: bios:367: [string Desktop ]:93: ambiguous syntax (function call x new statement)
+ Desktop:92: attempt to index ? (a nil value)
+ Desktop:92: attempt to index ? (a nil value)
+ Interact:46: Expected number
+ Interact:61: attempt to index ? (a nil value)
+ Interact:46: Colour out of range
