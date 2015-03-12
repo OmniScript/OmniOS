@@ -16,12 +16,16 @@ local BackgroundColor = {}
 
 --Class Layout--
 --Layout initialization function--
-Layout.new = function()
+Layout.new = function(input)
 	local self = {}
 	setmetatable(self,{__index = Layout})
 	self.Button = {}
 	self.Toggle = {}
 	self.BackgroundColor = 1
+	self.xMin = input.xMin or 1
+	self.yMin = input.yMin or 1
+	self.xMax = input.xMax or 51
+	self.yMax = input.yMax or 19
 	return self
 end
 
@@ -43,8 +47,7 @@ Layout.draw = function(self)
 	local toggleFunctions = {}
 	setmetatable(buttonFunctions,{__index = Button})
 	setmetatable(toggleFunctions,{__index = Toggle})
-	term.setBackgroundColor(self.BackgroundColor)
-	term.clear()
+	paintutils.drawFilledBox(self.xMin,self.yMin,self.xMax,self.yMax,self.BackgroundColor)
 	for i,v in pairs(self.Button) do
 		buttonFunctions.draw(v)
 	end

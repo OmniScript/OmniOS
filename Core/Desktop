@@ -71,18 +71,18 @@ Main.ButtonTable = {
 }
 
 QuickSettings.ButtonTable = {
-	X = {
-		name = "X",
-		label = "X",
-		xPos = w,
+	Close = {
+		name = "Close",
+		label = "Close",
+		xPos = w-4,
 		yPos = h-7,
-		xLength = 1,
+		xLength = 5,
 		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
 		fgColor = colors.white,
 		bgColor = Settings.bgColor,
-		returnValue = "X",
+		returnValue = "Close",
 	},
 }
 
@@ -93,8 +93,8 @@ Settings = textutils.unserialize( buffer )
 
 --Initializing GUI components
 local gui = Interact.Initialize()
-local mainLayout = gui.Layout.new()
-local quickSettingsLayout = gui.Layout.new()
+local mainLayout = gui.Layout.new({xMin = 1,yMin = 1,xMax = w,yMax = h})
+local quickSettingsLayout = gui.Layout.new({xMin = 1,yMin = h-7,xMax = w,yMax = h})
 
 --Initializing Buttons--
 --Main--
@@ -104,8 +104,8 @@ local windowMinus = gui.Button.new(Main.ButtonTable.windowMinus)
 local mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
 
 --QuickSettings--
-local X = gui.Button.new(QuickSettings.ButtonTable.X)
-local quickSettingsBgColor = gui.BackgroundColor.new({color = colors.grey})
+local Close = gui.Button.new(QuickSettings.ButtonTable.Close)
+local quickSettingsBgColor = gui.BackgroundColor.new({color = colors.gray})
 
 --Initializing structures--
 --Main--
@@ -115,7 +115,7 @@ mainLayout:addButton(windowMinus:returnData())
 mainLayout:addBackgroundColor(mainBgColor:returnData())
 
 --QuickSettings--
-quickSettingsLayout:addButton(X:returnData())
+quickSettingsLayout:addButton(Close:returnData())
 quickSettingsLayout:addBackgroundColor(quickSettingsBgColor:returnData())
 
 
@@ -137,5 +137,4 @@ while true do
 		quickSettingsLayout:draw()
 		gui.eventHandler(quickSettingsLayout)
 	end
-	os.pullEvent()
 end
