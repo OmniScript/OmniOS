@@ -134,7 +134,7 @@ local quickSettingsLayoutTable = {}
 quickSettingsLayoutTable.Button = {}
 quickSettingsLayoutTable.Button.Close = gui.Button.new(QuickSettings.ButtonTable.Close)
 quickSettingsLayoutTable.Button.Right = gui.Button.new(QuickSettings.ButtonTable.Right)
-quickSettingsLayoutTable.Button.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
+quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
 quickSettingsLayoutTable.TopBar = gui.ColorField.new(QuickSettings.ColorFieldTable.TopBar)
 
 --Initializing structures--
@@ -146,13 +146,9 @@ mainLayout:addBackgroundColor(mainLayoutTable.mainBgColor:returnData())
 
 --QuickSettings--
 for i,v in pairs(quickSettingsLayoutTable.Button) do
-	--quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
-	print(i)
+	quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
 end
-os.pullEvent()
---quickSettingsLayout:addButton(Close:returnData())
---quickSettingsLayout:addButton(Right:returnData())
---quickSettingsLayout:addBackgroundColor(quickSettingsBgColor:returnData())
+quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
 quickSettingsLayout:addColorField(quickSettingsLayoutTable.TopBar:returnData())
 
 

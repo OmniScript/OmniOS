@@ -61,3 +61,5 @@ Interact:159: attempt to call table
  Desktop:148: attempt to index ? (a nil value)
  Interact:36: table index expected, got nil
  Interact:36: table index expected, got nil
+ Interact:36: table index expected, got nil
+ Desktop:151: attempt to index ? (a nil value)
