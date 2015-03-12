@@ -31,11 +31,11 @@ end
 Main.ButtonTable = {
 	quickSettings = {
 		name = "quickSettings",
-		label = ">",
+		label = "^",
 		xPos = 1,
 		yPos = h,
 		xLength = 1,
-		yLength = h,
+		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
 		fgColor = colors.white,
@@ -44,7 +44,7 @@ Main.ButtonTable = {
 	},
 	windowPlus = {
 		name = "windowPlus",
-		label = "+",
+		label = ">",
 		xPos = w,
 		yPos = 1,
 		xLength = 1,
@@ -57,7 +57,7 @@ Main.ButtonTable = {
 	},
 	windowMinus = {
 		name = "windowMinus",
-		label = "-",
+		label = "<",
 		xPos = 1,
 		yPos = 1,
 		xLength = 1,
@@ -84,6 +84,19 @@ QuickSettings.ButtonTable = {
 		bgColor = Settings.bgColor,
 		returnValue = "Close",
 	},
+	Right = {
+		name = "Right",
+		label = ">",
+		xPos = w,
+		yPos = h-4,
+		xLength = 1,
+		yLength = 3,
+		xTextPos = 1,
+		yTextPos = 2,
+		fgColor = colors.white,
+		bgColor = Settings.bgColor,
+		returnValue = "Close",
+	}
 }
 
 --Loading settings--
@@ -105,6 +118,7 @@ local mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
 
 --QuickSettings--
 local Close = gui.Button.new(QuickSettings.ButtonTable.Close)
+local Right = gui.Button.new(QuickSettings.ButtonTable.Right)
 local quickSettingsBgColor = gui.BackgroundColor.new({color = colors.gray})
 
 --Initializing structures--
@@ -116,6 +130,7 @@ mainLayout:addBackgroundColor(mainBgColor:returnData())
 
 --QuickSettings--
 quickSettingsLayout:addButton(Close:returnData())
+quickSettingsLayout:addButton(Right:returnData())
 quickSettingsLayout:addBackgroundColor(quickSettingsBgColor:returnData())
 
 
