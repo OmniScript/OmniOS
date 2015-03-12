@@ -100,7 +100,20 @@ QuickSettings.ButtonTable = {
 		yTextPos = 2,
 		fgColor = Settings.bgColor,
 		bgColor = colors.white,
-		returnValue = "Close",
+		returnValue = "Right",
+	},
+	Left = {
+		name = "Left",
+		label = "<",
+		xPos = 2,
+		yPos = h-4,
+		xLength = 1,
+		yLength = 3,
+		xTextPos = 1,
+		yTextPos = 2,
+		fgColor = Settings.bgColor,
+		bgColor = colors.white,
+		returnValue = "Left",
 	}
 }
 
@@ -115,6 +128,15 @@ QuickSettings.ColorFieldTable = {
 	}
 }
 
+QuickSettings.BetterPaint = {
+	Restart = {
+		xPos = 4,
+		yPos = h - 5,
+		name = "restart",
+		path = "TheOS/Desktop/QuickSettings/restart.ico",
+	},
+}
+
 --Initializing GUI components
 local gui = Interact.Initialize()
 local mainLayout = gui.Layout.new({xMin = 1,yMin = 1,xMax = w,yMax = h})
@@ -124,18 +146,20 @@ local quickSettingsLayout = gui.Layout.new({xMin = 1,yMin = h-7,xMax = w,yMax = 
 --Main--
 local mainLayoutTable = {}
 mainLayoutTable.Button = {}
-mainLayoutTable.Button.quickSettings = gui.Button.new(Main.ButtonTable.quickSettings)
-mainLayoutTable.Button.windowPlus = gui.Button.new(Main.ButtonTable.windowPlus)
-mainLayoutTable.Button.windowMinus = gui.Button.new(Main.ButtonTable.windowMinus)
+for i,v in pairs(Main.ButtonTable) do
+	mainLayoutTable.Button[i] = gui.Button.new(Main.ButtonTable[i])
+end
 mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
 
 --QuickSettings--
 local quickSettingsLayoutTable = {}
 quickSettingsLayoutTable.Button = {}
-quickSettingsLayoutTable.Button.Close = gui.Button.new(QuickSettings.ButtonTable.Close)
-quickSettingsLayoutTable.Button.Right = gui.Button.new(QuickSettings.ButtonTable.Right)
+for i,v in pairs(QuickSettings.ButtonTable) do
+	quickSettingsLayoutTable.Button[i] = gui.Button.new(QuickSettings.ButtonTable[i])
+end
 quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
 quickSettingsLayoutTable.TopBar = gui.ColorField.new(QuickSettings.ColorFieldTable.TopBar)
+quickSettingsLayoutTable.Restart = gui.BetterPaint.new(QuickSettings.BetterPaint.Restart)
 
 --Initializing structures--
 --Main--
@@ -143,6 +167,7 @@ for i,v in pairs(mainLayoutTable.Button) do
 	mainLayout:addButton(mainLayoutTable.Button[i]:returnData())
 end
 mainLayout:addBackgroundColor(mainLayoutTable.mainBgColor:returnData())
+--mainLayout:addBetterPaint(quickSettingsLayoutTable.Restart)
 
 --QuickSettings--
 for i,v in pairs(quickSettingsLayoutTable.Button) do
@@ -150,6 +175,7 @@ for i,v in pairs(quickSettingsLayoutTable.Button) do
 end
 quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
 quickSettingsLayout:addColorField(quickSettingsLayoutTable.TopBar:returnData())
+quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.Restart)
 
 
 function writeTable()
@@ -164,6 +190,7 @@ end
 --Code--
 while true do
 	mainLayout:draw()
+	--paint.drawImage( "TheOS/Desktop/QuickSettings/restart.ico",2,1)
 	local resultRaw = gui.eventHandler(mainLayout)
 	result = split(resultRaw,"[^:]+")
 	if result[1] == "Button" then

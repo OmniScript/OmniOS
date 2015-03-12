@@ -14,6 +14,7 @@ local Layout = {}
 local Toggle = {}
 local BackgroundColor = {}
 local ColorField = {}
+local BetterPaint = {}
 
 --Class Layout--
 --Layout initialization function--
@@ -23,6 +24,7 @@ Layout.new = function(input)
 	self.Button = {}
 	self.Toggle = {}
 	self.ColorField = {}
+	self.BetterPaint = {}
 	self.BackgroundColor = 1
 	self.xMin = input.xMin or 1
 	self.yMin = input.yMin or 1
@@ -48,19 +50,28 @@ Layout.addColorField = function(self,_elementData)
 	self.ColorField[_elementData.name] = _elementData
 end
 
+Layout.addBetterPaint = function(self,_elementData)
+	self.ColorField[_elementData.name] = _elementData
+end
+
 Layout.draw = function(self)
 	local buttonFunctions = {}
 	local toggleFunctions = {}
 	local colorFieldFunctions = {}
+	local betterPaintFunctions = {}
 	setmetatable(buttonFunctions,{__index = Button})
 	setmetatable(toggleFunctions,{__index = Toggle})
 	setmetatable(colorFieldFunctions,{__index = ColorField})
+	setmetatable(betterPaintFunctions,{__index = BetterPaint})
 	paintutils.drawFilledBox(self.xMin,self.yMin,self.xMax,self.yMax,self.BackgroundColor)
 	for i,v in pairs(self.ColorField) do
 		colorFieldFunctions.draw(v)
 	end
 	for i,v in pairs(self.Button) do
 		buttonFunctions.draw(v)
+	end
+	for i,v in pairs(self.BetterPaint) do
+		betterPaintFunctions.draw(v)
 	end
 	for i,v in pairs(self.Toggle) do
 		toggleFunctions.draw(v)
@@ -229,6 +240,33 @@ function ColorField.returnData(self)
 	return toReturn
 end
 
+--BetterPaint Class--
+function BetterPaint.new(input)
+	local self = {}
+	setmetatable(self,{__index = BetterPaint})
+	self.xPos = input.xPos
+	self.yPos = input.yPos
+	self.name = input.name
+	self.path = input.path
+	return self
+end
+
+function BetterPaint.returnData(self)
+	local toReturn = {}
+	for i,v in pairs(self) do
+		toReturn[i] = v
+	end
+	return toReturn
+end
+
+function BetterPaint.draw(self,addX,addY)
+	addX = addX or 0
+	addY = addY or 0
+	local xPos = self.xPos + addX
+	local yPos = self.yPos + addY
+	paint.drawImage(self.path,xPos,yPos)
+end
+
 --Event handler function--
 eventHandler = function(self)
 	while true do
@@ -258,6 +296,7 @@ function Initialize()
 	toReturn.Toggle = Toggle
 	toReturn.BackgroundColor = BackgroundColor
 	toReturn.ColorField = ColorField
+	toReturn.BetterPaint = BetterPaint
 	toReturn.eventHandler = eventHandler
 	return toReturn
 end

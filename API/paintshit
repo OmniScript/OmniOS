@@ -1,0 +1,58 @@
+--BetterPaintAPI--
+----by Creator----
+
+local function drawPixel(x,y,character,fgColor,bgColor)
+	term.setCursorPos(x,y)
+	term.setBackgroundColor(bgColor)
+	term.setTextColor(fgColor)
+	term.write(string.sub(character,1,1))
+end
+
+function advancedPaint(x,y,image,text)
+	local textTable = {}
+	local xPos = 1
+	local yPos = 1
+	local currColor = colors.black
+	local buffer = {}
+	for token in string.gmatch(text,"[^%%]+") do
+		buffer[#buffer+1] = token
+	end
+	print("3")
+	print(textutils.serialize(buffer))
+	print(#buffer)
+	for i,v in pairs(buffer) do
+		if string.sub(v,1,1) == "<" and string.sub(v,-1,-1) == ">"then
+			print("ana")
+			local toAnalize = string.sub(v,2,-2)
+			if toAnalize == "newLine" then
+				xPos = 1
+				yPos = yPos + 1
+			else
+				local internalBuffer = {}
+				for token in string.gmatch(toAnalize,"[^:]+") do
+					internalBuffer[#internalBuffer+1] = token
+				end
+				if internalBuffer[1] == "fgColor" then
+					currColor = colors[internalBuffer[2]]
+				end
+			end
+		else
+			print("str")
+			for k=1,#v do
+				print(tostring(k))
+				currLeter = string.sub(v,k,k)
+				textTable[yPos][xPos][1] = currLeter
+				textTable[yPos][xPos][2] = currColor
+				textTable[yPos][xPos][3] = image[yPos][xPos] or colors.white
+			end
+		end
+	end
+	print("4")
+	print(textutils.serialize(textTable))
+	for i,v in pairs(textTable) do
+		for k,m in pairs(v) do
+			drawPixel(k+x-1,i+y-1,m[1],m[2],m[3])
+		end
+	end
+	print("5")
+end
