@@ -248,6 +248,9 @@ function BetterPaint.new(input)
 	self.yPos = input.yPos
 	self.name = input.name
 	self.path = input.path
+	self.xLength = input.xLength
+	self.yLength = input.yLength
+	self.returnValue = input.returnValue
 	return self
 end
 
@@ -259,12 +262,8 @@ function BetterPaint.returnData(self)
 	return toReturn
 end
 
-function BetterPaint.draw(self,addX,addY)
-	addX = addX or 0
-	addY = addY or 0
-	local xPos = self.xPos + addX
-	local yPos = self.yPos + addY
-	paint.drawImage(self.path,xPos,yPos)
+function BetterPaint.draw(self)
+	paint.drawImage(self.path,self.xPos,self.yPos)
 end
 
 --Event handler function--
@@ -274,12 +273,17 @@ eventHandler = function(self)
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
 				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
-					return "Button:"..tostring(v.returnValue)
+					return {"Button",tostring(v.returnValue)}
 				end
 			end
 			for i,v in pairs(self.Toggle) do
 				if v.xPos <= p2 and p2 <= v.xPos + 3 and v.yPos == p3 then
-					return "Toggle:"..tostring(v.returnValue)
+					return {"Toggle",tostring(v.returnValue)}
+				end
+			end
+			for i,v in pairs(self.BetterPaint) do
+				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
+					return {"Button",tostring(v.returnValue)}
 				end
 			end
 		elseif event == "key" then

@@ -72,3 +72,6 @@ Interact:159: attempt to call table
  Interact:232: Expected startX, startY, endX, endY, colour
  Interact:240: Expected startX, startY, endX, endY, colour
  Interact:70: attempt to call nil
+ paint:428: attempt to perform arithmetic __add on number and nil
+ paint:428: attempt to perform arithmetic __add on number and nil
+ Desktop:200: attempt to index ? (a nil value)

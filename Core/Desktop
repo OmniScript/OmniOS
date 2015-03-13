@@ -134,6 +134,9 @@ QuickSettings.BetterPaint = {
 		yPos = h - 6,
 		name = "restart",
 		path = "TheOS/Desktop/QuickSettings/restart.ico",
+		yLength = 5,
+		xLength = 7,
+		returnValue = "reboot",
 	},
 }
 
@@ -189,13 +192,16 @@ end
 --Code--
 while true do
 	mainLayout:draw()
-	--paint.drawImage( "TheOS/Desktop/QuickSettings/restart.ico",2,1)
-	local resultRaw = gui.eventHandler(mainLayout)
-	result = split(resultRaw,"[^:]+")
+	local result = gui.eventHandler(mainLayout)
 	if result[1] == "Button" then
 		if result[2] == "quickSettings" then
 			quickSettingsLayout:draw()
-			gui.eventHandler(quickSettingsLayout)
+			local answer = gui.eventHandler(quickSettingsLayout)
+			if answer[1] == "Button" then
+				if answer[2] == "reboot" then
+					os.reboot()
+				end
+			end
 		end
 	end
 end
