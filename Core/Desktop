@@ -132,18 +132,33 @@ QuickSettings.BetterPaint = {
 	Restart = {
 		xPos = 4,
 		yPos = h - 6,
-		name = "restart",
+		name = "Restart",
 		path = "TheOS/Desktop/QuickSettings/restart.ico",
 		yLength = 5,
 		xLength = 7,
 		returnValue = "reboot",
+		label = "Restart",
+		labelFg = colors.black,
+		labelBg = colors.lightGray,
+	},
+	Shutdown = {
+		xPos = 13,
+		yPos = h - 6,
+		name = "Shutdown",
+		path = "TheOS/Desktop/QuickSettings/shutdown.ico",
+		yLength = 5,
+		xLength = 7,
+		returnValue = "shutdown",
+		label = "Shutdown",
+		labelFg = colors.black,
+		labelBg = colors.lightGray,
 	},
 }
 
 --Initializing GUI components
 local gui = Interact.Initialize()
 local mainLayout = gui.Layout.new({xMin = 1,yMin = 1,xMax = w,yMax = h})
-local quickSettingsLayout = gui.Layout.new({xMin = 1,yMin = h-7,xMax = w,yMax = h})
+local quickSettingsLayout = gui.Layout.new({xMin = 1,yMin = h-7,xMax = w,yMax = h, nilClick = true})
 
 --Initializing Buttons--
 --Main--
@@ -163,6 +178,7 @@ end
 quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
 quickSettingsLayoutTable.TopBar = gui.ColorField.new(QuickSettings.ColorFieldTable.TopBar)
 quickSettingsLayoutTable.Restart = gui.BetterPaint.new(QuickSettings.BetterPaint.Restart)
+quickSettingsLayoutTable.Shutdown = gui.BetterPaint.new(QuickSettings.BetterPaint.Shutdown)
 
 --Initializing structures--
 --Main--
@@ -178,6 +194,7 @@ end
 quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
 quickSettingsLayout:addColorField(quickSettingsLayoutTable.TopBar:returnData())
 quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.Restart)
+quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.Shutdown)
 
 
 function writeTable()
@@ -200,6 +217,8 @@ while true do
 			if answer[1] == "Button" then
 				if answer[2] == "reboot" then
 					os.reboot()
+				elseif answer[2] == "shutdown" then
+					os.shutdown()
 				end
 			end
 		end

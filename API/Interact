@@ -30,6 +30,7 @@ Layout.new = function(input)
 	self.yMin = input.yMin or 1
 	self.xMax = input.xMax or 51
 	self.yMax = input.yMax or 19
+	self.nilClick = input.nilClick or false
 	return self
 end
 
@@ -251,6 +252,9 @@ function BetterPaint.new(input)
 	self.xLength = input.xLength
 	self.yLength = input.yLength
 	self.returnValue = input.returnValue
+	self.label = input.label
+	self.labelBg = input.labelBg
+	self.labelFg = input.labelFg
 	return self
 end
 
@@ -264,6 +268,10 @@ end
 
 function BetterPaint.draw(self)
 	paint.drawImage(self.path,self.xPos,self.yPos)
+	term.setCursorPos(self.xPos,self.yPos+self.yLength+1)
+	term.setTextColor(self.labelFg)
+	term.setBackgroundColor(self.labelBg)
+	term.write(self.label)
 end
 
 --Event handler function--
@@ -288,6 +296,11 @@ eventHandler = function(self)
 			end
 		elseif event == "key" then
 			
+		end
+		if not (self.xMin <= p2 and p2 <= self.xMax and self.yMin <= p3 and p3 <= self.yMax) then
+			if self.nilClick then
+				return {"Nil","Nil"}
+			end
 		end
 	end
 end

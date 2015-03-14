@@ -75,3 +75,8 @@ Interact:159: attempt to call table
  paint:428: attempt to perform arithmetic __add on number and nil
  paint:428: attempt to perform arithmetic __add on number and nil
  Desktop:200: attempt to index ? (a nil value)
+ Terminated
+ Interact:55: attempt to index ? (a nil value)
+ Interact:55: attempt to index ? (a nil value)
+ Interact:272: Expected number
+ Interact:300: attempt to compare nil with number
