@@ -33,7 +33,7 @@ local buffer = readFile("TheOS/Desktop/Settings")
 Settings = textutils.unserialize( buffer )
 
 --Object table--
-Main.ButtonTable = {
+Main.Button = {
 	quickSettings = {
 		name = "quickSettings",
 		label = "^",
@@ -163,10 +163,11 @@ local quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xLength = w,yLen
 --Initializing Buttons--
 --Main--
 local mainLayoutTable = {}
-mainLayoutTable.Button = {}
+--[[mainLayoutTable.Button = {}
 for i,v in pairs(Main.ButtonTable) do
 	mainLayoutTable.Button[i] = gui.Button.new(Main.ButtonTable[i])
-end
+end]]--
+mainLayoutTable = gui:loadObjects(Main)
 mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
 
 --QuickSettings--
@@ -204,7 +205,14 @@ function writeTable()
 	}))
 	file.close()
 end
+
 --writeTable()
+--[[term.setCursorPos(1,1)
+term.clear()
+for i,v in pairs(quickSettingsLayout) do
+	print(i)
+end
+os.pullEvent()]]--
 
 --Code--
 while true do

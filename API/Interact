@@ -16,6 +16,36 @@ local BackgroundColor = {}
 local ColorField = {}
 local BetterPaint = {}
 
+function loadObjects(moreSelf,self)
+	local output = {}
+	output.Button = {}
+	output.Toggle = {}
+	output.ColorField = {}
+	output.BetterPaint = {}
+	for i,v in pairs(output) do
+		if self.i == nil then
+			self.i == {}
+		end
+	end
+	for i,v in pairs(self.Button) do
+		output.Button[i] = moreSelf.Button.new(self.Button[i])
+	end
+	for i,v in pairs(self.Toggle) do
+		output.Toggle[i] = moreSelf.Toggle.new(self.Toggle[i])
+	end
+	for i,v in pairs(self.ColorField) do
+		output.ColorField[i] = moreSelf.ColorField.new(self.Toggle[i])
+	end
+	for i,v in pairs(self.BetterPaint) do
+		output.BetterPaint[i] = moreSelf.BetterPaint.new(self.BetterPaint[i])
+	end
+	return output
+end
+
+function loadLayout()
+
+end
+
 --Class Layout--
 --Layout initialization function--
 Layout.new = function(input)
@@ -293,8 +323,8 @@ end
 function BetterPaint.new(input)
 	local self = {}
 	setmetatable(self,{__index = BetterPaint})
-	finalX = input.xPos
-	finalY = input.yPos
+	self.xPos = input.xPos
+	self.yPos = input.yPos
 	self.name = input.name
 	self.path = input.path
 	self.xLength = input.xLength
@@ -315,21 +345,19 @@ function BetterPaint.returnData(self)
 end
 
 function BetterPaint.draw(self,layoutX,layoutY,addX,addY)
-	--[[layoutX = layoutX or 0
-	layoutY = layoutY or 0
+	if layoutX == nil then layoutX = 0 end
+	if layoutY == nil then layoutY = 0 end
 	if self.moveX then
-		addX = addX or 0
+		if laddX == nil then addX = 0 end
 	else
 		addX = 0
 	end
 	if self.moveY then
-		addY = addY or 0
+		if addY == nil then addY = 0 end
 	else
 		addY = 0
 	end
-	local finalX = self.xPos
-	+ layoutX + 
-	addX - 1
+	local finalX = self.xPos + layoutX + addX - 1
 	local finalY = self.yPos + layoutY + addY - 1
 	self.finalX = finalX
 	self.finalY = finalY
@@ -337,10 +365,10 @@ function BetterPaint.draw(self,layoutX,layoutY,addX,addY)
 	term.setCursorPos(finalX,finalY+self.yLength+1)
 	term.setTextColor(self.labelFg)
 	term.setBackgroundColor(self.labelBg)
-	term.write(self.label)]]--
-	print("hi")
-	print(layoutX)
-	print(layoutY)
+	term.write(self.label)
+	--[[print("hi")
+	print(self.xPos)
+	print(layoutY)]]--
 end
 
 --Event handler function--
@@ -359,19 +387,25 @@ eventHandler = function(self)
 				end
 			end
 			for i,v in pairs(self.BetterPaint) do 
-				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
+				if v.finalX <= p2 and 
+				p2 <= v.finalX + v.xLength-1 and
+				v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
 					return {"Button",tostring(v.returnValue)}
 				end
 			end
-			if not (self.xPos <= p2 and p2 <= self.xLength and self.yPos <= p3 and p3 <= self.yLength) then
-				if self.nilClick then
+			term.setCursorPos(1,1)
+			print(self.xPos)
+			print(self.yPos)
+			os.pullEvent()
+			if self.nilClick then
+				if not (self.xPos <= p2 and p2 <= self.xLength and self.yPos <= p3 and p3 <= self.yLength) then
 					return {"Nil","Nil"}
 				end
 			end
 		elseif event == "key" then
 			
-		elseif event == "monitor_touch" then
-			os.queueEvent("mouse_click", p1, p2, p3, p4, p5, p6)
+		--elseif event == "monitor_touch" then
+			--os.queueEvent("mouse_click", p1, p2, p3, p4, p5, p6)
 		end
 	end
 end
@@ -386,5 +420,6 @@ function Initialize()
 	toReturn.ColorField = ColorField
 	toReturn.BetterPaint = BetterPaint
 	toReturn.eventHandler = eventHandler
+	toReturn.loadObjects = loadObjects
 	return toReturn
 end
