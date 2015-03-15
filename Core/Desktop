@@ -75,7 +75,7 @@ Main.Button = {
 	},
 }
 
-QuickSettings.ButtonTable = {
+QuickSettings.Button = {
 	Close = {
 		name = "Close",
 		label = "X",
@@ -117,7 +117,7 @@ QuickSettings.ButtonTable = {
 	}
 }
 
-QuickSettings.ColorFieldTable = {
+QuickSettings.ColorField = {
 	TopBar = {
 		name = "TopBar",
 		xPos = 1,
@@ -163,19 +163,12 @@ local quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xLength = w,yLen
 --Initializing Buttons--
 --Main--
 local mainLayoutTable = {}
---[[mainLayoutTable.Button = {}
-for i,v in pairs(Main.ButtonTable) do
-	mainLayoutTable.Button[i] = gui.Button.new(Main.ButtonTable[i])
-end]]--
-mainLayoutTable = gui:loadObjects(Main)
+mainLayoutTable = gui.loadObjects(Main)
 mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
 
 --QuickSettings--
 local quickSettingsLayoutTable = {}
-quickSettingsLayoutTable.Button = {}
-for i,v in pairs(QuickSettings.ButtonTable) do
-	quickSettingsLayoutTable.Button[i] = gui.Button.new(QuickSettings.ButtonTable[i])
-end
+quickSettingsLayoutTable = gui.loadObjects(quickSettings)
 quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
 quickSettingsLayoutTable.TopBar = gui.ColorField.new(QuickSettings.ColorFieldTable.TopBar)
 quickSettingsLayoutTable.Restart = gui.BetterPaint.new(QuickSettings.BetterPaint.Restart)

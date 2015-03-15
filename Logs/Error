@@ -2,3 +2,11 @@
  Desktop:170: attempt to call nil
  Interact:28: bad argument: table expected, got nil
  Desktop:159: attempt to index ? (a nil value)
+ Desktop:159: attempt to index ? (a nil value)
+ Desktop:159: attempt to index ? (a nil value)
+ Interact:401: attempt to compare nil with number
+ Interact:394: attempt to compare nil with number
+ Interact:397: attempt to perform arithmetic __sub on nil and number
+ Interact:400: attempt to perform arithmetic __sub on nil and number
+ Interact:97: Expected startX, startY, endX, endY, colour
+ Interact:26: attempt to index ? (a nil value)
