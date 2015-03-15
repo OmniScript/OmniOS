@@ -78,10 +78,10 @@ Main.ButtonTable = {
 QuickSettings.ButtonTable = {
 	Close = {
 		name = "Close",
-		label = "Close",
-		xPos = w-4,
+		label = "X",
+		xPos = w,
 		yPos = 1,
-		xLength = 5,
+		xLength = 1,
 		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
@@ -93,7 +93,7 @@ QuickSettings.ButtonTable = {
 		name = "Right",
 		label = ">",
 		xPos = w-1,
-		yPos = h-4,
+		yPos = 4,
 		xLength = 1,
 		yLength = 3,
 		xTextPos = 1,
@@ -106,7 +106,7 @@ QuickSettings.ButtonTable = {
 		name = "Left",
 		label = "<",
 		xPos = 2,
-		yPos = h-4,
+		yPos = 4,
 		xLength = 1,
 		yLength = 3,
 		xTextPos = 1,
@@ -122,8 +122,8 @@ QuickSettings.ColorFieldTable = {
 		name = "TopBar",
 		xPos = 1,
 		yPos = 1,
-		xMax = w,
-		yMax = 1,
+		xLength = w,
+		yLength = 1,
 		color = colors.white,
 	}
 }
@@ -157,8 +157,8 @@ QuickSettings.BetterPaint = {
 
 --Initializing GUI components
 local gui = Interact.Initialize()
-local mainLayout = gui.Layout.new({xPos = 1,yPos = 1,xMax = w,yMax = h})
-local quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xMax = w,yMax = h, nilClick = true})
+local mainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
+local quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xLength = w,yLength = h, nilClick = true})
 
 --Initializing Buttons--
 --Main--

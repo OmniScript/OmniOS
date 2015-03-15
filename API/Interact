@@ -120,9 +120,9 @@ Button.draw = function(self,layoutX,layoutY,addX,addY)
 	else
 		newText = self.label
 	end
-	paintutils.drawFilledBox(finalX,finalY,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.bgColor)
+	paintutils.drawFilledBox(finalX,finalY,finalX+self.xLength-1,finalY+self.yLength-1,self.bgColor)
 	term.setTextColor(self.fgColor)
-	term.setCursorPos(self.xPos+self.xTextPos-1,self.yPos+self.yTextPos-1)
+	term.setCursorPos(finalX+self.xTextPos-1,finalY+self.yTextPos-1)
 	term.write(newText)
 end
 
@@ -251,8 +251,8 @@ function ColorField.new(input)
 	self.name = input.name
 	self.xPos = input.xPos
 	self.yPos = input.yPos
-	self.xMax = input.xMax
-	self.yMax = input.yMax
+	self.xLength = input.xLength
+	self.yLength = input.yLength
 	self.color = input.color
 	return self
 end
@@ -272,7 +272,7 @@ function  ColorField.draw(self,layoutX,layoutY,addX,addY)
 	end
 	local finalX = self.xPos + layoutX + addX - 1
 	local finalY = self.yPos + layoutY + addY - 1 
-	paintutils.drawFilledBox(finalX,finalY,self.xMax,self.yMax,self.color)
+	paintutils.drawFilledBox(finalX,finalY,finalX+self.xLength-1,finalY+self.yLength-1,self.color)
 end
 
 function ColorField.returnData(self)
@@ -353,7 +353,7 @@ eventHandler = function(self)
 					return {"Button",tostring(v.returnValue)}
 				end
 			end
-			if not (finalX <= p2 and p2 <= self.xMax and finalY <= p3 and p3 <= self.yMax) then
+			if not (finalX <= p2 and p2 <= self.xLength and finalY <= p3 and p3 <= self.yLength) then
 				if self.nilClick then
 					return {"Nil","Nil"}
 				end
