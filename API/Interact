@@ -114,6 +114,8 @@ Button.draw = function(self,layoutX,layoutY,addX,addY)
 	end
 	local finalX = self.xPos + layoutX + addX - 1
 	local finalY = self.yPos + layoutY + addY - 1
+	self.finalX = finalX
+	self.finalY = finalY
 	local newText
 	if #self.label > self.xLength then
 		newText = string.sub(self.label,1,self.xLength)
@@ -186,6 +188,8 @@ Toggle.draw = function(self,layoutX,layoutY,addX,addY)
 	end
 	local finalX = self.xPos + layoutX + addX - 1
 	local finalY = self.yPos + layoutY + addY - 1
+	self.finalX = finalX
+	self.finalY = finalY
 	term.setCursorPos(finalX,finalY)
 	if self.state == false then
 		term.setBackgroundColor(self.notSelectedBg)
@@ -271,7 +275,9 @@ function  ColorField.draw(self,layoutX,layoutY,addX,addY)
 		addY = 0
 	end
 	local finalX = self.xPos + layoutX + addX - 1
-	local finalY = self.yPos + layoutY + addY - 1 
+	local finalY = self.yPos + layoutY + addY - 1
+	self.finalX = finalX
+	self.finalY = finalY
 	paintutils.drawFilledBox(finalX,finalY,finalX+self.xLength-1,finalY+self.yLength-1,self.color)
 end
 
@@ -309,7 +315,7 @@ function BetterPaint.returnData(self)
 end
 
 function BetterPaint.draw(self,layoutX,layoutY,addX,addY)
-	layoutX = layoutX or 0
+	--[[layoutX = layoutX or 0
 	layoutY = layoutY or 0
 	if self.moveX then
 		addX = addX or 0
@@ -321,13 +327,20 @@ function BetterPaint.draw(self,layoutX,layoutY,addX,addY)
 	else
 		addY = 0
 	end
-	local finalX = finalX + layoutX + addX - 1
-	local finalY = finalY + layoutY + addY - 1
+	local finalX = self.xPos
+	+ layoutX + 
+	addX - 1
+	local finalY = self.yPos + layoutY + addY - 1
+	self.finalX = finalX
+	self.finalY = finalY
 	paint.drawImage(self.path,finalX,finalY)
 	term.setCursorPos(finalX,finalY+self.yLength+1)
 	term.setTextColor(self.labelFg)
 	term.setBackgroundColor(self.labelBg)
-	term.write(self.label)
+	term.write(self.label)]]--
+	print("hi")
+	print(layoutX)
+	print(layoutY)
 end
 
 --Event handler function--
@@ -336,24 +349,21 @@ eventHandler = function(self)
 		local event, p1, p2, p3, p4, p5, p6 = os.pullEvent()
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
-				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
+				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
 					return {"Button",tostring(v.returnValue)}
 				end
 			end
 			for i,v in pairs(self.Toggle) do
-				if v.xPos <= p2 and p2 <= v.xPos + 3 and v.yPos == p3 then
+				if v.finalX <= p2 and p2 <= v.finalX + 3 and v.finalY == p3 then
 					return {"Toggle",tostring(v.returnValue)}
 				end
 			end
-			for i,v in pairs(self.BetterPaint) do
-				if v.xPos <= 
-				p2 and
-				p2 <= v.xPos + v.xLength-1 and
-				v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
+			for i,v in pairs(self.BetterPaint) do 
+				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
 					return {"Button",tostring(v.returnValue)}
 				end
 			end
-			if not (finalX <= p2 and p2 <= self.xLength and finalY <= p3 and p3 <= self.yLength) then
+			if not (self.xPos <= p2 and p2 <= self.xLength and self.yPos <= p3 and p3 <= self.yLength) then
 				if self.nilClick then
 					return {"Nil","Nil"}
 				end
