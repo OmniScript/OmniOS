@@ -80,3 +80,5 @@ Interact:159: attempt to call table
  Interact:55: attempt to index ? (a nil value)
  Interact:272: Expected number
  Interact:300: attempt to compare nil with number
+ Interact:300: attempt to compare nil with number
+ Interact:305: attempt to call nil

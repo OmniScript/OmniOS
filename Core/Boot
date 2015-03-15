@@ -5,6 +5,8 @@
 local tasks = 2
 local finishedTasks = 0
 term.redirect(term.native())
+--local mon = peripheral.wrap("back")
+--term.redirect(mon)
 local w,h = term.getSize()
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize

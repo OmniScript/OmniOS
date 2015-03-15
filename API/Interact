@@ -99,14 +99,28 @@ Button.new = function(input)
 end
 
 --Draw function
-Button.draw = function(self)
+Button.draw = function(self,layoutX,layoutY,addX,addY)
+	layoutX = layoutX or 0
+	layoutY = layoutY or 0
+	if self.moveX then
+		addX = addX or 0
+	else
+		addX = 0
+	end
+	if self.moveY then
+		addY = addY or 0
+	else
+		addY = 0
+	end
+	local finalX = self.xPos + layoutX + addX
+	local finalY = self.yPos + layoutY + addY
 	local newText
 	if #self.label > self.xLength then
 		newText = string.sub(self.label,1,self.xLength)
 	else
 		newText = self.label
 	end
-	paintutils.drawFilledBox(self.xPos,self.yPos,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.bgColor)
+	paintutils.drawFilledBox(finalX,finalY,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.bgColor)
 	term.setTextColor(self.fgColor)
 	term.setCursorPos(self.xPos+self.xTextPos-1,self.yPos+self.yTextPos-1)
 	term.write(newText)
@@ -157,7 +171,21 @@ Toggle.new = function(input)
 	return self
 end
 
-Toggle.draw = function(self)
+Toggle.draw = function(self,layoutX,layoutY,addX,addY)
+	layoutX = layoutX or 0
+	layoutY = layoutY or 0
+	if self.moveX then
+		addX = addX or 0
+	else
+		addX = 0
+	end
+	if self.moveY then
+		addY = addY or 0
+	else
+		addY = 0
+	end
+	local finalX = self.xPos + layoutX + addX
+	local finalY = self.yPos + layoutY + addY
 	term.setCursorPos(self.xPos,self.yPos)
 	if self.state == false then
 		term.setBackgroundColor(self.notSelectedBg)
@@ -230,6 +258,20 @@ function ColorField.new(input)
 end
 
 function  ColorField.draw(self)
+	layoutX = layoutX or 0
+	layoutY = layoutY or 0
+	if self.moveX then
+		addX = addX or 0
+	else
+		addX = 0
+	end
+	if self.moveY then
+		addY = addY or 0
+	else
+		addY = 0
+	end
+	local finalX = self.xPos + layoutX + addX
+	local finalY = self.yPos + layoutY + addY
 	paintutils.drawFilledBox(self.xMin,self.yMin,self.xMax,self.yMax,self.color)
 end
 
@@ -266,7 +308,21 @@ function BetterPaint.returnData(self)
 	return toReturn
 end
 
-function BetterPaint.draw(self)
+function BetterPaint.draw(self,layoutX,layoutY,addX,addY)
+	layoutX = layoutX or 0
+	layoutY = layoutY or 0
+	if self.moveX then
+		addX = addX or 0
+	else
+		addX = 0
+	end
+	if self.moveY then
+		addY = addY or 0
+	else
+		addY = 0
+	end
+	local finalX = self.xPos + layoutX + addX
+	local finalY = self.yPos + layoutY + addY
 	paint.drawImage(self.path,self.xPos,self.yPos)
 	term.setCursorPos(self.xPos,self.yPos+self.yLength+1)
 	term.setTextColor(self.labelFg)
@@ -294,13 +350,15 @@ eventHandler = function(self)
 					return {"Button",tostring(v.returnValue)}
 				end
 			end
+			if not (self.xMin <= p2 and p2 <= self.xMax and self.yMin <= p3 and p3 <= self.yMax) then
+				if self.nilClick then
+					return {"Nil","Nil"}
+				end
+			end
 		elseif event == "key" then
 			
-		end
-		if not (self.xMin <= p2 and p2 <= self.xMax and self.yMin <= p3 and p3 <= self.yMax) then
-			if self.nilClick then
-				return {"Nil","Nil"}
-			end
+		elseif event == "monitor_touch" then
+			os.queueEvent("mouse_click", p1, p2, p3, p4, p5, p6)
 		end
 	end
 end
