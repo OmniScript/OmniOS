@@ -22,9 +22,9 @@ function loadObjects(self)
 	output.Toggle = {}
 	output.ColorField = {}
 	output.BetterPaint = {}
-	for i,v in pairs(output) do
-		if self[i] == nil then
-			self[i] = {}
+	for o,v in pairs(output) do
+		if self[o] == nil then
+			self[o] = {}
 		end
 	end
 	for i,v in pairs(self.Button) do
@@ -34,7 +34,7 @@ function loadObjects(self)
 		output.Toggle[i] = Toggle.new(self.Toggle[i])
 	end
 	for i,v in pairs(self.ColorField) do
-		output.ColorField[i] = ColorField.new(self.Toggle[i])
+		output.ColorField[i] = ColorField.new(self.ColorField[i])
 	end
 	for i,v in pairs(self.BetterPaint) do
 		output.BetterPaint[i] = BetterPaint.new(self.BetterPaint[i])

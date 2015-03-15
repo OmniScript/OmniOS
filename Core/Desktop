@@ -125,7 +125,7 @@ QuickSettings.ColorField = {
 		xLength = w,
 		yLength = 1,
 		color = colors.white,
-	}
+	},
 }
 
 QuickSettings.BetterPaint = {
@@ -168,11 +168,11 @@ mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor}
 
 --QuickSettings--
 local quickSettingsLayoutTable = {}
-quickSettingsLayoutTable = gui.loadObjects(quickSettings)
+quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
 quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
-quickSettingsLayoutTable.TopBar = gui.ColorField.new(QuickSettings.ColorFieldTable.TopBar)
-quickSettingsLayoutTable.Restart = gui.BetterPaint.new(QuickSettings.BetterPaint.Restart)
-quickSettingsLayoutTable.Shutdown = gui.BetterPaint.new(QuickSettings.BetterPaint.Shutdown)
+--quickSettingsLayoutTable.TopBar = gui.ColorField.new(QuickSettings.ColorFieldTable.TopBar)
+--quickSettingsLayoutTable.Restart = gui.BetterPaint.new(QuickSettings.BetterPaint.Restart)
+--quickSettingsLayoutTable.Shutdown = gui.BetterPaint.new(QuickSettings.BetterPaint.Shutdown)
 
 --Initializing structures--
 --Main--
@@ -186,9 +186,9 @@ for i,v in pairs(quickSettingsLayoutTable.Button) do
 	quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
 end
 quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
-quickSettingsLayout:addColorField(quickSettingsLayoutTable.TopBar:returnData())
-quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.Restart)
-quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.Shutdown)
+quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
+quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart)
+quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown)
 
 
 function writeTable()

@@ -10,3 +10,14 @@
  Interact:400: attempt to perform arithmetic __sub on nil and number
  Interact:97: Expected startX, startY, endX, endY, colour
  Interact:26: attempt to index ? (a nil value)
+ Interact:35: bad argument: table expected, got nil
+ Interact:27: attempt to index ? (a nil value)
+ Interact:26: attempt to index ? (a nil value)
+ Interact:285: attempt to index ? (a nil value)
+ Interact:285: attempt to index ? (a nil value)
+ Desktop:173: attempt to index ? (a nil value)
+ Desktop:186: attempt to index ? (a nil value)
+ Desktop:189: attempt to index ? (a nil value)
+ Interact:81: attempt to index ? (a nil value)
+ Desktop:189: attempt to index ? (a nil value)
+ Desktop:173: attempt to index ? (a nil value)
