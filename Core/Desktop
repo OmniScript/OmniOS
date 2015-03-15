@@ -80,7 +80,7 @@ QuickSettings.ButtonTable = {
 		name = "Close",
 		label = "Close",
 		xPos = w-4,
-		yPos = h-7,
+		yPos = 1,
 		xLength = 5,
 		yLength = 1,
 		xTextPos = 1,
@@ -120,10 +120,10 @@ QuickSettings.ButtonTable = {
 QuickSettings.ColorFieldTable = {
 	TopBar = {
 		name = "TopBar",
-		xMin = 1,
-		yMin = h-7,
+		xPos = 1,
+		yPos = 1,
 		xMax = w,
-		yMax = h-7,
+		yMax = 1,
 		color = colors.white,
 	}
 }
@@ -131,7 +131,7 @@ QuickSettings.ColorFieldTable = {
 QuickSettings.BetterPaint = {
 	Restart = {
 		xPos = 4,
-		yPos = h - 6,
+		yPos = 2,
 		name = "Restart",
 		path = "TheOS/Desktop/QuickSettings/restart.ico",
 		yLength = 5,
@@ -143,7 +143,7 @@ QuickSettings.BetterPaint = {
 	},
 	Shutdown = {
 		xPos = 13,
-		yPos = h - 6,
+		yPos = 2,
 		name = "Shutdown",
 		path = "TheOS/Desktop/QuickSettings/shutdown.ico",
 		yLength = 5,
@@ -157,8 +157,8 @@ QuickSettings.BetterPaint = {
 
 --Initializing GUI components
 local gui = Interact.Initialize()
-local mainLayout = gui.Layout.new({xMin = 1,yMin = 1,xMax = w,yMax = h})
-local quickSettingsLayout = gui.Layout.new({xMin = 1,yMin = h-7,xMax = w,yMax = h, nilClick = true})
+local mainLayout = gui.Layout.new({xPos = 1,yPos = 1,xMax = w,yMax = h})
+local quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xMax = w,yMax = h, nilClick = true})
 
 --Initializing Buttons--
 --Main--

@@ -82,3 +82,16 @@ Interact:159: attempt to call table
  Interact:300: attempt to compare nil with number
  Interact:300: attempt to compare nil with number
  Interact:305: attempt to call nil
+ Interact:273: attempt to perform arithmetic __add on nil and number
+ Interact:349: attempt to compare __le on nil and number
+ Interact:349: attempt to compare __le on nil and number
+ Interact:349: attempt to compare __le on nil and number
+ Interact:349: attempt to compare __le on nil and number
+ Interact:349: attempt to compare __le on nil and number
+ Interact:349: attempt to compare __le on nil and number
+ Interact:350: attempt to compare __le on nil and number
+ Interact:350: attempt to compare __le on nil and number
+ Interact:350: attempt to compare __le on nil and number
+ Interact:350: attempt to compare __le on nil and number
+ Interact:350: attempt to compare __le on nil and number
+ Interact:273: attempt to perform arithmetic __add on nil and number

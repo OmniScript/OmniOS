@@ -26,8 +26,8 @@ Layout.new = function(input)
 	self.ColorField = {}
 	self.BetterPaint = {}
 	self.BackgroundColor = 1
-	self.xMin = input.xMin or 1
-	self.yMin = input.yMin or 1
+	self.xPos = input.xPos or 1
+	self.yPos = input.yPos or 1
 	self.xMax = input.xMax or 51
 	self.yMax = input.yMax or 19
 	self.nilClick = input.nilClick or false
@@ -64,18 +64,18 @@ Layout.draw = function(self)
 	setmetatable(toggleFunctions,{__index = Toggle})
 	setmetatable(colorFieldFunctions,{__index = ColorField})
 	setmetatable(betterPaintFunctions,{__index = BetterPaint})
-	paintutils.drawFilledBox(self.xMin,self.yMin,self.xMax,self.yMax,self.BackgroundColor)
+	paintutils.drawFilledBox(self.xPos,self.yPos,self.xMax,self.yMax,self.BackgroundColor)
 	for i,v in pairs(self.ColorField) do
-		colorFieldFunctions.draw(v)
+		colorFieldFunctions.draw(v,self.xPos,self.yPos)
 	end
 	for i,v in pairs(self.Button) do
-		buttonFunctions.draw(v)
+		buttonFunctions.draw(v,self.xPos,self.yPos)
 	end
 	for i,v in pairs(self.BetterPaint) do
-		betterPaintFunctions.draw(v)
+		betterPaintFunctions.draw(v,self.xPos,self.yPos)
 	end
 	for i,v in pairs(self.Toggle) do
-		toggleFunctions.draw(v)
+		toggleFunctions.draw(v,self.xPos,self.yPos)
 	end
 end
 
@@ -112,8 +112,8 @@ Button.draw = function(self,layoutX,layoutY,addX,addY)
 	else
 		addY = 0
 	end
-	local finalX = self.xPos + layoutX + addX
-	local finalY = self.yPos + layoutY + addY
+	local finalX = self.xPos + layoutX + addX - 1
+	local finalY = self.yPos + layoutY + addY - 1
 	local newText
 	if #self.label > self.xLength then
 		newText = string.sub(self.label,1,self.xLength)
@@ -184,9 +184,9 @@ Toggle.draw = function(self,layoutX,layoutY,addX,addY)
 	else
 		addY = 0
 	end
-	local finalX = self.xPos + layoutX + addX
-	local finalY = self.yPos + layoutY + addY
-	term.setCursorPos(self.xPos,self.yPos)
+	local finalX = self.xPos + layoutX + addX - 1
+	local finalY = self.yPos + layoutY + addY - 1
+	term.setCursorPos(finalX,finalY)
 	if self.state == false then
 		term.setBackgroundColor(self.notSelectedBg)
 		term.setTextColor(self.trueColor)
@@ -249,15 +249,15 @@ function ColorField.new(input)
 	local self = {}
 	setmetatable(self,{__index = ColorField})
 	self.name = input.name
-	self.xMin = input.xMin
-	self.yMin = input.yMin
+	self.xPos = input.xPos
+	self.yPos = input.yPos
 	self.xMax = input.xMax
 	self.yMax = input.yMax
 	self.color = input.color
 	return self
 end
 
-function  ColorField.draw(self)
+function  ColorField.draw(self,layoutX,layoutY,addX,addY)
 	layoutX = layoutX or 0
 	layoutY = layoutY or 0
 	if self.moveX then
@@ -270,9 +270,9 @@ function  ColorField.draw(self)
 	else
 		addY = 0
 	end
-	local finalX = self.xPos + layoutX + addX
-	local finalY = self.yPos + layoutY + addY
-	paintutils.drawFilledBox(self.xMin,self.yMin,self.xMax,self.yMax,self.color)
+	local finalX = self.xPos + layoutX + addX - 1
+	local finalY = self.yPos + layoutY + addY - 1 
+	paintutils.drawFilledBox(finalX,finalY,self.xMax,self.yMax,self.color)
 end
 
 function ColorField.returnData(self)
@@ -287,8 +287,8 @@ end
 function BetterPaint.new(input)
 	local self = {}
 	setmetatable(self,{__index = BetterPaint})
-	self.xPos = input.xPos
-	self.yPos = input.yPos
+	finalX = input.xPos
+	finalY = input.yPos
 	self.name = input.name
 	self.path = input.path
 	self.xLength = input.xLength
@@ -321,10 +321,10 @@ function BetterPaint.draw(self,layoutX,layoutY,addX,addY)
 	else
 		addY = 0
 	end
-	local finalX = self.xPos + layoutX + addX
-	local finalY = self.yPos + layoutY + addY
-	paint.drawImage(self.path,self.xPos,self.yPos)
-	term.setCursorPos(self.xPos,self.yPos+self.yLength+1)
+	local finalX = finalX + layoutX + addX - 1
+	local finalY = finalY + layoutY + addY - 1
+	paint.drawImage(self.path,finalX,finalY)
+	term.setCursorPos(finalX,finalY+self.yLength+1)
 	term.setTextColor(self.labelFg)
 	term.setBackgroundColor(self.labelBg)
 	term.write(self.label)
@@ -346,11 +346,14 @@ eventHandler = function(self)
 				end
 			end
 			for i,v in pairs(self.BetterPaint) do
-				if v.xPos <= p2 and p2 <= v.xPos + v.xLength-1 and v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
+				if v.xPos <= 
+				p2 and
+				p2 <= v.xPos + v.xLength-1 and
+				v.yPos <= p3 and p3 <= v.yPos + v.yLength-1 then
 					return {"Button",tostring(v.returnValue)}
 				end
 			end
-			if not (self.xMin <= p2 and p2 <= self.xMax and self.yMin <= p3 and p3 <= self.yMax) then
+			if not (finalX <= p2 and p2 <= self.xMax and finalY <= p3 and p3 <= self.yMax) then
 				if self.nilClick then
 					return {"Nil","Nil"}
 				end
