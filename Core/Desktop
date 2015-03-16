@@ -124,7 +124,7 @@ QuickSettings.ColorField = {
 		yPos = 1,
 		xLength = w,
 		yLength = 1,
-		color = colors.white,
+		color = colors.gray,
 	},
 }
 
@@ -153,6 +153,18 @@ QuickSettings.BetterPaint = {
 		labelFg = colors.black,
 		labelBg = colors.lightGray,
 	},
+	Settings = {
+		xPos = 22,
+		yPos = 2,
+		name = "Settings",
+		path = "TheOS/Desktop/QuickSettings/settings.ico",
+		yLength = 5,
+		xLength = 7,
+		returnValue = "settings",
+		label = "Settings",
+		labelFg = colors.black,
+		labelBg = colors.lightGray,
+	},
 }
 
 --Initializing GUI components
@@ -170,9 +182,6 @@ mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor}
 local quickSettingsLayoutTable = {}
 quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
 quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
---quickSettingsLayoutTable.TopBar = gui.ColorField.new(QuickSettings.ColorFieldTable.TopBar)
---quickSettingsLayoutTable.Restart = gui.BetterPaint.new(QuickSettings.BetterPaint.Restart)
---quickSettingsLayoutTable.Shutdown = gui.BetterPaint.new(QuickSettings.BetterPaint.Shutdown)
 
 --Initializing structures--
 --Main--
@@ -189,6 +198,7 @@ quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgC
 quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
 quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart)
 quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown)
+quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings)
 
 
 function writeTable()
@@ -222,7 +232,8 @@ while true do
 						os.reboot()
 					elseif answer[2] == "shutdown" then
 						os.shutdown()
-					--esleif answer[2] == ""
+					elseif answer[2] == "Close" then
+						notClose = false
 					end
 				end
 			end
