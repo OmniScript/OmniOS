@@ -47,3 +47,4 @@
  Interact:121: bad argument: table expected, got nil
  Interact:122: bad argument: table expected, got nil
  Interact:95: index expected, got nil
+ Interact:94: index expected, got nil
