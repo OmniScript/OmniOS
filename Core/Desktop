@@ -214,12 +214,16 @@ while true do
 	if result[1] == "Button" then
 		if result[2] == "quickSettings" then
 			quickSettingsLayout:draw()
-			local answer = gui.eventHandler(quickSettingsLayout)
-			if answer[1] == "Button" then
-				if answer[2] == "reboot" then
-					os.reboot()
-				elseif answer[2] == "shutdown" then
-					os.shutdown()
+			local notClose = true
+			while notClose do
+				local answer = gui.eventHandler(quickSettingsLayout)
+				if answer[1] == "Button" then
+					if answer[2] == "reboot" then
+						os.reboot()
+					elseif answer[2] == "shutdown" then
+						os.shutdown()
+					--esleif answer[2] == ""
+					end
 				end
 			end
 		end
