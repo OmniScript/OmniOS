@@ -11,6 +11,7 @@ local Settings = {}
 local result = {}
 local Main = {}
 local QuickSettings = {}
+local MatchingColors = {}
 
 --Functions--
 local function readFile(_path)
@@ -31,6 +32,9 @@ end
 --Loading settings--
 local buffer = readFile("TheOS/Desktop/Settings")
 Settings = textutils.unserialize( buffer )
+
+local buffer = readFile("TheOS/Desktop/MatchingColors")
+MatchingColors = textutilsunserialize(buffer)
 
 --Object table--
 Main.Button = {
@@ -78,7 +82,7 @@ Main.Button = {
 QuickSettings.Button = {
 	Close = {
 		name = "Close",
-		label = "X",
+		label = "x",
 		xPos = w,
 		yPos = 1,
 		xLength = 1,
@@ -124,7 +128,7 @@ QuickSettings.ColorField = {
 		yPos = 1,
 		xLength = w,
 		yLength = 1,
-		color = colors.gray,
+		color = colors.white,
 	},
 }
 
@@ -139,10 +143,10 @@ QuickSettings.BetterPaint = {
 		returnValue = "reboot",
 		label = "Restart",
 		labelFg = colors.black,
-		labelBg = colors.lightGray,
+		labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
 	},
 	Shutdown = {
-		xPos = 13,
+		xPos = 22,
 		yPos = 2,
 		name = "Shutdown",
 		path = "TheOS/Desktop/QuickSettings/shutdown.ico",
@@ -151,10 +155,10 @@ QuickSettings.BetterPaint = {
 		returnValue = "shutdown",
 		label = "Shutdown",
 		labelFg = colors.black,
-		labelBg = colors.lightGray,
+		labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
 	},
 	Settings = {
-		xPos = 22,
+		xPos = 13,
 		yPos = 2,
 		name = "Settings",
 		path = "TheOS/Desktop/QuickSettings/settings.ico",
@@ -163,8 +167,19 @@ QuickSettings.BetterPaint = {
 		returnValue = "settings",
 		label = "Settings",
 		labelFg = colors.black,
-		labelBg = colors.lightGray,
+		labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
 	},
+}
+
+QuickSettings.Text = {
+	Test = {
+		name = "Test",
+		text = "maina",
+		xPos = 1,
+		yPos = 1,
+		bgColor = colors.black,
+		fgColor = colors.white,
+	}
 }
 
 --Initializing GUI components
@@ -181,7 +196,7 @@ mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor}
 --QuickSettings--
 local quickSettingsLayoutTable = {}
 quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
-quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = colors.lightGray})
+quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = MatchingColors[Settings.bgColor]["quickSettings"]})
 
 --Initializing structures--
 --Main--
@@ -196,20 +211,27 @@ for i,v in pairs(quickSettingsLayoutTable.Button) do
 end
 quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
 quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
-quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart)
-quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown)
-quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings)
-
+quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
+quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
+quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
+quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Test)
 
 function writeTable()
-	file = fs.open("TheOS/Desktop/Settings","w")
+	file = fs.open("TheOS/Desktop/MatchingColors","w")
 	file.write(textutilsserialize({
-		bgColor = colors.blue,
+		[8192] = {
+			name = "green",
+			quickSettings = colors.lime,
+		},
 	}))
+	--for i,v in pairs (colors) do
+	--	file.write(tostring(i).." "..tostring(v).."\n")
+	--end
 	file.close()
 end
 
 --writeTable()
+
 --[[term.setCursorPos(1,1)
 term.clear()
 for i,v in pairs(quickSettingsLayout) do

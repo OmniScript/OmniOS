@@ -15,6 +15,7 @@ local Toggle = {}
 local BackgroundColor = {}
 local ColorField = {}
 local BetterPaint = {}
+local Text = {}
 
 function loadObjects(self)
 	local output = {}
@@ -22,6 +23,7 @@ function loadObjects(self)
 	output.Toggle = {}
 	output.ColorField = {}
 	output.BetterPaint = {}
+	output.Text = {}
 	for o,v in pairs(output) do
 		if self[o] == nil then
 			self[o] = {}
@@ -38,6 +40,9 @@ function loadObjects(self)
 	end
 	for i,v in pairs(self.BetterPaint) do
 		output.BetterPaint[i] = BetterPaint.new(self.BetterPaint[i])
+	end
+	for i,v in pairs(self.Text) do
+		output.Text[i] = Text.new(self.Text[i])
 	end
 	return output
 end
@@ -85,15 +90,21 @@ Layout.addBetterPaint = function(self,_elementData)
 	self.BetterPaint[_elementData.name] = _elementData
 end
 
+Layout.addText = function(self,_elementData)
+	self.Text[_elementData.name] = _elementData
+end
+
 Layout.draw = function(self)
 	local buttonFunctions = {}
 	local toggleFunctions = {}
 	local colorFieldFunctions = {}
 	local betterPaintFunctions = {}
+	local textFunctions = {}
 	setmetatable(buttonFunctions,{__index = Button})
 	setmetatable(toggleFunctions,{__index = Toggle})
 	setmetatable(colorFieldFunctions,{__index = ColorField})
 	setmetatable(betterPaintFunctions,{__index = BetterPaint})
+	setmetatable(textFunctions,{__index = Text})
 	paintutils.drawFilledBox(self.xPos,self.yPos,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.BackgroundColor)
 	for i,v in pairs(self.ColorField) do
 		colorFieldFunctions.draw(v,self.xPos,self.yPos)
@@ -106,6 +117,9 @@ Layout.draw = function(self)
 	end
 	for i,v in pairs(self.Toggle) do
 		toggleFunctions.draw(v,self.xPos,self.yPos)
+	end
+	for i,v in pairs(self.Text) do
+		textFunctions.draw(v,self.xPos,self.yPos)
 	end
 end
 
@@ -368,6 +382,50 @@ function BetterPaint.draw(self,layoutX,layoutY,addX,addY)
 	term.write(self.label)
 end
 
+--Text Class--
+function Text.new(input)
+	local self = {}
+	setmetatable(self,{__index = Text})
+	self.name = input.name
+	self.text = input.text
+	self.xPos = input.xPos
+	self.yPos = input.yPos
+	self.bgColor = input.bgColor
+	self.fgColor = input.fgColor
+	return self
+end
+
+function Text.draw(self,layoutX,layoutY,addX,addY)
+	if layoutX == nil then layoutX = 0 end
+	if layoutY == nil then layoutY = 0 end
+	if self.moveX then
+		if laddX == nil then addX = 0 end
+	else
+		addX = 0
+	end
+	if self.moveY then
+		if addY == nil then addY = 0 end
+	else
+		addY = 0
+	end
+	local finalX = self.xPos + layoutX + addX - 1
+	local finalY = self.yPos + layoutY + addY - 1
+	self.finalX = finalX
+	self.finalY = finalY
+	term.setCursorPos(finalX,finalY)
+	term.setTextColor(self.fgColor)
+	term.setBackgroundColor(self.bgColor)
+	term.write(self.label)
+end
+
+function Text.returnData(self)
+	local toReturn = {}
+	for i,v in pairs(self) do
+		toReturn[i] = v
+	end
+	return toReturn
+end
+
 --Event handler function--
 eventHandler = function(self)
 	while true do
@@ -412,6 +470,7 @@ function Initialize()
 	toReturn.BackgroundColor = BackgroundColor
 	toReturn.ColorField = ColorField
 	toReturn.BetterPaint = BetterPaint
+	toReturn.Text = Text
 	toReturn.eventHandler = eventHandler
 	toReturn.loadObjects = loadObjects
 	return toReturn

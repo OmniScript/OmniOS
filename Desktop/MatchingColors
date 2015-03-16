@@ -1,0 +1,18 @@
+{
+  [ 8192 ] = {
+    name = "green",
+    quickSettings = 32,
+  },
+  [ 4096 ] = {
+    name = "brown",
+    quickSettings = 2,
+  },
+  [ 32768 ] = {
+    name = "black",
+    quickSettings = 128,
+  },
+  [ 64 ] = {
+    name = "pink",
+    quickSettings = 1024,
+  },
+}

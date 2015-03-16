@@ -26,3 +26,24 @@
  Terminated
  Terminated
  Terminated
+ Terminated
+ Boot:72: bios:367: [string Desktop ]:207: '}' expected (to close '{' at line 206)
+ Boot:72: bios:367: [string Desktop ]:207: '}' expected (to close '{' at line 206)
+ Boot:72: bios:367: [string Desktop ]:188: '}' expected
+ Interact:121: bad argument: table expected, got nil
+ Interact:94: attempt to index ? (a nil value)
+ Desktop:217: attempt to index ? (a nil value)
+ Desktop:218: attempt to index ? (a nil value)
+ Desktop:218: attempt to index ? (a nil value)
+ Desktop:218: bad argument: table expected, got nil
+ Desktop:218: bad argument: table expected, got nil
+ Desktop:218: bad argument: table expected, got nil
+ Desktop:218: bad argument: table expected, got nil
+ Interact:95: index expected, got nil
+ Interact:94: index expected, got nil
+ Interact:95: index expected, got nil
+ Interact:95: index expected, got nil
+ Interact:94: index expected, got nil
+ Interact:121: bad argument: table expected, got nil
+ Interact:122: bad argument: table expected, got nil
+ Interact:95: index expected, got nil
