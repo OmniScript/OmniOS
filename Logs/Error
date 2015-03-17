@@ -7,3 +7,11 @@
  Interact:95: index expected, got nil
  Desktop:219: attempt to index ? (a nil value)
  BetterKernel:19: index expected, got nil
+ Boot:69: attempt to call nil
+ Login:16: attempt to index ? (a nil value)
+ Sha:178: attempt to get length of nil
+ Boot:69: attempt to call nil
+ Boot:70: bios:366: [string BetterKernel ]:37: unexpected symbol
+ BetterKernel:17: attempt to concatenate nil and string
+ Terminated
+ Terminated

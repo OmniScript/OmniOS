@@ -219,7 +219,7 @@ quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings
 quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
 
 function writeTable()
-	file = fs.open("TheOS/Desktop/MatchingColors","w")
+	file = fs.open("TheOS/Desktop/MatchingColorsLKK","w")
 	file.write(textutilsserialize({
 		[8192] = {
 			name = "green",

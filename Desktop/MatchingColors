@@ -13,6 +13,6 @@
   },
   [ 64 ] = {
     name = "pink",
-    quickSettings = 1024,
+    quickSettings = 16384,
   },
 }
