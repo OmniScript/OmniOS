@@ -2,3 +2,11 @@
  BetterKernel:59: invalid key to 'next'
  BetterKernel:59: invalid key to 'next'
  Terminated
+ Desktop:43: attempt to call nil
+ Desktop:52: attempt to call nil
+ Boot:71: bios:366: [string Desktop ]:190: '}' expected (to close '{' at line 150)
+ Interact:436: attempt to compare __le on nil and number
+ Interact:436: attempt to compare __le on nil and number
+ Desktop:117: attempt to index ? (a nil value)
+ Desktop:117: attempt to index ? (a nil value)
+ Interact:28: attempt to index ? (a nil value)

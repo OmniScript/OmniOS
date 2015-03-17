@@ -12,6 +12,11 @@ local result = {}
 local Main = {}
 local QuickSettings = {}
 local MatchingColors = {}
+local gui = {}
+local mainLayout = {}
+local quickSettingsLayout = {}
+local mainLayoutTable = {}
+local quickSettingsLayoutTable = {}
 
 --Functions--
 local function readFile(_path)
@@ -29,15 +34,78 @@ local function split(str,sep)
 	return buffer
 end
 
---Loading settings--
-local buffer = readFile("TheOS/Desktop/Settings")
-Settings = textutils.unserialize( buffer )
+local function loadGUI()
+	--Initializing GUI components
+	gui = Interact.Initialize()
+	mainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
+	quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xLength = w,yLength = h, nilClick = true})
+	mainLayoutTable = {}
+	quickSettingsLayoutTable = {}
+end
 
-local buffer = readFile("TheOS/Desktop/MatchingColors")
-MatchingColors = textutilsunserialize(buffer)
+local function InitializeGUI()
+	loadObjects()
+	--Main--
+	mainLayoutTable = {}
+	mainLayoutTable = gui.loadObjects(Main)
+	mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
+	
+	--QuickSettings--
+	quickSettingsLayoutTable = {}
+	quickSettingsLayoutTable.Text = {}
+	quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
+	quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = MatchingColors[Settings.bgColor]["quickSettings"]})
+	--quickSettingsLayoutTable.Text.Test = gui.Text.new(QuickSettings.Text.Test)
+	
+	--Initializing structures--
+	--Main--
+	for i,v in pairs(mainLayoutTable.Button) do
+		mainLayout:addButton(mainLayoutTable.Button[i]:returnData())
+	end
+	mainLayout:addBackgroundColor(mainLayoutTable.mainBgColor:returnData())
+	
+	--QuickSettings--
+	for i,v in pairs(quickSettingsLayoutTable.Button) do
+		quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
+	end
+	quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
+	quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
+	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
+	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
+	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
+	quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
+end
 
+local function changeColor(color)
+	Settings.bgColor = colors[color] or colors.green
+	local f = fs.open("TheOS/Desktop/Settings","w")
+	f.write(textutilsserialize(Settings))
+	f.close()
+	local buffer = readFile("TheOS/Desktop/Settings")
+	Settings = textutils.unserialize( buffer )
+	local buffer = readFile("TheOS/Desktop/MatchingColors")
+	MatchingColors = textutilsunserialize(buffer)
+	loadObjects()
+	InitializeGUI()
+end
+
+function writeTable()
+	file = fs.open("TheOS/Desktop/MatchingColorsLKK","w")
+	file.write(textutilsserialize({
+		[8192] = {
+			name = "green",
+			quickSettings = colors.lime,
+		},
+	}))
+	--for i,v in pairs (colors) do
+	--	file.write(tostring(i).." "..tostring(v).."\n")
+	--end
+	file.close()
+end
+
+function loadObjects()
 --Object table--
-Main.Button = {
+	Main.Button = {
 	quickSettings = {
 		name = "quickSettings",
 		label = "^",
@@ -79,7 +147,7 @@ Main.Button = {
 	},
 }
 
-QuickSettings.Button = {
+	QuickSettings.Button = {
 	Close = {
 		name = "Close",
 		label = "x",
@@ -118,10 +186,62 @@ QuickSettings.Button = {
 		fgColor = Settings.bgColor,
 		bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
 		returnValue = "Left",
-	}
+	},
+	Green = {
+		name = "Green",
+		label = " ",
+		xPos = 31,
+		yPos = 6,
+		xLength = 1,
+		yLength = 1,
+		xTextPos = 1,
+		yTextPos = 1,
+		fgColor = 1,
+		bgColor = colors.green,
+		returnValue = "color:green",
+	},
+	Lime = {
+		name = "Lime",
+		label = " ",
+		xPos = 31,
+		yPos = 7,
+		xLength = 1,
+		yLength = 1,
+		xTextPos = 1,
+		yTextPos = 1,
+		fgColor = 1,
+		bgColor = colors.lime,
+		returnValue = "color:lime",
+	},
+	Brown = {
+		name = "Brown",
+		label = " ",
+		xPos = 32,
+		yPos = 6,
+		xLength = 1,
+		yLength = 1,
+		xTextPos = 1,
+		yTextPos = 1,
+		fgColor = 1,
+		bgColor = colors.brown,
+		returnValue = "color:brown",
+	},
+	Purple = {
+		name = "Purple",
+		label = " ",
+		xPos = 32,
+		yPos = 7,
+		xLength = 1,
+		yLength = 1,
+		xTextPos = 1,
+		yTextPos = 1,
+		fgColor = 1,
+		bgColor = colors.purple,
+		returnValue = "color:purple",
+	},
 }
 
-QuickSettings.ColorField = {
+	QuickSettings.ColorField = {
 	TopBar = {
 		name = "TopBar",
 		xPos = 1,
@@ -132,7 +252,7 @@ QuickSettings.ColorField = {
 	},
 }
 
-QuickSettings.BetterPaint = {
+	QuickSettings.BetterPaint = {
 	Restart = {
 		xPos = 4,
 		yPos = 2,
@@ -171,7 +291,7 @@ QuickSettings.BetterPaint = {
 	},
 }
 
-QuickSettings.Text = {
+	QuickSettings.Text = {
 	Label = {
 		name = "Label",
 		text = "QuickSettings",
@@ -182,64 +302,21 @@ QuickSettings.Text = {
 	},
 }
 
---Initializing GUI components
-local gui = Interact.Initialize()
-local mainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
-local quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xLength = w,yLength = h, nilClick = true})
-
---Initializing Buttons--
---Main--
-local mainLayoutTable = {}
-mainLayoutTable = gui.loadObjects(Main)
-mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
-
---QuickSettings--
-local quickSettingsLayoutTable = {}
-quickSettingsLayoutTable.Text = {}
-quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
-quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = MatchingColors[Settings.bgColor]["quickSettings"]})
---quickSettingsLayoutTable.Text.Test = gui.Text.new(QuickSettings.Text.Test)
-
---Initializing structures--
---Main--
-for i,v in pairs(mainLayoutTable.Button) do
-	mainLayout:addButton(mainLayoutTable.Button[i]:returnData())
-end
-mainLayout:addBackgroundColor(mainLayoutTable.mainBgColor:returnData())
-
---QuickSettings--
-for i,v in pairs(quickSettingsLayoutTable.Button) do
-	quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
-end
-quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
-quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
-quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
-quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
-quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
-quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
-
-function writeTable()
-	file = fs.open("TheOS/Desktop/MatchingColorsLKK","w")
-	file.write(textutilsserialize({
-		[8192] = {
-			name = "green",
-			quickSettings = colors.lime,
-		},
-	}))
-	--for i,v in pairs (colors) do
-	--	file.write(tostring(i).." "..tostring(v).."\n")
-	--end
-	file.close()
 end
 
---writeTable()
+--Loading settings--
+local buffer = readFile("TheOS/Desktop/Settings")
+Settings = textutils.unserialize( buffer )
 
---[[term.setCursorPos(1,1)
-term.clear()
-for i,v in pairs(quickSettingsLayout) do
-	print(i)
-end
-os.pullEvent()]]--
+local buffer = readFile("TheOS/Desktop/MatchingColors")
+MatchingColors = textutilsunserialize(buffer)
+
+
+
+loadObjects()
+loadGUI()
+InitializeGUI()
+
 
 --Code--
 while true do
@@ -257,6 +334,10 @@ while true do
 					elseif answer[2] == "shutdown" then
 						os.shutdown()
 					elseif answer[2] == "Close" then
+						notClose = false
+					else
+						local buffer = split(answer[2],"[^:]+")
+						changeColor(buffer[2])
 						notClose = false
 					end
 				elseif answer[1] == "Nil" then
