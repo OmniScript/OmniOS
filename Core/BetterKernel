@@ -1,0 +1,19 @@
+--[[
+	TheOS Kernel
+	by Creator
+	for TheOS &
+	you to learn
+	from it
+]]--
+local w,h = term.getSize()
+local currTerm
+local routines = {}
+
+function newRoutine(name,path,...)
+	local arguments = {...}
+	local function run()
+		os.run(_G,path,unpack(arguments))
+	end
+	routines[name].routines = coroutine.create(run)
+	routines[name].window = window.create(term.current(),1,1,)
+end
