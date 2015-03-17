@@ -1,6 +1,6 @@
 {
 	{
-		xPos = 10,
+		xPos = 7,
 		yPos = 3,
 		path = "TheOS/Programs/FileX.app/FileX",
 		name = "FileX",

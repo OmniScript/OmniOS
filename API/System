@@ -1,0 +1,16 @@
+--[[
+	System API
+	for 
+	TheOS
+	by Creator
+]]--
+
+function reboot()
+	print("Fuck you")
+	os.pullEvent()
+	os.reboot()
+end
+
+function newTask(...)
+	newRoutine(...)
+end

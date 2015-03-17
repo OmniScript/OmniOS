@@ -24,3 +24,19 @@
  Desktop:423: attempt to index ? (a nil value)
  BetterKernel:33: bad argument: function expected, got string
  Boot:70: attempt to call nil
+ BetterKernel:17: attempt to index ? (a nil value)
+ Kernel:70: attempt to index ? (a nil value)
+ Kernel:31: attempt to concatenate string and nil
+ Kernel:78: attempt to index ? (a nil value)
+ Kernel:78: attempt to index ? (a nil value)
+ Kernel:78: attempt to index ? (a nil value)
+ Kernel:78: attempt to index ? (a nil value)
+ Kernel:78: attempt to index ? (a nil value)
+ Kernel:81: bad argument: thread expected, got nil
+ Kernel:78: attempt to index ? (a nil value)
+ Kernel:81: bad argument: thread expected, got nil
+ Kernel:78: attempt to index ? (a nil value)
+ Kernel:78: attempt to index ? (a nil value)
+ Kernel:89: bad argument: thread expected, got nil
+ Kernel:49: attempt to index ? (a nil value)
+ Kernel:49: attempt to index ? (a nil value)

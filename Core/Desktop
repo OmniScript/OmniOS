@@ -539,10 +539,8 @@ while true do
 		elseif result[2] == "windowMinus" then
 			scroll = scroll + 51
 		else
-			--shell.run(paths[answer[2]])
-			shell.run "clear"
-			print(paths[answer[2]])
-			os.pullEvent()
+			local func = loadfile(paths[result[2]])
+			System.newTask(result[2],func)
 		end
 	end
 end

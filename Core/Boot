@@ -2,6 +2,7 @@
 --by Creator--
 
 --Variables--
+--os.loadAPI("TheOS/Core/Kernel")
 local tasks = 2
 local finishedTasks = 0
 term.redirect(term.native())
@@ -65,10 +66,9 @@ nPrint(lang[4])
 function goOn()
 	--local login = loadfile("TheOS/Core/Login")
 	--login()
-	local kernel = loadfile("TheOS/Core/BetterKernel")
+	local kernel = loadfile("TheOS/Core/Kernel")
 	local desktop = loadfile("TheOS/Core/Desktop")
 	kernel("Desktop",desktop)
-	dofile("TheOS/Core/Desktop")
 end
 
 ok, err = pcall(goOn)
