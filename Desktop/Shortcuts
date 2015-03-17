@@ -1,0 +1,14 @@
+{
+	{
+		xPos = 1,
+		yPos = 1,
+		path = "TheOS/Programs/FileX.app/FileX",
+		name = "FileX",
+	},
+	{
+		xPos = 2,
+		yPos = 1,
+		path = "TheOS/Programs/nPaintPro.app/nPaintPro",
+		name = "nPaintPro"
+	},
+}

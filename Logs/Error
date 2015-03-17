@@ -10,3 +10,8 @@
  Desktop:117: attempt to index ? (a nil value)
  Desktop:117: attempt to index ? (a nil value)
  Interact:28: attempt to index ? (a nil value)
+ Terminated
+ Desktop:461: attempt to call nil
+ Desktop:47: attempt to call nil
+ Desktop:47: attempt to call nil
+ Terminated

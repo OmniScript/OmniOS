@@ -34,76 +34,30 @@ local function split(str,sep)
 	return buffer
 end
 
-local function loadGUI()
-	--Initializing GUI components
-	gui = Interact.Initialize()
-	mainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
-	quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xLength = w,yLength = h, nilClick = true})
-	mainLayoutTable = {}
-	quickSettingsLayoutTable = {}
-end
-
-local function InitializeGUI()
-	loadObjects()
-	--Main--
-	mainLayoutTable = {}
-	mainLayoutTable = gui.loadObjects(Main)
-	mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
-	
-	--QuickSettings--
-	quickSettingsLayoutTable = {}
-	quickSettingsLayoutTable.Text = {}
-	quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
-	quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = MatchingColors[Settings.bgColor]["quickSettings"]})
-	--quickSettingsLayoutTable.Text.Test = gui.Text.new(QuickSettings.Text.Test)
-	
-	--Initializing structures--
-	--Main--
-	for i,v in pairs(mainLayoutTable.Button) do
-		mainLayout:addButton(mainLayoutTable.Button[i]:returnData())
+local function loadShortcuts()
+	local buffer = readFile("TheOS/Desktop/Shortcuts")
+	print(buffer)
+	os.pullEvent()
+	local sBuffer = textutilsunserialize(buffer)
+	local nBuffer = {}
+	for i,v in pairs(sBuffer) do
+		nBuffer[v.name] = {
+			xPos = 2+(6*(v.xPos-1)),
+			yPos = 2+(6*(v.yPos-1)),
+			name = v.name,
+			path = v.path..".ico",
+			yLength = 5,
+			xLength = 7,
+			returnValue = "reboot",
+			label = "Restart",
+			labelFg = colors.white,
+			labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
+		}
 	end
-	mainLayout:addBackgroundColor(mainLayoutTable.mainBgColor:returnData())
-	
-	--QuickSettings--
-	for i,v in pairs(quickSettingsLayoutTable.Button) do
-		quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
-	end
-	quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
-	quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
-	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
-	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
-	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
-	quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
+	Main.BetterPaint = nBuffer
 end
 
-local function changeColor(color)
-	Settings.bgColor = colors[color] or colors.green
-	local f = fs.open("TheOS/Desktop/Settings","w")
-	f.write(textutilsserialize(Settings))
-	f.close()
-	local buffer = readFile("TheOS/Desktop/Settings")
-	Settings = textutils.unserialize( buffer )
-	local buffer = readFile("TheOS/Desktop/MatchingColors")
-	MatchingColors = textutilsunserialize(buffer)
-	loadObjects()
-	InitializeGUI()
-end
-
-function writeTable()
-	file = fs.open("TheOS/Desktop/MatchingColorsLKK","w")
-	file.write(textutilsserialize({
-		[8192] = {
-			name = "green",
-			quickSettings = colors.lime,
-		},
-	}))
-	--for i,v in pairs (colors) do
-	--	file.write(tostring(i).." "..tostring(v).."\n")
-	--end
-	file.close()
-end
-
-function loadObjects()
+local function loadObjects()
 --Object table--
 	Main.Button = {
 	quickSettings = {
@@ -458,7 +412,82 @@ function loadObjects()
 	},
 }
 
+	loadShortcuts()
+
 end
+
+local function loadGUI()
+	--Initializing GUI components
+	gui = Interact.Initialize()
+	mainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
+	quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xLength = w,yLength = h, nilClick = true})
+	mainLayoutTable = {}
+	quickSettingsLayoutTable = {}
+end
+
+local function InitializeGUI()
+	loadObjects()
+	--Main--
+	mainLayoutTable = {}
+	mainLayoutTable = gui.loadObjects(Main)
+	mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
+	
+	--QuickSettings--
+	quickSettingsLayoutTable = {}
+	quickSettingsLayoutTable.Text = {}
+	quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
+	quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = MatchingColors[Settings.bgColor]["quickSettings"]})
+	--quickSettingsLayoutTable.Text.Test = gui.Text.new(QuickSettings.Text.Test)
+	
+	--Initializing structures--
+	--Main--
+	for i,v in pairs(mainLayoutTable.Button) do
+		mainLayout:addButton(mainLayoutTable.Button[i]:returnData())
+	end
+	for i,v in pairs(mainLayoutTable.BetterPaint) do
+		mainLayout:addBetterPaint(mainLayoutTable.BetterPaint[i]:returnData())
+	end
+	mainLayout:addBackgroundColor(mainLayoutTable.mainBgColor:returnData())
+	
+	--QuickSettings--
+	for i,v in pairs(quickSettingsLayoutTable.Button) do
+		quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
+	end
+	quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
+	quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
+	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
+	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
+	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
+	quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
+end
+
+local function changeColor(color)
+	Settings.bgColor = colors[color] or colors.green
+	local f = fs.open("TheOS/Desktop/Settings","w")
+	f.write(textutilsserialize(Settings))
+	f.close()
+	local buffer = readFile("TheOS/Desktop/Settings")
+	Settings = textutils.unserialize( buffer )
+	local buffer = readFile("TheOS/Desktop/MatchingColors")
+	MatchingColors = textutilsunserialize(buffer)
+	loadObjects()
+	InitializeGUI()
+end
+
+local function writeTable()
+	file = fs.open("TheOS/Desktop/MatchingColorsLKK","w")
+	file.write(textutilsserialize({
+		[8192] = {
+			name = "green",
+			quickSettings = colors.lime,
+		},
+	}))
+	--for i,v in pairs (colors) do
+	--	file.write(tostring(i).." "..tostring(v).."\n")
+	--end
+	file.close()
+end
+
 
 --Loading settings--
 local buffer = readFile("TheOS/Desktop/Settings")
