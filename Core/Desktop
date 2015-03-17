@@ -172,14 +172,14 @@ QuickSettings.BetterPaint = {
 }
 
 QuickSettings.Text = {
-	Test = {
-		name = "Test",
-		text = "maina",
-		xPos = 1,
+	Label = {
+		name = "Label",
+		text = "QuickSettings",
+		xPos = w/2-6,
 		yPos = 1,
-		bgColor = colors.black,
-		fgColor = colors.white,
-	}
+		bgColor = colors.white,
+		fgColor = Settings.bgColor
+	},
 }
 
 --Initializing GUI components
@@ -195,8 +195,10 @@ mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor}
 
 --QuickSettings--
 local quickSettingsLayoutTable = {}
+quickSettingsLayoutTable.Text = {}
 quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
 quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = MatchingColors[Settings.bgColor]["quickSettings"]})
+--quickSettingsLayoutTable.Text.Test = gui.Text.new(QuickSettings.Text.Test)
 
 --Initializing structures--
 --Main--
@@ -214,7 +216,7 @@ quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:ret
 quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
 quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
 quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
-quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Test)
+quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
 
 function writeTable()
 	file = fs.open("TheOS/Desktop/MatchingColors","w")
@@ -255,6 +257,10 @@ while true do
 					elseif answer[2] == "shutdown" then
 						os.shutdown()
 					elseif answer[2] == "Close" then
+						notClose = false
+					end
+				elseif answer[1] == "Nil" then
+					if answer[2] == "Nil" then
 						notClose = false
 					end
 				end

@@ -1,50 +1,8 @@
- Terminated
- Desktop:170: attempt to call nil
- Interact:28: bad argument: table expected, got nil
- Desktop:159: attempt to index ? (a nil value)
- Desktop:159: attempt to index ? (a nil value)
- Desktop:159: attempt to index ? (a nil value)
- Interact:401: attempt to compare nil with number
- Interact:394: attempt to compare nil with number
- Interact:397: attempt to perform arithmetic __sub on nil and number
- Interact:400: attempt to perform arithmetic __sub on nil and number
- Interact:97: Expected startX, startY, endX, endY, colour
- Interact:26: attempt to index ? (a nil value)
- Interact:35: bad argument: table expected, got nil
- Interact:27: attempt to index ? (a nil value)
- Interact:26: attempt to index ? (a nil value)
- Interact:285: attempt to index ? (a nil value)
- Interact:285: attempt to index ? (a nil value)
- Desktop:173: attempt to index ? (a nil value)
- Desktop:186: attempt to index ? (a nil value)
- Desktop:189: attempt to index ? (a nil value)
- Interact:81: attempt to index ? (a nil value)
- Desktop:189: attempt to index ? (a nil value)
- Desktop:173: attempt to index ? (a nil value)
- Terminated
- Terminated
- Terminated
- Terminated
- Terminated
- Terminated
- Boot:72: bios:367: [string Desktop ]:207: '}' expected (to close '{' at line 206)
- Boot:72: bios:367: [string Desktop ]:207: '}' expected (to close '{' at line 206)
- Boot:72: bios:367: [string Desktop ]:188: '}' expected
- Interact:121: bad argument: table expected, got nil
- Interact:94: attempt to index ? (a nil value)
- Desktop:217: attempt to index ? (a nil value)
- Desktop:218: attempt to index ? (a nil value)
- Desktop:218: attempt to index ? (a nil value)
- Desktop:218: bad argument: table expected, got nil
- Desktop:218: bad argument: table expected, got nil
- Desktop:218: bad argument: table expected, got nil
- Desktop:218: bad argument: table expected, got nil
- Interact:95: index expected, got nil
  Interact:94: index expected, got nil
- Interact:95: index expected, got nil
- Interact:95: index expected, got nil
- Interact:94: index expected, got nil
- Interact:121: bad argument: table expected, got nil
+ Interact:96: index expected, got nil
+ Interact:122: bad argument: table expected, got nil
+ Interact:122: bad argument: table expected, got nil
  Interact:122: bad argument: table expected, got nil
  Interact:95: index expected, got nil
- Interact:94: index expected, got nil
+ Interact:95: index expected, got nil
+ Desktop:219: attempt to index ? (a nil value)

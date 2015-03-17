@@ -60,6 +60,7 @@ Layout.new = function(input)
 	self.Toggle = {}
 	self.ColorField = {}
 	self.BetterPaint = {}
+	self.Text = {}
 	self.BackgroundColor = 1
 	self.xPos = input.xPos or 1
 	self.yPos = input.yPos or 1
@@ -415,7 +416,7 @@ function Text.draw(self,layoutX,layoutY,addX,addY)
 	term.setCursorPos(finalX,finalY)
 	term.setTextColor(self.fgColor)
 	term.setBackgroundColor(self.bgColor)
-	term.write(self.label)
+	term.write(self.text)
 end
 
 function Text.returnData(self)
