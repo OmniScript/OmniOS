@@ -9,6 +9,7 @@ local args = {...}
 local w,h = term.getSize()
 local currTerm = term.current()
 local routines = {}
+local routinesToKill = {}
 local activeRoutine = ""
 local eventGlobal = true
 
@@ -50,6 +51,7 @@ end
 
 function main()
 	while true do
+		routinesToKill = {}
 		event = {os.pullEvent()}
 		if event[1] == "key" or event[1] == "mouse_click" or event[1] == "monitor_touch" then
 			eventGlobal = false
@@ -59,7 +61,8 @@ function main()
 		for i,v in pairs(routines) do
 			local status = coroutine.status(routines[i].routine)
 			if status == "dead" then
-				routines[i] = nil
+				--routines[i] = nil
+				routinesToKill[#routinesToKill+1] = i
 			else
 				if routines[i].hasRun == false then
 					routines[i].hasRun = true
@@ -80,6 +83,9 @@ function main()
 					end
 				end
 			end
+		end
+		for i,v in pairs(routinesToKill) do
+			routines[v] = nil
 		end
 	end
 end
