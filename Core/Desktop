@@ -47,7 +47,7 @@ Main.Button = {
 		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
-		fgColor = colors.white,
+		fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
 		bgColor = Settings.bgColor,
 		returnValue = "quickSettings",
 	},
@@ -60,7 +60,7 @@ Main.Button = {
 		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
-		fgColor = colors.white,
+		fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
 		bgColor = Settings.bgColor,
 		returnValue = "windowPlus",
 	},
@@ -73,7 +73,7 @@ Main.Button = {
 		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
-		fgColor = colors.white,
+		fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
 		bgColor = Settings.bgColor,
 		returnValue = "windowMinus",
 	},
@@ -89,8 +89,8 @@ QuickSettings.Button = {
 		yLength = 1,
 		xTextPos = 1,
 		yTextPos = 1,
-		fgColor = colors.black,
-		bgColor = colors.white,
+		fgColor = Settings.bgColor,
+		bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
 		returnValue = "Close",
 	},
 	Right = {
@@ -103,7 +103,7 @@ QuickSettings.Button = {
 		xTextPos = 1,
 		yTextPos = 2,
 		fgColor = Settings.bgColor,
-		bgColor = colors.white,
+		bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
 		returnValue = "Right",
 	},
 	Left = {
@@ -116,7 +116,7 @@ QuickSettings.Button = {
 		xTextPos = 1,
 		yTextPos = 2,
 		fgColor = Settings.bgColor,
-		bgColor = colors.white,
+		bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
 		returnValue = "Left",
 	}
 }
@@ -128,7 +128,7 @@ QuickSettings.ColorField = {
 		yPos = 1,
 		xLength = w,
 		yLength = 1,
-		color = colors.white,
+		color = MatchingColors[Settings.bgColor]["mainButtons"],
 	},
 }
 
@@ -177,8 +177,8 @@ QuickSettings.Text = {
 		text = "QuickSettings",
 		xPos = w/2-6,
 		yPos = 1,
-		bgColor = colors.white,
-		fgColor = Settings.bgColor
+		bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+		fgColor = Settings.bgColor,
 	},
 }
 

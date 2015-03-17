@@ -15,3 +15,5 @@
  BetterKernel:17: attempt to concatenate nil and string
  Terminated
  Terminated
+ Desktop:146: attempt to index ? (a nil value)
+ Terminated
