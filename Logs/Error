@@ -6,3 +6,4 @@
  Interact:95: index expected, got nil
  Interact:95: index expected, got nil
  Desktop:219: attempt to index ? (a nil value)
+ BetterKernel:19: index expected, got nil

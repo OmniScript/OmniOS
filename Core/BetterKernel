@@ -5,15 +5,52 @@
 	you to learn
 	from it
 ]]--
+local args = {...}
 local w,h = term.getSize()
-local currTerm
+local currTerm = term.current()
 local routines = {}
+local activeRoutine = ""
+local eventGlobal = true
 
 function newRoutine(name,path,...)
-	local arguments = {...}
-	local function run()
-		os.run(_G,path,unpack(arguments))
+	local sName = name
+	name = name.."1"
+	local notUnique = true
+	local tries = 1
+	while notUnique do
+		tries = tries + 1
+		if routines[name] ~= nil then
+			name = name:sub(1,-2)..tostring(tries)
+		else
+			notUnique = false
+		end
 	end
-	routines[name].routines = coroutine.create(run)
-	routines[name].window = window.create(term.current(),1,1,)
+	local arguments = {...}
+	local function run(...)
+		os.run(_G,path,...)
+	end
+	routines[name] = {}
+	routines[name].routine = coroutine.create(run)
+	routines[name].window = window.create(currTerm,1,1,w-1,h,false)
+	routines[name].title = sName
+	routines[name].arguments = 
 end
+
+function main()
+	while true do
+		event = {os.pullEvent()}
+		if event[1] == "key" or event[1] == "mouse_click" or event[1] == "monitor_touch" then
+			eventGlobal = false
+		else
+			eventGlobal = true
+		end
+		for i,v in pairs(routines) do
+			local status = coroutine.status(routines[i].routine)
+			if status == "suspended"
+		end
+	end
+end
+
+newRoutine(unpack(args))
+
+main()
