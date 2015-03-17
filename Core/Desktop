@@ -36,8 +36,6 @@ end
 
 local function loadShortcuts()
 	local buffer = readFile("TheOS/Desktop/Shortcuts")
-	print(buffer)
-	os.pullEvent()
 	local sBuffer = textutilsunserialize(buffer)
 	local nBuffer = {}
 	for i,v in pairs(sBuffer) do
@@ -46,12 +44,12 @@ local function loadShortcuts()
 			yPos = 2+(6*(v.yPos-1)),
 			name = v.name,
 			path = v.path..".ico",
-			yLength = 5,
-			xLength = 7,
-			returnValue = "reboot",
-			label = "Restart",
-			labelFg = colors.white,
-			labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
+			yLength = 4,
+			xLength = 3,
+			returnValue = v.name,
+			label = v.name,
+			labelFg = MatchingColors[Settings.bgColor]["mainButtons"],
+			labelBg = Settings.bgColor,
 		}
 	end
 	Main.BetterPaint = nBuffer
