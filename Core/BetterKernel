@@ -34,11 +34,13 @@ function newRoutine(name,path,...)
 	end
 	routines[name] = {}
 	routines[name].routine = coroutine.create(run)
-	if #routines == 1 then
-		routines[name].window = window.create(currTerm,1,1,w-1,h,true)
+	if #routines == 0 then
+		print("no freaking routine")
+		print(#routines)
+		routines[name].window = window.create(term.current(),1,1,w-1,h,true)
 		activeRoutine = name
 	else
-		routines[name].window = window.create(currTerm,1,1,w-1,h,false)
+		routines[name].window = window.create(term.current(),1,1,w-1,h,false)
 	end
 	routines[name].title = sName
 	routines[name].arguments = arguments
@@ -48,16 +50,13 @@ end
 
 function main()
 	while true do
-		print("hi")
 		event = {os.pullEvent()}
-		print("meh")
 		if event[1] == "key" or event[1] == "mouse_click" or event[1] == "monitor_touch" then
 			eventGlobal = false
 		else
 			eventGlobal = true
 		end
 		for i,v in pairs(routines) do
-			print"work"
 			local status = coroutine.status(routines[i].routine)
 			if status == "dead" then
 				routines[i] = nil
