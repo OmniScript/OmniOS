@@ -57,6 +57,7 @@ function main()
 			eventGlobal = true
 		end
 		for i,v in pairs(routines) do
+			print"work"
 			local status = coroutine.status(routines[i].routine)
 			if status == "dead" then
 				routines[i] = nil
