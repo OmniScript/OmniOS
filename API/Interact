@@ -95,7 +95,7 @@ Layout.addText = function(self,_elementData)
 	self.Text[_elementData.name] = _elementData
 end
 
-Layout.draw = function(self)
+Layout.draw = function(self,xPlus,yPlus)
 	local buttonFunctions = {}
 	local toggleFunctions = {}
 	local colorFieldFunctions = {}
@@ -108,19 +108,19 @@ Layout.draw = function(self)
 	setmetatable(textFunctions,{__index = Text})
 	paintutils.drawFilledBox(self.xPos,self.yPos,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.BackgroundColor)
 	for i,v in pairs(self.ColorField) do
-		colorFieldFunctions.draw(v,self.xPos,self.yPos)
+		colorFieldFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
 	end
 	for i,v in pairs(self.Button) do
-		buttonFunctions.draw(v,self.xPos,self.yPos)
+		buttonFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
 	end
 	for i,v in pairs(self.BetterPaint) do
-		betterPaintFunctions.draw(v,self.xPos,self.yPos)
+		betterPaintFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
 	end
 	for i,v in pairs(self.Toggle) do
-		toggleFunctions.draw(v,self.xPos,self.yPos)
+		toggleFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
 	end
 	for i,v in pairs(self.Text) do
-		textFunctions.draw(v,self.xPos,self.yPos)
+		textFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
 	end
 end
 
@@ -140,6 +140,8 @@ Button.new = function(input)
 	self.returnValue = input.returnValue
 	self.xTextPos = input.xTextPos
 	self.yTextPos = input.yTextPos
+	self.moveX = input.moveX or false
+	self.moveY = input.moveY or false
 	return self
 end
 
@@ -215,6 +217,8 @@ Toggle.new = function(input)
 	self.selectedBg = input.selectedBg or colors.gray
 	self.notSelectedBg = input.notSelectedBg or colors.lightGray
 	self.returnValue = input.returnValue or "mmmmmmm"
+	self.moveX = input.moveX or false
+	self.moveY = input.moveY or false
 	return self
 end
 
@@ -303,6 +307,8 @@ function ColorField.new(input)
 	self.xLength = input.xLength
 	self.yLength = input.yLength
 	self.color = input.color
+	self.moveX = input.moveX or false
+	self.moveY = input.moveY or false
 	return self
 end
 
@@ -348,6 +354,8 @@ function BetterPaint.new(input)
 	self.label = input.label
 	self.labelBg = input.labelBg
 	self.labelFg = input.labelFg
+	self.moveX = input.moveX or false
+	self.moveY = input.moveY or false
 	return self
 end
 
@@ -393,6 +401,8 @@ function Text.new(input)
 	self.yPos = input.yPos
 	self.bgColor = input.bgColor
 	self.fgColor = input.fgColor
+	self.moveX = input.moveX or false
+	self.moveY = input.moveY or false
 	return self
 end
 

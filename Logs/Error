@@ -15,3 +15,12 @@
  Desktop:47: attempt to call nil
  Desktop:47: attempt to call nil
  Terminated
+ Desktop:533: attempt to index ? (a nil value)
+ Desktop:535: attempt to index ? (a nil value)
+ Desktop:535: attempt to index ? (a nil value)
+ Desktop:537: attempt to index ? (a nil value)
+ Desktop:538: attempt to index ? (a nil value)
+ Desktop:423: attempt to index ? (a nil value)
+ Desktop:423: attempt to index ? (a nil value)
+ BetterKernel:33: bad argument: function expected, got string
+ Boot:70: attempt to call nil

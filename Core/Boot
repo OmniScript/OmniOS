@@ -66,8 +66,8 @@ function goOn()
 	--local login = loadfile("TheOS/Core/Login")
 	--login()
 	local kernel = loadfile("TheOS/Core/BetterKernel")
-	--kernel("Desktop","TheOS/Core/Desktop")
-	--dofile("TheOS/Core/BetterKernel","Desktop","TheOS/Core/Desktop")
+	local desktop = loadfile("TheOS/Core/Desktop")
+	kernel("Desktop",desktop)
 	dofile("TheOS/Core/Desktop")
 end
 

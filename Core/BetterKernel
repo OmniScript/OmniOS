@@ -13,14 +13,12 @@ local routinesToKill = {}
 local activeRoutine = ""
 local eventGlobal = true
 
-function newRoutine(name,path,...)
-	print("adding routine")
+function newRoutine(name,func,...)
 	local sName = name
 	name = name.."1"
 	local notUnique = true
 	local tries = 1
 	while notUnique do
-		print("trying")
 		tries = tries + 1
 		if routines[name] ~= nil then
 			name = name:sub(1,-2)..tostring(tries)
@@ -29,15 +27,9 @@ function newRoutine(name,path,...)
 		end
 	end
 	local arguments = {...}
-	local function run(...)
-		os.run(_G,path,...)
-		print("biatch")
-	end
 	routines[name] = {}
-	routines[name].routine = coroutine.create(run)
+	routines[name].routine = coroutine.create(func)
 	if #routines == 0 then
-		print("no freaking routine")
-		print(#routines)
 		routines[name].window = window.create(term.current(),1,1,w-1,h,true)
 		activeRoutine = name
 	else
@@ -46,46 +38,49 @@ function newRoutine(name,path,...)
 	routines[name].title = sName
 	routines[name].arguments = arguments
 	routines[name].hasRun = false
-	print(routines[name].routine)
 end
 
 function main()
+	os.queueEvent("slagadalahssj")
 	while true do
 		routinesToKill = {}
-		event = {os.pullEvent()}
+		event = {os.pullEventRaw()}
 		if event[1] == "key" or event[1] == "mouse_click" or event[1] == "monitor_touch" then
 			eventGlobal = false
 		else
 			eventGlobal = true
 		end
-		for i,v in pairs(routines) do
-			local status = coroutine.status(routines[i].routine)
-			if status == "dead" then
-				--routines[i] = nil
-				routinesToKill[#routinesToKill+1] = i
-			else
-				if routines[i].hasRun == false then
-					routines[i].hasRun = true
-					term.redirect(routines[i].window)
-					coroutine.resume(routines[i].routine,unpack(routines[i].arguments))
-					term.redirect(currTerm)
+		if (event[1] == "mouse_click" or event[1] == "monitor_touch") and event[3] == w then
+			print("ma'am")
+		else
+			for i,v in pairs(routines) do
+				local status = coroutine.status(routines[i].routine)
+				if status == "dead" then
+					routinesToKill[#routinesToKill+1] = i
 				else
-					if i == activeRoutine then
+					if routines[i].hasRun == false then
+						routines[i].hasRun = true
 						term.redirect(routines[i].window)
-						coroutine.resume(routines[i].routine,unpack(event))
+						coroutine.resume(routines[i].routine,unpack(routines[i].arguments))
 						term.redirect(currTerm)
 					else
-						if eventGlobal then
+						if i == activeRoutine then
 							term.redirect(routines[i].window)
 							coroutine.resume(routines[i].routine,unpack(event))
 							term.redirect(currTerm)
+						else
+							if eventGlobal then
+								term.redirect(routines[i].window)
+								coroutine.resume(routines[i].routine,unpack(event))
+								term.redirect(currTerm)
+							end
 						end
 					end
 				end
 			end
-		end
-		for i,v in pairs(routinesToKill) do
-			routines[v] = nil
+			for i,v in pairs(routinesToKill) do
+				routines[v] = nil
+			end
 		end
 	end
 end

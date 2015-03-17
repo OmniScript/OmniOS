@@ -22,7 +22,7 @@
   [ 16 ] = {
     name = "yellow",
     quickSettings = 1,
-	mainButtons  = 1,
+	mainButtons  = 32768,
   },
   [ 2 ] = {
     name = "orange",

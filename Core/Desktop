@@ -17,6 +17,8 @@ local mainLayout = {}
 local quickSettingsLayout = {}
 local mainLayoutTable = {}
 local quickSettingsLayoutTable = {}
+local paths = {}
+local scroll = 0
 
 --Functions--
 local function readFile(_path)
@@ -38,10 +40,11 @@ local function loadShortcuts()
 	local buffer = readFile("TheOS/Desktop/Shortcuts")
 	local sBuffer = textutilsunserialize(buffer)
 	local nBuffer = {}
+	paths = {}
 	for i,v in pairs(sBuffer) do
 		nBuffer[v.name] = {
 			xPos = 2+(6*(v.xPos-1)),
-			yPos = 2+(6*(v.yPos-1)),
+			yPos = 1+(5*(v.yPos-1)),
 			name = v.name,
 			path = v.path..".ico",
 			yLength = 4,
@@ -50,7 +53,9 @@ local function loadShortcuts()
 			label = v.name,
 			labelFg = MatchingColors[Settings.bgColor]["mainButtons"],
 			labelBg = Settings.bgColor,
+			moveY = true,
 		}
+		paths[v.name] = v.path
 	end
 	Main.BetterPaint = nBuffer
 end
@@ -117,26 +122,26 @@ local function loadObjects()
 		name = "Right",
 		label = ">",
 		xPos = w-1,
-		yPos = 4,
+		yPos = 5,
 		xLength = 1,
-		yLength = 3,
+		yLength = 1,
 		xTextPos = 1,
-		yTextPos = 2,
-		fgColor = Settings.bgColor,
-		bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+		yTextPos = 1,
+		fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+		bgColor = MatchingColors[Settings.bgColor]["quickSettings"],
 		returnValue = "Right",
 	},
 	Left = {
 		name = "Left",
 		label = "<",
 		xPos = 2,
-		yPos = 4,
+		yPos = 5,
 		xLength = 1,
-		yLength = 3,
+		yLength = 1,
 		xTextPos = 1,
-		yTextPos = 2,
-		fgColor = Settings.bgColor,
-		bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+		yTextPos = 1,
+		fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+		bgColor = MatchingColors[Settings.bgColor]["quickSettings"],
 		returnValue = "Left",
 	},
 	Green = {
@@ -503,7 +508,7 @@ InitializeGUI()
 
 --Code--
 while true do
-	mainLayout:draw()
+	mainLayout:draw(0,scroll)
 	local result = gui.eventHandler(mainLayout)
 	if result[1] == "Button" then
 		if result[2] == "quickSettings" then
@@ -529,6 +534,15 @@ while true do
 					end
 				end
 			end
+		elseif result[2] == "windowPlus" then
+			scroll = scroll - 51
+		elseif result[2] == "windowMinus" then
+			scroll = scroll + 51
+		else
+			--shell.run(paths[answer[2]])
+			shell.run "clear"
+			print(paths[answer[2]])
+			os.pullEvent()
 		end
 	end
 end
