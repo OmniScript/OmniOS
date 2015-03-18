@@ -11,4 +11,10 @@
 		path = "TheOS/Programs/nPaintPro.app/nPaintPro",
 		name = "nPaintPro"
 	},
+	{
+		xPos = 2,
+		yPos = 3,
+		path = "TheOS/Programs/Aware.app/Aware",
+		name = "Aware"
+	},
 }

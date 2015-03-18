@@ -61,3 +61,5 @@
  Kernel:33: attempt to concatenate string and nil
  Kernel:33: attempt to concatenate string and nil
  Kernel:33: attempt to concatenate string and nil
+ Kernel:78: attempt to index ? (a nil value)
+ Kernel:127: attempt to index ? (a nil value)

@@ -1,0 +1,13 @@
+--[[
+	The Aware Project
+	by Creator
+	for TheOS
+]]--
+
+
+
+--GUI
+if _G.Interact == nil then os.loadAPI("TheOS/API/Interact") end
+
+local gui = Interact.Initialize()
+
