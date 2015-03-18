@@ -38,19 +38,29 @@ local function drawOpen()
 	end
 	local notH = true
 	local switchRoutine = false
+	local toDelete = false
 	while notH do
 		evnt = {os.pullEventRaw("mouse_click")}
 		if w-12 <= evnt[3] and evnt[3] <= w then
+			print(event[3])
 			if xVsProcess[evnt[4]] ~= nil then
 				notH = false
 				switchRoutine = true
+			end
+		elseif w-14 == evnt[3] then
+			term.setCursorPos(w-14,1)
+			print("dick")
+			print(print("himom"))
+			if xVsProcess[evnt[4]] ~= nil then
+				notH = false
+				toDelete = true
 			end
 		else
 			notH = false
 		end
 	end
 	if switchRoutine then
-		term.clear()
+		--term.clear()
 		print(textutils.serialize(xVsProcess))
 		for i,v in pairs(routines) do
 			term.write(i.." ") print(v)
@@ -61,7 +71,9 @@ local function drawOpen()
 		activeRoutine = xVsProcess[evnt[4]]
 		print(activeRoutine)
 		routines[activeRoutine].window.setVisible(true)
-		--os.pullEventRaw()
+	elseif toDelete then
+		if activeRoutine == xVsProcess[evnt[4]] then activeRoutine = "Desktop1" end
+		routines[evnt[4]] = nil
 	end
 	routines[activeRoutine].window.redraw()
 end
@@ -89,7 +101,6 @@ function newRoutine(name,func,...)
 	else
 		routines[name].window = window.create(term.current(),1,1,w-1,h,false)
 	end
-	os.pullEventRaw()
 	routines[name].title = sName
 	routines[name].ID = name
 	routines[name].arguments = arguments
@@ -97,7 +108,7 @@ function newRoutine(name,func,...)
 end
 
 local function main()
-	os.queueEvent("slagadalahssj")
+	os.queueEvent("mouse_click",1,1,1)
 	while true do
 		routinesToKill = {}
 		event = {os.pullEventRaw()}
