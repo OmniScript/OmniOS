@@ -3,11 +3,31 @@
 	by Creator
 	for TheOS
 ]]--
-
-
+--[[
+	First I am doing the mechanics of the program, afterwards I will do the GUI
+]]--
 
 --GUI
-if _G.Interact == nil then os.loadAPI("TheOS/API/Interact") end
+--if _G.Interact == nil then os.loadAPI("TheOS/API/Interact") end
+--local gui = Interact.Initialize()
 
-local gui = Interact.Initialize()
+--Variables--
+local input = ""
 
+
+function getData()
+	local var = http.get("https://raw.githubusercontent.com/TheOnlyCreator/Aware/master/Test/Test")
+	print(var.readAll())
+	os.pullEvent()
+	error()
+end
+
+function main()
+	print("I am listening...")
+	
+end
+
+while true do
+	main()
+	getData()
+end
