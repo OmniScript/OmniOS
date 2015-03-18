@@ -26,27 +26,42 @@ local function drawOpen()
 	paintutils.drawFilledBox(w-15,1,w,h,colors.black)
 	local xVsProcess = {}
 	local curr = 1
+	term.setTextColor(colors.white)
 	for i,v in pairs(routines) do
 		term.setCursorPos(w-14,(curr*2))
 		term.write("x "..v.title)
-		xVsProcess[curr*2] = v.title
+		term.setCursorPos(w-12,(curr*2)+1)
+		term.write(coroutine.status(v.routine))
+		xVsProcess[curr*2] = v.ID
 		curr = curr + 1
 	end
-	for i,v in pairs(xVsProcess) do
-		print(i)
-	end
 	local notH = true
+	local switchRoutine = false
 	while notH do
 		evnt = {os.pullEventRaw("mouse_click")}
 		if w-12 <= evnt[3] and evnt[3] <= w then
 			if xVsProcess[evnt[4]] ~= nil then
 				notH = false
+				switchRoutine = true
 			end
+		else
+			notH = false
 		end
 	end
-	routines[activeRoutine].window.setVisible(false)
-	activeRoutine = xVsProcess[evnt[4]]
-	routines[activeRoutine].window.setVisible(true)
+	if switchRoutine then
+		term.clear()
+		print(textutils.serialize(xVsProcess))
+		for i,v in pairs(routines) do
+			term.write(i.." ") print(v)
+		end
+		print(evnt[4])
+		routines[activeRoutine].window.setVisible( false )
+		print(activeRoutine)
+		activeRoutine = xVsProcess[evnt[4]]
+		print(activeRoutine)
+		routines[activeRoutine].window.setVisible(true)
+		os.pullEventRaw()
+	end
 	routines[activeRoutine].window.redraw()
 end
 
@@ -73,6 +88,7 @@ function newRoutine(name,func,...)
 		routines[name].window = window.create(term.current(),1,1,w-1,h,false)
 	end
 	routines[name].title = sName
+	routines[name].ID = name
 	routines[name].arguments = arguments
 	routines[name].hasRun = false
 end
@@ -96,7 +112,7 @@ local function main()
 				local status = coroutine.status(routines[i].routine)
 				if status == "dead" then
 					routinesToKill[#routinesToKill+1] = i
-					if activeRoutine == i then activeRoutine = "Desktop" end 
+					if activeRoutine == i then activeRoutine = "Desktop1" end 
 				else
 					if routines[i].hasRun == false then
 						routines[i].hasRun = true

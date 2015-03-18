@@ -40,3 +40,15 @@
  Kernel:89: bad argument: thread expected, got nil
  Kernel:49: attempt to index ? (a nil value)
  Kernel:49: attempt to index ? (a nil value)
+ Kernel:41: attempt to compare nil with number
+ Kernel:49: attempt to index ? (a nil value)
+ Kernel:49: attempt to index ? (a nil value)
+ Kernel:52: attempt to index ? (a nil value)
+ Kernel:52: attempt to index ? (a nil value)
+ Kernel:49: bad argument: table expected, got nil
+ Kernel:49: bad argument: table expected, got nil
+ Kernel:55: attempt to index ? (a nil value)
+ Kernel:76: attempt to index ? (a nil value)
+ Kernel:76: attempt to index ? (a nil value)
+ Kernel:65: attempt to index ? (a nil value)
+ Kernel:65: attempt to index ? (a nil value)
