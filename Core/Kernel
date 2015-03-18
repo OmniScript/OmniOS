@@ -13,6 +13,7 @@ local routinesToKill = {}
 local activeRoutine = ""
 local eventGlobal = true
 local halfH = math.floor(h/2 +2)
+local first = true
 
 local function drawClosed()
 	paintutils.drawLine(w,1,w,h,colors.black)
@@ -60,7 +61,7 @@ local function drawOpen()
 		activeRoutine = xVsProcess[evnt[4]]
 		print(activeRoutine)
 		routines[activeRoutine].window.setVisible(true)
-		os.pullEventRaw()
+		--os.pullEventRaw()
 	end
 	routines[activeRoutine].window.redraw()
 end
@@ -81,12 +82,14 @@ function newRoutine(name,func,...)
 	local arguments = {...}
 	routines[name] = {}
 	routines[name].routine = coroutine.create(func)
-	if #routines == 0 then
+	if first then
 		routines[name].window = window.create(term.current(),1,1,w-1,h,true)
 		activeRoutine = name
+		first = false
 	else
 		routines[name].window = window.create(term.current(),1,1,w-1,h,false)
 	end
+	os.pullEventRaw()
 	routines[name].title = sName
 	routines[name].ID = name
 	routines[name].arguments = arguments

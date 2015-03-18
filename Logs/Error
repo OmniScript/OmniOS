@@ -52,3 +52,11 @@
  Kernel:76: attempt to index ? (a nil value)
  Kernel:65: attempt to index ? (a nil value)
  Kernel:65: attempt to index ? (a nil value)
+ Kernel:112: bad argument: thread expected, got nil
+ Kernel:33: attempt to concatenate string and nil
+ Kernel:115: bad argument: thread expected, got nil
+ Kernel:33: attempt to concatenate string and nil
+ Kernel:33: attempt to concatenate string and nil
+ Kernel:33: attempt to concatenate string and nil
+ Kernel:33: attempt to concatenate string and nil
+ Kernel:33: attempt to concatenate string and nil
