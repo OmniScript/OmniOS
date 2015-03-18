@@ -12,8 +12,16 @@
 --local gui = Interact.Initialize()
 
 --Variables--
-local input = ""
+local input = {}
+local buffer = ""
 
+function split(str,sep)
+	local buffer = {}
+	for token in str:gmatch(sep) do
+		buffer[#buffer+1] = token
+	end
+	return buffer
+end
 
 function getData()
 	local var = http.get("https://raw.githubusercontent.com/TheOnlyCreator/Aware/master/Test/Test")
@@ -24,10 +32,21 @@ end
 
 function main()
 	print("I am listening...")
-	
+	buffer = read()
+	input = split(buffer,"[^%s]+")
+	for i,v in pairs(input) do
+		print(v)
+	end
 end
+
+
+--Code--
+
+term.setCursorPos(1,1)
+term.setBackgroundColor(colors.black)
+term.setTextColor(colors.white)
+term.clear()
 
 while true do
 	main()
-	getData()
 end
