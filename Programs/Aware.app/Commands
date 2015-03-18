@@ -1,0 +1,5 @@
+{
+	shutdown = "os.shutdown()",
+	reboot = "os.reboot()",
+	time = "print(\"The time is \"..textutils.formatTime(os.time()))",
+}

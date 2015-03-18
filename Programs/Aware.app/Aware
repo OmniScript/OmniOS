@@ -13,7 +13,7 @@
 
 --Variables--
 local input = {}
-local buffer = ""
+local Commands = {}
 
 function split(str,sep)
 	local buffer = {}
@@ -30,17 +30,49 @@ function getData()
 	error()
 end
 
+local function readFile(_path)
+	local file = fs.open(_path,"r")
+	local data = file.readAll()
+	file.close()
+	return data
+end
+
+function filter()
+	
+end
+
+function redirect(bam)
+	oneWordCommand(bam)
+end
+
+function oneWordCommand(word)
+	if Commands[word] ~= nil then
+		local func = loadstring(Commands[word])
+		func()
+	else
+		print(word)
+		print("Vendetta")
+	end
+end
+
 function main()
 	print("I am listening...")
-	buffer = read()
+	local buffer = read()
 	input = split(buffer,"[^%s]+")
 	for i,v in pairs(input) do
 		print(v)
+	end
+	if #input == 1 then
+		oneWordCommand(input[1])
+	else
+	
 	end
 end
 
 
 --Code--
+local buffer = readFile("TheOS/Programs/Aware.app/Commands")
+Commands = textutils.unserialize(buffer)
 
 term.setCursorPos(1,1)
 term.setBackgroundColor(colors.black)
