@@ -48,13 +48,14 @@ local function drawOpen()
 				switchRoutine = true
 			end
 		elseif w-14 == evnt[3] then
-			term.setCursorPos(w-14,1)
+			term.setCursorPos(evnt[3],evnt[4])
 			print("dick")
-			print(print("himom"))
 			if xVsProcess[evnt[4]] ~= nil then
+				print("himom")
 				notH = false
 				toDelete = true
 			end
+			os.pullEventRaw()
 		else
 			notH = false
 		end
@@ -75,6 +76,8 @@ local function drawOpen()
 		routines[activeRoutine].window.setVisible(true)
 		routines[activeRoutine].window.redraw()
 	elseif toDelete then
+		print("deleting...")
+		os.pullEventRaw()
 		if activeRoutine == xVsProcess[evnt[4]] then activeRoutine = "Desktop1" end
 		routines[evnt[4]] = nil
 		routines[activeRoutine].window.setVisible(true)

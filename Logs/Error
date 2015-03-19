@@ -65,3 +65,5 @@
  Kernel:127: attempt to index ? (a nil value)
  Kernel:127: attempt to index ? (a nil value)
  Kernel:127: attempt to index ? (a nil value)
+ Kernel:45: attempt to call nil
+ Kernel:45: attempt to call nil
