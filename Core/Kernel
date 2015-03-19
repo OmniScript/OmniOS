@@ -60,6 +60,7 @@ local function drawOpen()
 			notH = false
 		end
 	end
+	print(toDelete)
 	if switchRoutine then
 		term.clear()
 		print(textutils.serialize(xVsProcess))
@@ -77,9 +78,10 @@ local function drawOpen()
 		routines[activeRoutine].window.redraw()
 	elseif toDelete then
 		print("deleting...")
+		print()
 		os.pullEventRaw()
 		if activeRoutine == xVsProcess[evnt[4]] then activeRoutine = "Desktop1" end
-		routines[evnt[4]] = nil
+		routines[xVsProcess[evnt[4]]] = nil
 		routines[activeRoutine].window.setVisible(true)
 		routines[activeRoutine].window.redraw()
 	end
