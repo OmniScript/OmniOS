@@ -18,7 +18,6 @@ local path = "TheOS/Programs/Aware.app/"
 local UselessWords = {}
 --Functions--
 
-
 function split(str,sep)
 	local buffer = {}
 	for token in str:gmatch(sep) do
@@ -72,7 +71,7 @@ function redirect(word)
 end
 
 function wordSet(arg)
-	local fromWeb = http.get("https://raw.githubusercontent.com/TheOnlyCreator/Aware/master/WordSets/"..arg)
+	local fromWeb = http.get("https://raw.githubusercontent.com/CodingRevolution/Aware/master/WordSets/"..arg)
 	local buffer = fromWeb.readAll()
 	return split(buffer,"[^\n]+")
 end
@@ -95,7 +94,8 @@ function oneWordCommand(word)
 	else
 		local firstLetter = string.sub(word,1,1)
 		print(firstLetter)
-		local fromWeb = http.get("https://raw.githubusercontent.com/TheOnlyCreator/Aware/master/Actions/"..firstLetter)
+		print(word)
+		local fromWeb = http.get("https://raw.githubusercontent.com/CodingRevolution/Aware/master/Actions/"..firstLetter)
 		local buffer = fromWeb.readAll()
 		local tableFromWeb = textutils.unserialize(buffer)
 		print(tableFromWeb[word])
