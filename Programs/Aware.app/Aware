@@ -14,6 +14,10 @@
 --Variables--
 local input = {}
 local Commands = {}
+local path = "TheOS/Programs/Aware.app/"
+local UselessWords = {}
+--Functions--
+
 
 function split(str,sep)
 	local buffer = {}
@@ -37,21 +41,67 @@ local function readFile(_path)
 	return data
 end
 
-function filter()
-	
+function filter(input)
+	local buffer = {}
+	for i,v in pairs(input) do
+		if UselessWords[v] == true then
+			buffer[#buffer+1] = i
+		end
+	end
+	for i,v in pairs(buffer) do
+		input[i] = nil
+	end
+	buffer = {}
+	for i,v in pairs(input) do
+		local sBuffer = {}
+		local f = ""
+		for token in string.gmatch(v,"[%a]+") do
+			sBuffer[#sBuffer+1] = token
+		end
+		for i,v in pairs(sBuffer) do
+			f = f..v
+		end
+		buffer[#buffer+1] = f
+	end
+	return buffer
 end
 
-function redirect(bam)
-	oneWordCommand(bam)
+function redirect(word)
+	word = string.lower(word)
+	oneWordCommand(word)
+end
+
+function wordSet(arg)
+	local fromWeb = http.get("https://raw.githubusercontent.com/TheOnlyCreator/Aware/master/WordSets/"..arg)
+	local buffer = fromWeb.readAll()
+	return split(buffer,"[^\n]+")
+end
+
+function randomElement(input)
+	local element
+	local buffer = {}
+	for i,v in pairs(input) do
+		buffer[#buffer+1] = i
+	end
+	local rnd = buffer[math.random(1,#buffer)]
+	return input[rnd]
 end
 
 function oneWordCommand(word)
 	if Commands[word] ~= nil then
 		local func = loadstring(Commands[word])
+		setfenv(func, getfenv())
 		func()
 	else
-		print(word)
-		print("Vendetta")
+		local firstLetter = string.sub(word,1,1)
+		print(firstLetter)
+		local fromWeb = http.get("https://raw.githubusercontent.com/TheOnlyCreator/Aware/master/Actions/"..firstLetter)
+		local buffer = fromWeb.readAll()
+		local tableFromWeb = textutils.unserialize(buffer)
+		print(tableFromWeb[word])
+		local func = loadstring(tableFromWeb[word])
+		setfenv(func, getfenv())
+		func()
 	end
 end
 
@@ -60,19 +110,25 @@ function main()
 	local buffer = read()
 	input = split(buffer,"[^%s]+")
 	for i,v in pairs(input) do
-		print(v)
+		input[i] = string.lower(v)
 	end
 	if #input == 1 then
 		oneWordCommand(input[1])
 	else
-	
+		oneWordCommand(filter(input)[1])
 	end
 end
 
 
 --Code--
-local buffer = readFile("TheOS/Programs/Aware.app/Commands")
+local buffer = readFile(path.."Commands")
 Commands = textutils.unserialize(buffer)
+
+local buffer = readFile(path.."UselessWords")
+buffer = split(buffer,"[^\n]+")
+for i,v in pairs(buffer) do
+	UselessWords[v] = true
+end
 
 term.setCursorPos(1,1)
 term.setBackgroundColor(colors.black)

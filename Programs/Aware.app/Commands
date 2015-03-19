@@ -2,4 +2,8 @@
 	shutdown = "os.shutdown()",
 	reboot = "os.reboot()",
 	time = "print(\"The time is \"..textutils.formatTime(os.time()))",
+	hi = "redirect(\"hello\")",
+	hello = "randomElement(wordSet(\"Greetings\"))",
+	exit = "error(\"Thanks for using this thingy thingy!\")",
+	shutup = "redirect(\"exit\")",
 }
