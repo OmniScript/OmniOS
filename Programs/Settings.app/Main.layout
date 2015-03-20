@@ -1,0 +1,30 @@
+local w,h = term.getSize()
+MainTable = {
+	ColorField = {
+		Top = {
+			name = "Top",
+			xPos = 1,
+			yPos = 1,
+			xLength = w,
+			yLength = 3,
+			color = colors.orange,
+			
+		},
+	},
+	Button = {
+		Desktop = {
+			name = "Desktop",
+			label = "Desktop",
+			xPos = 2,
+			yPos = 5,
+			fgColor = colors.white,
+			bgColor = colors.blue,
+			xLength = 9,
+			yLength = 3,
+			returnValue = "Desktop",
+			xTextPos = 2,
+			yTextPos = 2,
+		},
+	},
+}
+return MainTable

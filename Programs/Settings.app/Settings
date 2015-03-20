@@ -12,16 +12,67 @@ local path = "TheOS/Programs/Settings.app/"
 --functions--
 local loadLayout = function(sPath)
 	local func = loadfile(sPath)
+	--dofile(sPath)
 	return func()
 end
 
+local function changeColor(color)
+	local f = fs.open("TheOS/Desktop/Settings","r")
+	local Settings = textutils.unserialize(f.readAll())
+	print(f.readAll())
+	f.close()
+	Settings.bgColor = colors[color] or colors.green
+	local f = fs.open("TheOS/Desktop/Settings","w")
+	f.write(textutils.serialize(Settings))
+	f.close()
+end
 
+local function split(str,sep)
+	local buffer = {}
+	for token in str:gmatch(sep) do
+		buffer[#buffer+1] = token
+	end
+	return buffer
+end
 
 --Code--
 os.loadAPI("TheOS/API/Interact")
 local gui = Interact.Initialize()
+
+--Layouts--
 local MainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
-MainLayout:addBackgroundColor({color = colors.white})
-MainLayoutTable = gui.loadObjects(loadLayout(path.."Settings.layout"))
+local DesktopLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
+
+--MainLayout--
+local MainLayoutTable = gui.loadObjects(loadLayout(path.."Main.layout"))
 gui.loadLayout(MainLayoutTable,MainLayout)
-MainLayout:draw()
+MainLayout:addBackgroundColor({color = colors.white})
+
+--Desktop Layout--
+local DesktopLayoutTable = gui.loadObjects(loadLayout(path.."Desktop.layout"))
+gui.loadLayout(DesktopLayoutTable,DesktopLayout)
+DesktopLayout:addBackgroundColor({color = colors.white})
+
+
+while true do
+	MainLayout:draw()
+	local MainLayoutEvent = gui.eventHandler(MainLayout)
+	if MainLayoutEvent[1] == "Button" then
+		if MainLayoutEvent[2] == "Desktop" then
+			local notClose = true
+			while notClose do
+				DesktopLayout:draw()
+				DesktopLayoutEvent = gui.eventHandler(DesktopLayout)
+				if DesktopLayoutEvent[1] == "Button" then
+					if DesktopLayoutEvent[2] == "Done" then
+						notClose = false
+					else
+						local buffer = split(DesktopLayoutEvent[2],"[^:]+")
+						print(DesktopLayoutEvent[2])
+						changeColor(buffer[2])
+					end
+				end
+			end
+		end
+	end
+end
