@@ -1,0 +1,16 @@
+--[[
+	Settings app
+	by Creator
+	for TheOS
+]]--
+
+--variables--
+local w,h = term.getSize()
+
+--functions--
+os.loadAPI("TheOS/API/Interact")
+local gui = Interact.Initialize()
+local mainTable = gui.Layout.new()
+
+
+

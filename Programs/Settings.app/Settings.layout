@@ -1,0 +1,16 @@
+Main = {
+	ColorField = {
+		Top = {
+			name = "Top",
+			xPos = 1,
+			yPos = 1,
+			xLength = w,
+			yLength = 4,
+			color = colors.orange,
+			
+		},
+	},
+	Button = {
+		
+	},
+}

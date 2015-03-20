@@ -75,3 +75,4 @@
  Boot:70: bios:367: [string Kernel ]:154: 'then' expected
  Boot:70: bios:367: [string Kernel ]:163: 'then' expected
  Kernel:102: attempt to concatenate nil and string
+ Kernel:136: attempt to index ? (a nil value)
