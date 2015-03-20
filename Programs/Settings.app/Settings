@@ -6,18 +6,13 @@
 
 --variables--
 local w,h = term.getSize()
-local MainTable = {}
+local MainLayoutTable = {}
 local path = "TheOS/Programs/Settings.app/"
 
 --functions--
-local loadLayout = function()
-	--local file = fs.open(path.."Settings.layout","r")
-	--local inside = file.readAll()
-	--file.close()
-	--local func = loadstring(inside)
-	--setfenv(func, getfenv())
-	--func()
-	shell.run(path.."Settings.layout")
+local loadLayout = function(sPath)
+	local func = loadfile(sPath)
+	return func()
 end
 
 
@@ -25,7 +20,7 @@ end
 --Code--
 os.loadAPI("TheOS/API/Interact")
 local gui = Interact.Initialize()
-local mainTable = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
-loadLayout()
-print(textutils.serialize(MainTable))
-print("Hasta la vista, Baby!")
+local MainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
+MainLayoutTable = gui.loadObjects(loadLayout(path.."Settings.layout"))
+gui.loadLayout(MainLayoutTable,MainLayout)
+MainLayout:draw()

@@ -47,8 +47,22 @@ function loadObjects(self)
 	return output
 end
 
-function loadLayout()
-
+function loadLayout(input,output)
+	for i,v in pairs(input.Button) do
+		output:addButton(input.Button[i]:returnData())
+	end
+	for i,v in pairs(input.Toggle) do
+		output:addToggle(input.Toggle[i]:returnData())
+	end
+	for i,v in pairs(input.ColorField) do
+		output:addColorField(input.ColorField[i]:returnData())
+	end
+	for i,v in pairs(input.BetterPaint) do
+		output:addBetterPaint(input.BetterPaint[i]:returnData())
+	end
+	for i,v in pairs(input.Text) do
+		output:addText(input.Text[i]:returnData())
+	end
 end
 
 --Class Layout--
@@ -484,5 +498,6 @@ function Initialize()
 	toReturn.Text = Text
 	toReturn.eventHandler = eventHandler
 	toReturn.loadObjects = loadObjects
+	toReturn.loadLayout = loadLayout
 	return toReturn
 end
