@@ -1,4 +1,5 @@
-return {
+local w,h = term.getSize()
+MainTable = {
 	ColorField = {
 		Top = {
 			name = "Top",
@@ -7,9 +8,8 @@ return {
 			xLength = w,
 			yLength = 4,
 			color = colors.orange,
+			
 		},
 	},
-	Button = {
-		
-	},
 }
+return MainTable

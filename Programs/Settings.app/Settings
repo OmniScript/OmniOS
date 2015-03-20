@@ -21,6 +21,7 @@ end
 os.loadAPI("TheOS/API/Interact")
 local gui = Interact.Initialize()
 local MainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
+MainLayout:addBackgroundColor({color = colors.white})
 MainLayoutTable = gui.loadObjects(loadLayout(path.."Settings.layout"))
 gui.loadLayout(MainLayoutTable,MainLayout)
 MainLayout:draw()

@@ -343,6 +343,7 @@ function  ColorField.draw(self,layoutX,layoutY,addX,addY)
 	local finalY = self.yPos + layoutY + addY - 1
 	self.finalX = finalX
 	self.finalY = finalY
+	term.setTextColor(colors.black)
 	paintutils.drawFilledBox(finalX,finalY,finalX+self.xLength-1,finalY+self.yLength-1,self.color)
 end
 
