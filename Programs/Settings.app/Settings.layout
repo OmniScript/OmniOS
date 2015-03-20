@@ -1,4 +1,4 @@
-Main = {
+MainTable = {
 	ColorField = {
 		Top = {
 			name = "Top",
@@ -14,3 +14,6 @@ Main = {
 		
 	},
 }
+print("Biatch")
+print(MainTable.ColorField.Top.color)
+print(textutils.serialize(MainTable))
