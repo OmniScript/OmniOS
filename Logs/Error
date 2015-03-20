@@ -67,3 +67,11 @@
  Kernel:127: attempt to index ? (a nil value)
  Kernel:45: attempt to call nil
  Kernel:45: attempt to call nil
+ Kernel:77: attempt to index ? (a nil value)
+ Kernel:78: attempt to index ? (a nil value)
+ Boot:71: attempt to call nil
+ Boot:70: bios:367: [string Kernel ]:154: 'then' expected
+ Boot:72: attempt to call nil
+ Boot:70: bios:367: [string Kernel ]:154: 'then' expected
+ Boot:70: bios:367: [string Kernel ]:163: 'then' expected
+ Kernel:102: attempt to concatenate nil and string
