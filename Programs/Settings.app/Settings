@@ -88,6 +88,10 @@ while true do
 					if SecurityLayoutEvent[2] == "Password" then
 						local newPass = SecurityLayout.TextBox.Password:read()
 					end
+				elseif SecurityLayoutEvent[1] == "Button" then
+					if SecurityLayoutEvent[2] == "Done" then
+						notClose = false
+					end
 				end
 			end
 		end

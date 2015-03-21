@@ -32,7 +32,7 @@ MainTable = {
 	TextBox = {
 		Password = {
 			name = "Password",
-			helpText = "Click on me!",
+			helpText = "Change password...",
 			xPos = 20,
 			yPos = 5,
 			xLength = 30,
@@ -44,6 +44,21 @@ MainTable = {
 			confidential = true,
 			returnValue = "Password",
 		}
+	},
+	Button = {
+		Done = {
+			name = "Done",
+			label = "Done",
+			xPos = w-6,
+			yPos = h-3,
+			fgColor = colors.white,
+			bgColor = colors.green,
+			xLength = 6,
+			yLength = 3,
+			returnValue = "Done",
+			xTextPos = 2,
+			yTextPos = 2,
+		},
 	},
 }
 return MainTable
