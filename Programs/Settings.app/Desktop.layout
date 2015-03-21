@@ -243,6 +243,14 @@ MainTable = {
 			bgColor = colors.white,
 			fgColor = colors.black,
 		},
+		Title = {
+			name = "Title",
+			text = "Settings/Desktop",
+			xPos = 2,
+			yPos = 2,
+			fgColor = colors.white,
+			bgColor = colors.orange,
+		},
 	},
 }
 return MainTable

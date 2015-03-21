@@ -477,7 +477,7 @@ function TextBox.new(input)
 	local self = {}
 	setmetatable(self,{__index = TextBox})
 	self.name = input.name
-	self.helpText = input.helpTtext
+	self.helpText = input.helpText
 	self.xPos = input.xPos
 	self.yPos = input.yPos
 	self.xLength = input.xLength
@@ -488,6 +488,7 @@ function TextBox.new(input)
 	self.charLimit = input.charLimit
 	self.moveX = input.moveX or false
 	self.moveY = input.moveY or false
+	self.text = ""
 	return self
 end
 
@@ -516,7 +517,11 @@ function TextBox.draw(self,layoutX,layoutY,addX,addY)
 	local finalY = self.yPos + layoutY + addY - 1
 	self.finalX = finalX
 	self.finalY = finalY
-	paintutils.drawFilledBox(finalX,finalY,finalX+self.xLength-1,finalX+self.yLength-1,self.bgColor)
+	paintutils.drawFilledBox(finalX,finalY,finalX+self.xLength-1,finalY+self.yLength-1,self.bgColor)
+	term.setTextColor(self.helpFgColor)
+	term.setBackgroundColor(self.bgColor)
+	term.setCursorPos(self.xPos,self.yPos)
+	term.write(self.helpText)
 end
 
 --Event handler function--
@@ -537,6 +542,11 @@ eventHandler = function(self)
 			for i,v in pairs(self.BetterPaint) do 
 				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
 					return {"Button",tostring(v.returnValue)}
+				end
+			end
+			for i,v in pairs(self.TextBox) do 
+				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
+					return {"TextBox",tostring(v.returnValue)}
 				end
 			end
 			if self.nilClick then

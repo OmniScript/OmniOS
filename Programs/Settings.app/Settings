@@ -42,6 +42,7 @@ local gui = Interact.Initialize()
 --Layouts--
 local MainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 local DesktopLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
+local SecurityLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 
 --MainLayout--
 local MainLayoutTable = gui.loadObjects(loadLayout(path.."Main.layout"))
@@ -52,6 +53,11 @@ MainLayout:addBackgroundColor({color = colors.white})
 local DesktopLayoutTable = gui.loadObjects(loadLayout(path.."Desktop.layout"))
 gui.loadLayout(DesktopLayoutTable,DesktopLayout)
 DesktopLayout:addBackgroundColor({color = colors.white})
+
+--SecurityLayout--
+local SecurityLayoutTable = gui.loadObjects(loadLayout(path.."Security.layout"))
+gui.loadLayout(SecurityLayoutTable,SecurityLayout)
+SecurityLayout:addBackgroundColor({color = colors.white})
 
 
 while true do
@@ -73,6 +79,9 @@ while true do
 					end
 				end
 			end
+		elseif MainLayoutEvent[2] == "Security" then
+			SecurityLayout:draw()
+			SecurityLayoutEvent = gui.eventHandler(SecurityLayout)
 		end
 	end
 end
