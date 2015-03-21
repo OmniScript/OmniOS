@@ -549,6 +549,10 @@ function TextBox.read(self)
 		if event[1] == "key" then
 			if event[2] == keys.enter then
 				notDone = false
+			elseif event[2] == keys.left then
+				cursorPos = cursorPos - 1
+			elseif event[2] == keys.right then
+				cursorPos = cursorPos + 1 
 			end
 		end
 	end
