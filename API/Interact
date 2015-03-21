@@ -534,13 +534,15 @@ function TextBox.read(self)
 	local text = self.text
 	local notDone = true
 	local cursorPos = 1
+	local l
 	paintutils.drawFilledBox(self.finalX,self.finalY,self.finalX+self.xLength-1,self.finalY+self.yLength-1,self.bgColor)
 	term.setTextColor(self.fgColor)
 	if self.text == "" or self.confidential then
 		term.setCursorPos(self.finalX,self.finalY)
 	else
-		local l = self.text:length()
+		l = text:len()
 		term.setCursorPos(self.finalX+l,self.finalY)
+		term.write(text)
 	end
 	
 	term.setCursorBlink(true)
@@ -552,7 +554,19 @@ function TextBox.read(self)
 			elseif event[2] == keys.left then
 				cursorPos = cursorPos - 1
 			elseif event[2] == keys.right then
-				cursorPos = cursorPos + 1 
+				cursorPos = cursorPos + 1
+			else
+				text = string.sub(text,1,cursorPos)..string.char(event[2])..string.sub(text,cursorPos+1,-1)
+				paintutils.drawFilledBox(self.finalX,self.finalY,self.finalX+self.xLength-1,self.finalY+self.yLength-1,self.bgColor)
+				if text == "" then
+					l = 0
+				else
+					l = string.len(text)
+				end
+				term.setCursorPos(self.finalX+l,self.finalY)
+				term.write(text)
+				print(event[2])
+				string.char(event[2])
 			end
 		end
 	end
