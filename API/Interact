@@ -16,6 +16,7 @@ local BackgroundColor = {}
 local ColorField = {}
 local BetterPaint = {}
 local Text = {}
+local TextBox = {}
 
 function loadObjects(self)
 	local output = {}
@@ -24,6 +25,7 @@ function loadObjects(self)
 	output.ColorField = {}
 	output.BetterPaint = {}
 	output.Text = {}
+	output.TextBox = {}
 	for o,v in pairs(output) do
 		if self[o] == nil then
 			self[o] = {}
@@ -44,6 +46,9 @@ function loadObjects(self)
 	for i,v in pairs(self.Text) do
 		output.Text[i] = Text.new(self.Text[i])
 	end
+	for i,v in pairs(self.TextBox) do
+		output.TextBox[i] = TextBox.new(self.TextBox[i])
+	end
 	return output
 end
 
@@ -63,6 +68,9 @@ function loadLayout(input,output)
 	for i,v in pairs(input.Text) do
 		output:addText(input.Text[i]:returnData())
 	end
+	for i,v in pairs(input.TextBox) do
+		output:addTextBox(input.TextBox[i]:returnData())
+	end
 end
 
 --Class Layout--
@@ -75,6 +83,7 @@ Layout.new = function(input)
 	self.ColorField = {}
 	self.BetterPaint = {}
 	self.Text = {}
+	self.TextBox = {}
 	self.BackgroundColor = 1
 	self.xPos = input.xPos or 1
 	self.yPos = input.yPos or 1
@@ -109,17 +118,24 @@ Layout.addText = function(self,_elementData)
 	self.Text[_elementData.name] = _elementData
 end
 
+Layout.addTextBox = function(self,_elementData)
+	self.TextBox[_elementData.name]
+	= _elementData
+end
+
 Layout.draw = function(self,xPlus,yPlus)
 	local buttonFunctions = {}
 	local toggleFunctions = {}
 	local colorFieldFunctions = {}
 	local betterPaintFunctions = {}
 	local textFunctions = {}
+	local textBoxFunctions = {}
 	setmetatable(buttonFunctions,{__index = Button})
 	setmetatable(toggleFunctions,{__index = Toggle})
 	setmetatable(colorFieldFunctions,{__index = ColorField})
 	setmetatable(betterPaintFunctions,{__index = BetterPaint})
 	setmetatable(textFunctions,{__index = Text})
+	setmetatable(textBoxFunctions,{__index = TextBox})
 	paintutils.drawFilledBox(self.xPos,self.yPos,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.BackgroundColor)
 	for i,v in pairs(self.ColorField) do
 		colorFieldFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
@@ -135,6 +151,9 @@ Layout.draw = function(self,xPlus,yPlus)
 	end
 	for i,v in pairs(self.Text) do
 		textFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
+	end
+	for i,v in pairs(self.TextBox) do
+		textBoxFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
 	end
 end
 
@@ -452,6 +471,54 @@ function Text.returnData(self)
 	return toReturn
 end
 
+--TextBox Class 
+
+function TextBox.new(input)
+	local self = {}
+	setmetatable(self,{__index = TextBox})
+	self.name = input.name
+	self.helpText = input.helpTtext
+	self.xPos = input.xPos
+	self.yPos = input.yPos
+	self.xLength = input.xLength
+	self.yLength = input.yLength
+	self.bgColor = input.bgColor
+	self.fgColor = input.fgColor
+	self.helpFgColor = input.helpFgColor
+	self.charLimit = input.charLimit
+	self.moveX = input.moveX or false
+	self.moveY = input.moveY or false
+	return self
+end
+
+function TextBox.returnData(self)
+	local toReturn = {}
+	for i,v in pairs(self) do
+		toReturn[i] = v
+	end
+	return toReturn
+end
+
+function TextBox.draw(self,layoutX,layoutY,addX,addY)
+	if layoutX == nil then layoutX = 0 end
+	if layoutY == nil then layoutY = 0 end
+	if self.moveX then
+		if laddX == nil then addX = 0 end
+	else
+		addX = 0
+	end
+	if self.moveY then
+		if addY == nil then addY = 0 end
+	else
+		addY = 0
+	end
+	local finalX = self.xPos + layoutX + addX - 1
+	local finalY = self.yPos + layoutY + addY - 1
+	self.finalX = finalX
+	self.finalY = finalY
+	paintutils.drawFilledBox(finalX,finalY,finalX+self.xLength-1,finalX+self.yLength-1,self.bgColor)
+end
+
 --Event handler function--
 eventHandler = function(self)
 	while true do
@@ -468,9 +535,7 @@ eventHandler = function(self)
 				end
 			end
 			for i,v in pairs(self.BetterPaint) do 
-				if v.finalX <= p2 and 
-				p2 <= v.finalX + v.xLength-1 and
-				v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
+				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
 					return {"Button",tostring(v.returnValue)}
 				end
 			end
@@ -497,6 +562,7 @@ function Initialize()
 	toReturn.ColorField = ColorField
 	toReturn.BetterPaint = BetterPaint
 	toReturn.Text = Text
+	toReturn.TextBox = TextBox
 	toReturn.eventHandler = eventHandler
 	toReturn.loadObjects = loadObjects
 	toReturn.loadLayout = loadLayout
