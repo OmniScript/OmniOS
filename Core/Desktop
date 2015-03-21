@@ -523,6 +523,9 @@ while true do
 						os.shutdown()
 					elseif answer[2] == "Close" then
 						notClose = false
+					elseif answer[2] == "settings" then
+					local func = loadfile("TheOS/Programs/Settings.app/Settings")
+						System.newTask("Settings",func)
 					else
 						local buffer = split(answer[2],"[^:]+")
 						changeColor(buffer[2])
