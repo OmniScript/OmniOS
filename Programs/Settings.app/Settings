@@ -82,6 +82,7 @@ while true do
 		elseif MainLayoutEvent[2] == "Security" then
 			SecurityLayout:draw()
 			SecurityLayoutEvent = gui.eventHandler(SecurityLayout)
+			SecurityLayout.TextBox.Password:read()
 		end
 	end
 end

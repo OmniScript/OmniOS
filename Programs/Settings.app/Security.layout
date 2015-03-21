@@ -30,17 +30,18 @@ MainTable = {
 		},
 	},
 	TextBox = {
-		Test = {
-			name = "Test",
-			helpText = "bi",
+		Password = {
+			name = "Password",
+			helpText = "Click on me!",
 			xPos = 20,
 			yPos = 5,
-			xLength = 13,
+			xLength = 30,
 			yLength = 1,
 			bgColor = colors.lightGray,
 			fgColor = colors.black,
 			helpFgColor = colors.gray,
 			charLimit = 4,
+			confidential = true,
 		}
 	},
 }

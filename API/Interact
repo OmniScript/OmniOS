@@ -54,22 +54,22 @@ end
 
 function loadLayout(input,output)
 	for i,v in pairs(input.Button) do
-		output:addButton(input.Button[i]:returnData())
+		output:addButton(input.Button[i])
 	end
 	for i,v in pairs(input.Toggle) do
-		output:addToggle(input.Toggle[i]:returnData())
+		output:addToggle(input.Toggle[i])
 	end
 	for i,v in pairs(input.ColorField) do
-		output:addColorField(input.ColorField[i]:returnData())
+		output:addColorField(input.ColorField[i])
 	end
 	for i,v in pairs(input.BetterPaint) do
-		output:addBetterPaint(input.BetterPaint[i]:returnData())
+		output:addBetterPaint(input.BetterPaint[i])
 	end
 	for i,v in pairs(input.Text) do
-		output:addText(input.Text[i]:returnData())
+		output:addText(input.Text[i])
 	end
 	for i,v in pairs(input.TextBox) do
-		output:addTextBox(input.TextBox[i]:returnData())
+		output:addTextBox(input.TextBox[i])
 	end
 end
 
@@ -489,6 +489,7 @@ function TextBox.new(input)
 	self.moveX = input.moveX or false
 	self.moveY = input.moveY or false
 	self.text = ""
+	self.confidential = input.confidential or false
 	return self
 end
 
@@ -518,10 +519,40 @@ function TextBox.draw(self,layoutX,layoutY,addX,addY)
 	self.finalX = finalX
 	self.finalY = finalY
 	paintutils.drawFilledBox(finalX,finalY,finalX+self.xLength-1,finalY+self.yLength-1,self.bgColor)
-	term.setTextColor(self.helpFgColor)
 	term.setBackgroundColor(self.bgColor)
-	term.setCursorPos(self.xPos,self.yPos)
-	term.write(self.helpText)
+	term.setCursorPos(self.finalX,self.finalY)
+	if self.text == "" or self.confidential then
+		term.setTextColor(self.helpFgColor)
+		term.write(self.helpText)
+	else
+		term.setTextColor(self.fgColor)
+		term.write(self.text)
+	end
+end
+
+function TextBox.read(self)
+	local text = self.text
+	local notDone = true
+	local cursorPos = 1
+	paintutils.drawFilledBox(self.finalX,self.finalY,self.finalX+self.xLength-1,self.finalY+self.yLength-1,self.bgColor)
+	term.setTextColor(self.fgColor)
+	if self.text == "" or self.confidential then
+		term.setCursorPos(self.finalX,self.finalY)
+	else
+		local l = self.text:length()
+		term.setCursorPos(self.finalX+l,self.finalY)
+	end
+	
+	term.setCursorBlink(true)
+	while notDone do
+		event = {os.pullEvent()}
+		if event[1] == "key" then
+			if event[2] == keys.enter then
+				notDone = false
+			end
+		end
+	end
+	term.setCursorBlink(false)
 end
 
 --Event handler function--
