@@ -42,6 +42,7 @@ MainTable = {
 			helpFgColor = colors.gray,
 			charLimit = 4,
 			confidential = true,
+			returnValue = "Password",
 		}
 	},
 }

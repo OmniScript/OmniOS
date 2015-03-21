@@ -80,9 +80,16 @@ while true do
 				end
 			end
 		elseif MainLayoutEvent[2] == "Security" then
-			SecurityLayout:draw()
-			SecurityLayoutEvent = gui.eventHandler(SecurityLayout)
-			SecurityLayout.TextBox.Password:read()
+			local notClose = true
+			while notClose do
+				SecurityLayout:draw()
+				SecurityLayoutEvent = gui.eventHandler(SecurityLayout)
+				if SecurityLayoutEvent[1] == "TextBox" then
+					if SecurityLayoutEvent[2] == "Password" then
+						local newPass = SecurityLayout.TextBox.Password:read()
+					end
+				end
+			end
 		end
 	end
 end

@@ -489,6 +489,7 @@ function TextBox.new(input)
 	self.moveX = input.moveX or false
 	self.moveY = input.moveY or false
 	self.text = ""
+	self.returnValue = input.returnValue
 	self.confidential = input.confidential or false
 	return self
 end
