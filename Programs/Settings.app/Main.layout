@@ -8,7 +8,6 @@ MainTable = {
 			xLength = w,
 			yLength = 3,
 			color = colors.orange,
-			
 		},
 	},
 	Button = {
