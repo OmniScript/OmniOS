@@ -1,0 +1,79 @@
+--[[
+	Sandbox 
+	environment
+	by Creator
+	for TheOS
+]]--
+
+--Variables--
+local CustomEnvironement = {}
+local oldGetfenv = getfenv
+--Functions--
+
+function newEnv(permission)
+	if permission == "admin" then
+		return "global"
+	else
+		return "custom" , customEnv()
+	end
+end
+
+local function customEnv()
+	return CustomEnvironement = {
+		redstone =redstone,
+		gps = gps,
+		_VERSION = _VERSION,
+		keys = keys,
+		printError = printError,
+		peripheral = peripheral,
+		assert = assert,
+		getfenv = function() oldGetfenv() end,
+		bit = bit,
+		rawset = rawset,
+		tonumber = tonumber,
+		loadstring = loadstring,
+		error = error,
+		tostring = tostring,
+		type = type,
+		coroutine = coroutine,
+		disk = 
+		window 
+		next 
+		unpack 
+		colours 
+		pcall 
+		sleep 
+		loadfile 
+		math 
+		pairs 
+		fs 
+		rawget 
+		_G 
+		__inext 
+		read 
+		rednet 
+		ipairs 
+		xpcall 
+		os 
+		help 
+		io 
+		rawequal 
+		setfenv 
+		rs 
+		http 
+		write 
+		string 
+		setmetatable 
+		print 
+		getmetatable 
+		table 
+		parallel 
+		dofile 
+		textutils 
+		term 
+		colors 
+		vector 
+		select 
+		paintutils 
+	},
+end
