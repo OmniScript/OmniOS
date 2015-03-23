@@ -58,7 +58,22 @@ local function customEnv()
 		math = math,
 		pairs = pairs,
 		fs = {
-		
+			combine = fs.combine,
+			isReadOnly = fs.isReadOnly,
+			getSize = fs.getSize,
+			move = 
+			exists
+			copy
+			getFreeSpace
+			makeDir
+			find
+			getDir
+			delete
+			open
+			list
+			getDrive
+			getName
+			isDir
 		},
 		rawget 
 		_G 
