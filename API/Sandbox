@@ -64,6 +64,26 @@ local function copy(a,b)
 	end
 end
 
+local function isReadOnly(path)
+	local isReadOnlyVar = false
+	file = fs.open("TheOS/Filesystem/Filesystem")
+	local fileBuffer = file.readAll()
+	file.close()
+	if fs.isDir(path) then
+		local dirPermissions = textutils.unserialize(buffer)["dir"]
+		buffer = {}
+		for token in string.gmatch(path,"[^/]+") do
+			buffer[#buffer+1] = token
+		end
+		local check = function(input,pathTable,index)
+			local nextIndex = index + 1
+			if input.[".tag"] == "admin" 
+		end
+	else
+	
+	end
+end
+
 local function customEnv()
 	return CustomEnvironement = {
 		redstone = redstone,
@@ -110,16 +130,16 @@ local function customEnv()
 		pairs = pairs,
 		fs = {
 			combine = fs.combine,
-			isReadOnly = fs.isReadOnly,
+			isReadOnly = isReadOnly,
 			getSize = fs.getSize,
 			move = function(a,b)
 				copy(a,b)
 				fs.delete(a)
-			end,
-			exists
+				end,
+			exists = fs.exists,
 			copy = copy(a,b)
-			getFreeSpace
-			makeDir
+			getFreeSpace = fs.getFreeSpace,
+			makeDir = 
 			find
 			getDir
 			delete
