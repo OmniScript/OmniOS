@@ -1,28 +1,35 @@
 {
-  Logs = {},
-  Desktop = {
-    Settings = "admin",
-    QuickSettings = {
-      [ "restart.ico" ] = "admin",
-      [ "settings.ico" ] = "admin",
-      [ "shutdown.ico" ] = "admin",
-    },
-    MatchingColors = "admin",
-    MatchingColorsT = "admin",
-    Shortcuts = "admin",
-  },
-  [ "README.md" ] = "admin",
   Media = {
     Boot = {
       [ "Boot_Logo.nfp" ] = "admin",
       [ "Boot_Hide.nfp" ] = "admin",
     },
   },
-  ShitIdontNeedNow = {
-    toggles = "admin",
+  [ "README.md" ] = "admin",
+  Settings = {
+    Language = {
+      CurrentLang = "admin",
+    },
+    Users = {
+      holden = "admin",
+    },
   },
   Filesystem = {
+    TableGenerator = {
+      [ "FilesystemGen (2)" ] = "admin",
+      FilesystemGen = "admin",
+    },
     Filesystem = "admin",
+  },
+  Data = {
+    [ ".toGitHub" ] = "admin",
+  },
+  Languages = {
+    [ "Boot_EN.lang" ] = "admin",
+  },
+  Boot = "admin",
+  ShitIdontNeedNow = {
+    toggles = "admin",
   },
   Core = {
     Kernel = "admin",
@@ -34,10 +41,6 @@
     Test = "admin",
     Login = "admin",
     Desktop = "admin",
-  },
-  Boot = "admin",
-  Data = {
-    [ ".toGitHub" ] = "admin",
   },
   API = {
     Sha = "admin",
@@ -78,15 +81,15 @@
       nPaintPro = "admin",
     },
   },
-  Languages = {
-    [ "Boot_EN.lang" ] = "admin",
-  },
-  Settings = {
-    Language = {
-      CurrentLang = "admin",
+  Desktop = {
+    Settings = "admin",
+    QuickSettings = {
+      [ "restart.ico" ] = "admin",
+      [ "settings.ico" ] = "admin",
+      [ "shutdown.ico" ] = "admin",
     },
-    Users = {
-      holden = "admin",
-    },
+    MatchingColors = "admin",
+    MatchingColorsT = "admin",
+    Shortcuts = "admin",
   },
 }

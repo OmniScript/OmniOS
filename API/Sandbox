@@ -19,6 +19,50 @@ function newEnv(permission)
 	end
 end
 
+local function move()
+	local filesystem = {}
+
+	local function readFile(path)
+		local file = fs.open(path,"r")
+		local variable = file.readAll()
+		file.close()
+		return variable
+	end
+	
+	local function writeFile(path,content)
+		local file = fs.open(path,"r")
+		file.write(content)
+		file.close()
+	end
+	
+	local function explore(dir)
+		local buffer = {}
+		local sBuffer = fs.list(dir)
+		for i,v in pairs(sBuffer) do
+			sleep(0.05)
+			if fs.isDir(dir.."/"..v) then
+				if v ~= ".git" then
+					buffer[v] = explore(dir.."/"..v)
+				end
+			else
+				buffer[v] = readFile(dir.."/"..v)
+			end
+		end
+		return buffer
+	end
+	filesystem = explore("TheOS")
+	
+	function writeDown(input,dir)
+		for i,v in pairs(input) do
+			if type(v) == "table" then
+				writeDown(v,dir.."/"..i)
+			elseif type(v) == "string" then
+				
+			end
+		end
+	end
+end
+
 local function customEnv()
 	return CustomEnvironement = {
 		redstone = redstone,
@@ -67,7 +111,9 @@ local function customEnv()
 			combine = fs.combine,
 			isReadOnly = fs.isReadOnly,
 			getSize = fs.getSize,
-			move = 
+			move = function(a,b)
+				
+			end,
 			exists
 			copy
 			getFreeSpace
