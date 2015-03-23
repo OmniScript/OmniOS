@@ -1,0 +1,92 @@
+{
+  Logs = {},
+  Desktop = {
+    Settings = "admin",
+    QuickSettings = {
+      [ "restart.ico" ] = "admin",
+      [ "settings.ico" ] = "admin",
+      [ "shutdown.ico" ] = "admin",
+    },
+    MatchingColors = "admin",
+    MatchingColorsT = "admin",
+    Shortcuts = "admin",
+  },
+  [ "README.md" ] = "admin",
+  Media = {
+    Boot = {
+      [ "Boot_Logo.nfp" ] = "admin",
+      [ "Boot_Hide.nfp" ] = "admin",
+    },
+  },
+  ShitIdontNeedNow = {
+    toggles = "admin",
+  },
+  Filesystem = {
+    Filesystem = "admin",
+  },
+  Core = {
+    Kernel = "admin",
+    Kernelshit = "admin",
+    Boot = "admin",
+    Crash = "admin",
+    DesktopOld = "admin",
+    LoadAPIs = "admin",
+    Test = "admin",
+    Login = "admin",
+    Desktop = "admin",
+  },
+  Boot = "admin",
+  Data = {
+    [ ".toGitHub" ] = "admin",
+  },
+  API = {
+    Sha = "admin",
+    System = "admin",
+    paint = "admin",
+    gui = "admin",
+    Sandbox = "admin",
+    Interact = "admin",
+    paintshit = "admin",
+  },
+  Programs = {
+    [ "FileX.app" ] = {
+      [ "FileX.ico" ] = "admin",
+      [ "FileX.permissions" ] = "admin",
+      [ "local" ] = {
+        shell = "admin",
+        nPaintPro = "admin",
+        edit = "admin",
+      },
+      FileX = "admin",
+    },
+    [ "Settings.app" ] = {
+      Settings = "admin",
+      [ "Desktop.layout" ] = "admin",
+      [ "Settings.ico" ] = "admin",
+      [ "Security.layout" ] = "admin",
+      [ "Main.layout" ] = "admin",
+    },
+    [ "Aware.app" ] = {
+      Commands = "admin",
+      Aware = "admin",
+      [ "Aware.ico" ] = "admin",
+      [ "Aware.layout" ] = "admin",
+      UselessWords = "admin",
+    },
+    [ "nPaintPro.app" ] = {
+      [ "nPaintPro.ico" ] = "admin",
+      nPaintPro = "admin",
+    },
+  },
+  Languages = {
+    [ "Boot_EN.lang" ] = "admin",
+  },
+  Settings = {
+    Language = {
+      CurrentLang = "admin",
+    },
+    Users = {
+      holden = "admin",
+    },
+  },
+}
