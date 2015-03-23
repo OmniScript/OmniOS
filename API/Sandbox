@@ -19,6 +19,25 @@ function newEnv(permission)
 	end
 end
 
+local function makeDir(path)
+	local parentPath = ""
+	local buffer = {}
+	for token in string.gmatch(path,"[^/]+") do
+		buffer[#buffer+1] = token
+	end
+	for i=1,#buffer-1 do
+		parentPath = parentPath.."/"..buffer[i]
+	end
+	local _,permission = isReadOnly(parentPath)
+	if permission == "admin" then
+		
+	elseif permission == "user" then
+	
+	elseif permission == "public" then
+		fs.makeDir(path)
+	end
+end
+
 local function copy(a,b)
 	local function readFile(path)
 		local file = fs.open(path,"r")
@@ -65,22 +84,36 @@ local function copy(a,b)
 end
 
 local function isReadOnly(path)
-	local isReadOnlyVar = false
-	file = fs.open("TheOS/Filesystem/Filesystem")
-	local fileBuffer = file.readAll()
+	local permission = ""
+	local toRun = ""
+	local tableFormatPath = ""
+	local file = fs.open("TheOS/Filesystem/Filesystem","r")
+	local filePermissions = textutils.unserialize(file.readAll())
 	file.close()
+	local pathTable = {}
+	for token in string.gmatch(path,"[^/]+") do
+		pathTable[#pathTable+1] = token
+	end
+	token = nil
+	for i = 2,#pathTable do
+		tableFormatPath = tableFormatPath.."."..pathTable[i]
+	end
+	i = nil
+	tableFormatPath = string.sub(tableFormatPath,2,-1)
 	if fs.isDir(path) then
-		local dirPermissions = textutils.unserialize(buffer)["dir"]
-		buffer = {}
-		for token in string.gmatch(path,"[^/]+") do
-			buffer[#buffer+1] = token
-		end
-		local check = function(input,pathTable,index)
-			local nextIndex = index + 1
-			if input.[".tag"] == "admin" 
-		end
+		tableFormatPath = "filePermissions.dir."..tableFormatPath..".[\".tag\"]"
 	else
-	
+		tableFormatPath = "filePermissions.files."..tableFormatPath
+	end
+	local func = loadstring("permission = "..tableFormatPath)
+	local env = {permission = permission,filePermissions = filePermissions}
+	setfenv(func,env)
+	func()
+	permission = env.permission
+	if permission == "admin" or permission == "user" then
+		return true, permission
+	elseif permission == "public" then
+		return false, permission
 	end
 end
 
@@ -104,7 +137,7 @@ local function customEnv()
 		bit = bit,
 		rawset = rawset,
 		tonumber = tonumber,
-		loadstring = loadstring,
+		loadstring = function(str) local func = loadstring(str) setfenv(func,getfenv(1))end,
 		error = error,
 		tostring = tostring,
 		type = type,
@@ -139,7 +172,7 @@ local function customEnv()
 			exists = fs.exists,
 			copy = copy(a,b)
 			getFreeSpace = fs.getFreeSpace,
-			makeDir = 
+			makeDir = makeDir,
 			find
 			getDir
 			delete
