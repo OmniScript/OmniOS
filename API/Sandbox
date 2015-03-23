@@ -19,9 +19,7 @@ function newEnv(permission)
 	end
 end
 
-local function move()
-	local filesystem = {}
-
+local function copy(a,b)
 	local function readFile(path)
 		local file = fs.open(path,"r")
 		local variable = file.readAll()
@@ -30,36 +28,39 @@ local function move()
 	end
 	
 	local function writeFile(path,content)
-		local file = fs.open(path,"r")
+		local file = fs.open(path,"w")
 		file.write(content)
 		file.close()
 	end
 	
-	local function explore(dir)
-		local buffer = {}
-		local sBuffer = fs.list(dir)
-		for i,v in pairs(sBuffer) do
-			sleep(0.05)
-			if fs.isDir(dir.."/"..v) then
-				if v ~= ".git" then
+	if fs.isDir(a) then
+		local function explore(dir)
+			local buffer = {}
+			local sBuffer = fs.list(dir)
+			for i,v in pairs(sBuffer) do
+				sleep(0.05)
+				if fs.isDir(dir.."/"..v) then
 					buffer[v] = explore(dir.."/"..v)
+				else
+					buffer[v] = readFile(dir.."/"..v)
 				end
-			else
-				buffer[v] = readFile(dir.."/"..v)
+			end
+			return buffer
+		end
+		filesystem = explore("TheOS")
+		
+		function writeDown(input,dir)
+			for i,v in pairs(input) do
+				if type(v) == "table" then
+					writeDown(v,dir.."/"..i)
+				elseif type(v) == "string" then
+					writeFile(dir.."/"..i,v)
+				end
 			end
 		end
-		return buffer
-	end
-	filesystem = explore("TheOS")
-	
-	function writeDown(input,dir)
-		for i,v in pairs(input) do
-			if type(v) == "table" then
-				writeDown(v,dir.."/"..i)
-			elseif type(v) == "string" then
-				
-			end
-		end
+		writeDown(explore(a),b)
+	else
+		writeFile(b,readFile(a))
 	end
 end
 
@@ -112,10 +113,11 @@ local function customEnv()
 			isReadOnly = fs.isReadOnly,
 			getSize = fs.getSize,
 			move = function(a,b)
-				
+				copy(a,b)
+				fs.delete(a)
 			end,
 			exists
-			copy
+			copy = copy(a,b)
 			getFreeSpace
 			makeDir
 			find
