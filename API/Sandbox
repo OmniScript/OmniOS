@@ -8,6 +8,7 @@
 --Variables--
 local CustomEnvironement = {}
 local oldGetfenv = getfenv
+local oldLoadfile = loadfile
 --Functions--
 
 function newEnv(permission)
@@ -20,7 +21,7 @@ end
 
 local function customEnv()
 	return CustomEnvironement = {
-		redstone =redstone,
+		redstone = redstone,
 		gps = gps,
 		_VERSION = _VERSION,
 		keys = keys,
@@ -29,7 +30,7 @@ local function customEnv()
 		assert = assert,
 		getfenv = function(a)
 			if type(a) == "number" then
-				oldGetfenv(0)
+				oldGetfenv(1)
 			elseif type(a) == "function" then
 				oldGetfenv(a)
 			else
@@ -45,15 +46,20 @@ local function customEnv()
 		coroutine = coroutine,
 		disk = disk,
 		window = window,
-		next = 
-		unpack 
-		colours 
-		pcall 
-		sleep 
-		loadfile 
-		math 
-		pairs 
-		fs 
+		next = next,
+		unpack = unpack,
+		colours = colours,
+		pcall = pcall,
+		sleep = sleep,
+		loadfile = function(a) 
+			local func = oldLoadfile(a)
+			setfenv(func,getfenv(1))
+			end,
+		math = math,
+		pairs = pairs,
+		fs = {
+		
+		},
 		rawget 
 		_G 
 		__inext 
