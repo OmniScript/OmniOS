@@ -27,7 +27,14 @@ local function customEnv()
 		printError = printError,
 		peripheral = peripheral,
 		assert = assert,
-		getfenv = function() oldGetfenv() end,
+		getfenv = function(a)
+			if type(a) == "number" then
+				oldGetfenv(0)
+			elseif type(a) == "function" then
+				oldGetfenv(a)
+			else
+				error("Expected function or number, got "..type(a))
+			end,
 		bit = bit,
 		rawset = rawset,
 		tonumber = tonumber,
@@ -36,9 +43,9 @@ local function customEnv()
 		tostring = tostring,
 		type = type,
 		coroutine = coroutine,
-		disk = 
-		window 
-		next 
+		disk = disk,
+		window = window,
+		next = 
 		unpack 
 		colours 
 		pcall 
