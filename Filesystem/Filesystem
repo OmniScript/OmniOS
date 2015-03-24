@@ -1,14 +1,6 @@
 {
   files = {
-    API = {
-      Sha = "admin",
-      System = "admin",
-      paint = "admin",
-      gui = "admin",
-      Sandbox = "admin",
-      Interact = "admin",
-      paintshit = "admin",
-    },
+    [ "README.md" ] = "admin",
     [ "Boot.lua" ] = "admin",
     Settings = {
       Language = {
@@ -25,22 +17,33 @@
       },
       Filesystem = "admin",
     },
+    Data = {
+      [ ".toGitHub" ] = "admin",
+    },
     Languages = {
       [ "Boot_EN.lang" ] = "admin",
     },
-    Data = {
-      [ ".toGitHub" ] = "admin",
+    Logs = {
+      Error = "admin",
     },
     ShitIdontNeedNow = {
       toggles = "admin",
     },
-    [ "README.md" ] = "admin",
     Core = {
       [ "LoadAPIs.lua" ] = "admin",
       [ "Boot.lua" ] = "admin",
       [ "Login.lua" ] = "admin",
       [ "Crash.lua" ] = "admin",
       [ "Kernel.lua" ] = "admin",
+    },
+    API = {
+      Sha = "admin",
+      System = "admin",
+      paint = "admin",
+      gui = "admin",
+      Sandbox = "admin",
+      Interact = "admin",
+      paintshit = "admin",
     },
     Programs = {
       [ "FileX.app" ] = {
@@ -65,6 +68,10 @@
           MatchingColors = "admin",
           MatchingColorsT = "admin",
           Shortcuts = "admin",
+          Layouts = {
+            [ "Main.layout" ] = "admin",
+            [ "Quicksettings.layout" ] = "admin",
+          },
         },
         [ "permission.data" ] = "admin",
       },
@@ -105,12 +112,12 @@
     },
   },
   dir = {
+    [ ".tag" ] = "admin",
     Settings = {
       Users = {},
       Language = {},
       [ ".tag" ] = "admin",
     },
-    [ ".tag" ] = "admin",
     ShitIdontNeedNow = {},
     Filesystem = {
       TableGenerator = {},
@@ -118,13 +125,15 @@
     },
     Data = {},
     Languages = {},
+    Logs = {},
     Core = {},
     API = {},
     Programs = {
       [ "Desktop.app" ] = {
         Data = {
-          QuickSettings = {},
+          Layouts = {},
           [ ".tag" ] = "admin",
+          QuickSettings = {},
         },
         [ ".tag" ] = "admin",
       },

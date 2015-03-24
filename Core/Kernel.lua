@@ -3,7 +3,7 @@
 	by Creator
 	for TheOS &
 	you to learn
-	from it!
+	from it! (Yeah learn, rather become dumber)
 	theoriginalbit
 	also gets credit for 
 	his safePairs function.
