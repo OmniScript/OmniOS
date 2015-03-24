@@ -1,12 +1,15 @@
 {
   files = {
-    Media = {
-      Boot = {
-        [ "Boot_Logo.nfp" ] = "admin",
-        [ "Boot_Hide.nfp" ] = "admin",
-      },
+    API = {
+      Sha = "admin",
+      System = "admin",
+      paint = "admin",
+      gui = "admin",
+      Sandbox = "admin",
+      Interact = "admin",
+      paintshit = "admin",
     },
-    [ "README.md" ] = "admin",
+    [ "Boot.lua" ] = "admin",
     Settings = {
       Language = {
         CurrentLang = "admin",
@@ -22,110 +25,132 @@
       },
       Filesystem = "admin",
     },
-    Data = {
-      [ ".toGitHub" ] = "public",
-    },
     Languages = {
       [ "Boot_EN.lang" ] = "admin",
     },
-    Boot = "admin",
+    Data = {
+      [ ".toGitHub" ] = "admin",
+    },
     ShitIdontNeedNow = {
       toggles = "admin",
     },
+    [ "README.md" ] = "admin",
     Core = {
-      Kernel = "admin",
-      Kernelshit = "admin",
-      Boot = "admin",
-      Crash = "admin",
-      DesktopOld = "admin",
-      LoadAPIs = "admin",
-      Test = "admin",
-      Login = "admin",
-      Desktop = "admin",
-    },
-    API = {
-      Sha = "admin",
-      System = "admin",
-      paint = "admin",
-      gui = "admin",
-      Sandbox = "admin",
-      Interact = "admin",
-      paintshit = "admin",
+      [ "LoadAPIs.lua" ] = "admin",
+      [ "Boot.lua" ] = "admin",
+      [ "Login.lua" ] = "admin",
+      [ "Crash.lua" ] = "admin",
+      [ "Kernel.lua" ] = "admin",
     },
     Programs = {
       [ "FileX.app" ] = {
-        [ "FileX.ico" ] = "admin",
-        [ "FileX.permissions" ] = "admin",
-        [ "local" ] = {
+        [ "permission.data" ] = "admin",
+        [ "Main.lua" ] = "admin",
+        Data = {
           shell = "admin",
           nPaintPro = "admin",
           edit = "admin",
         },
-        FileX = "admin",
+        [ "FileX.ico" ] = "admin",
       },
-      [ "Settings.app" ] = {
-        Settings = "admin",
-        [ "Desktop.layout" ] = "admin",
-        [ "Settings.ico" ] = "admin",
-        [ "Security.layout" ] = "admin",
-        [ "Main.layout" ] = "admin",
+      [ "Desktop.app" ] = {
+        [ "Main.lua" ] = "admin",
+        Data = {
+          Settings = "admin",
+          QuickSettings = {
+            [ "restart.ico" ] = "admin",
+            [ "settings.ico" ] = "admin",
+            [ "shutdown.ico" ] = "admin",
+          },
+          MatchingColors = "admin",
+          MatchingColorsT = "admin",
+          Shortcuts = "admin",
+        },
+        [ "permission.data" ] = "admin",
       },
       [ "Aware.app" ] = {
-        Commands = "admin",
-        Aware = "admin",
+        [ "permission.data" ] = "admin",
         [ "Aware.ico" ] = "admin",
-        [ "Aware.layout" ] = "admin",
-        UselessWords = "admin",
+        Data = {
+          UselessWords = "admin",
+          Commands = "admin",
+          [ "Aware.layout" ] = "admin",
+        },
+        [ "Main.lua" ] = "admin",
+      },
+      [ "Settings.app" ] = {
+        [ "permission.data" ] = "admin",
+        [ "Settings.ico" ] = "admin",
+        [ "Main.lua" ] = "admin",
+        Data = {
+          Layouts = {
+            [ "Main.layout" ] = "admin",
+            [ "Desktop.layout" ] = "admin",
+            [ "Security.layout" ] = "admin",
+          },
+        },
       },
       [ "nPaintPro.app" ] = {
+        [ "main.lua" ] = "admin",
         [ "nPaintPro.ico" ] = "admin",
-        nPaintPro = "admin",
+        [ "permission.data" ] = "admin",
+        Data = {},
       },
     },
-    Desktop = {
-      Settings = "admin",
-      QuickSettings = {
-        [ "restart.ico" ] = "admin",
-        [ "settings.ico" ] = "admin",
-        [ "shutdown.ico" ] = "admin",
+    Media = {
+      Boot = {
+        [ "Boot_Logo.nfp" ] = "admin",
+        [ "Boot_Hide.nfp" ] = "admin",
       },
-      MatchingColors = "admin",
-      MatchingColorsT = "admin",
-      Shortcuts = "admin",
     },
   },
   dir = {
-    [ ".tag" ] = "admin",
-    Media = {
-      Boot = {},
-      [ ".tag" ] = "admin",
-    },
     Settings = {
       Users = {},
       Language = {},
       [ ".tag" ] = "admin",
     },
+    [ ".tag" ] = "admin",
+    ShitIdontNeedNow = {},
     Filesystem = {
       TableGenerator = {},
       [ ".tag" ] = "admin",
     },
     Data = {},
     Languages = {},
-    ShitIdontNeedNow = {},
     Core = {},
     API = {},
     Programs = {
-      [ "FileX.app" ] = {
+      [ "Desktop.app" ] = {
+        Data = {
+          QuickSettings = {},
+          [ ".tag" ] = "admin",
+        },
         [ ".tag" ] = "admin",
-        [ "local" ] = {},
+      },
+      [ "FileX.app" ] = {
+        Data = {},
+        [ ".tag" ] = "admin",
       },
       [ ".tag" ] = "admin",
-      [ "Aware.app" ] = {},
-      [ "Settings.app" ] = {},
-      [ "nPaintPro.app" ] = {},
+      [ "Aware.app" ] = {
+        Data = {},
+        [ ".tag" ] = "admin",
+      },
+      [ "nPaintPro.app" ] = {
+        Data = {},
+        [ ".tag" ] = "admin",
+      },
+      [ "Settings.app" ] = {
+        Data = {
+          Layouts = {},
+          [ ".tag" ] = "admin",
+        },
+        [ ".tag" ] = "admin",
+      },
     },
-    Desktop = {
-      QuickSettings = {},
+    Media = {
+      Boot = {},
       [ ".tag" ] = "admin",
     },
   },

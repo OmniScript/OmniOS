@@ -11,6 +11,6 @@ function reboot()
 	os.reboot()
 end
 
-function newTask(...)
+function newTask(programName,title,...)
 	newRoutine(...)
 end

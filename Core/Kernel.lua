@@ -97,7 +97,7 @@ local function drawOpen()
 	end
 end
 
-function newRoutine(name,func,...)
+function newRoutine(name,func,permission,path,...)
 	local sName = name
 	name = name.."1"
 	local notUnique = true
@@ -124,6 +124,8 @@ function newRoutine(name,func,...)
 	routines[name].ID = name
 	routines[name].arguments = arguments
 	routines[name].hasRun = false
+	routines[name].permission = permission
+	routines[name].path = path
 end
 
 local function checkIfDead(routine)
