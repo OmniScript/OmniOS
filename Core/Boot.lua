@@ -66,8 +66,7 @@ nPrint(lang[4])
 function goOn()
 	--local login = loadfile("TheOS/Core/Login")
 	--login()
-	local kernel = loadfile("TheOS/Core/Kernel")
-	--dofile("TheOS/Core/Kernel")
+	local kernel, err= loadfile("TheOS/Core/Kernel.lua")
 	local desktop = loadfile("TheOS/Core/Desktop")
 	kernel("Desktop",desktop)
 end
@@ -75,5 +74,5 @@ end
 ok, err = pcall(goOn)
 
 if not ok then
-	pcall(shell.run("TheOS/Core/Crash "..err))
+	pcall(shell.run("TheOS/Core/Crash.lua "..err))
 end
