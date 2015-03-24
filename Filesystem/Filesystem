@@ -23,7 +23,7 @@
       Filesystem = "admin",
     },
     Data = {
-      [ ".toGitHub" ] = "admin",
+      [ ".toGitHub" ] = "public",
     },
     Languages = {
       [ "Boot_EN.lang" ] = "admin",

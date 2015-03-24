@@ -30,7 +30,7 @@ local function makeDir(path)
 	end
 	local _,permission = isReadOnly(parentPath)
 	if permission == "admin" then
-		
+		error("Operation not allowed, you have no power here...",2)
 	elseif permission == "user" then
 	
 	elseif permission == "public" then
