@@ -37,7 +37,7 @@ local function split(str,sep)
 end
 
 local function loadShortcuts()
-	local buffer = readFile("TheOS/Desktop/Shortcuts")
+	local buffer = readFile("TheOS/Programs/Desktop.app/Data/Shortcuts")
 	local sBuffer = textutilsunserialize(buffer)
 	local nBuffer = {}
 	paths = {}
@@ -370,7 +370,7 @@ local function loadObjects()
 		xPos = 4,
 		yPos = 2,
 		name = "Restart",
-		path = "TheOS/Desktop/QuickSettings/restart.ico",
+		path = "TheOS/Programs/Desktop.app/Data/QuickSettings/restart.ico",
 		yLength = 5,
 		xLength = 7,
 		returnValue = "reboot",
@@ -382,7 +382,7 @@ local function loadObjects()
 		xPos = 22,
 		yPos = 2,
 		name = "Shutdown",
-		path = "TheOS/Desktop/QuickSettings/shutdown.ico",
+		path = "TheOS/Programs/Desktop.app/Data/QuickSettings/shutdown.ico",
 		yLength = 5,
 		xLength = 7,
 		returnValue = "shutdown",
@@ -394,7 +394,7 @@ local function loadObjects()
 		xPos = 13,
 		yPos = 2,
 		name = "Settings",
-		path = "TheOS/Desktop/QuickSettings/settings.ico",
+		path = "TheOS/Programs/Desktop.app/Data/QuickSettings/settings.ico",
 		yLength = 5,
 		xLength = 7,
 		returnValue = "settings",
@@ -466,10 +466,10 @@ end
 
 local function changeColor(color)
 	Settings.bgColor = colors[color] or colors.green
-	local f = fs.open("TheOS/Desktop/Settings","w")
+	local f = fs.open("TheOS/Programs/Desktop.app/Data/Settings","w")
 	f.write(textutilsserialize(Settings))
 	f.close()
-	local buffer = readFile("TheOS/Desktop/Settings")
+	local buffer = readFile("TheOS/Programs/Desktop.app/Data/Settings")
 	Settings = textutils.unserialize( buffer )
 	local buffer = readFile("TheOS/Desktop/MatchingColors")
 	MatchingColors = textutilsunserialize(buffer)
@@ -478,7 +478,7 @@ local function changeColor(color)
 end
 
 local function writeTable()
-	file = fs.open("TheOS/Desktop/MatchingColorsLKK","w")
+	file = fs.open("TheOS/Programs/Desktop.app/Data/MatchingColorsLKK","w")
 	file.write(textutilsserialize({
 		[8192] = {
 			name = "green",
@@ -493,10 +493,10 @@ end
 
 
 --Loading settings--
-local buffer = readFile("TheOS/Desktop/Settings")
+local buffer = readFile("TheOS/Programs/Desktop.app/Data/Settings")
 Settings = textutils.unserialize( buffer )
 
-local buffer = readFile("TheOS/Desktop/MatchingColors")
+local buffer = readFile("TheOS/Programs/Desktop.app/Data/MatchingColors")
 MatchingColors = textutilsunserialize(buffer)
 
 
@@ -524,8 +524,7 @@ while true do
 					elseif answer[2] == "Close" then
 						notClose = false
 					elseif answer[2] == "settings" then
-					local func = loadfile("TheOS/Programs/Settings.app/Settings")
-						System.newTask("Settings",func)
+						System.newTask("Settings","Settings")
 					else
 						local buffer = split(answer[2],"[^:]+")
 						changeColor(buffer[2])
@@ -542,8 +541,7 @@ while true do
 		elseif result[2] == "windowMinus" then
 			scroll = scroll + 51
 		else
-			local func = loadfile(paths[result[2]])
-			System.newTask(result[2],func)
+			System.newTask(result[2],result[2])
 		end
 	end
 end

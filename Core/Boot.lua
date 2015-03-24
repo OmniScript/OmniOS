@@ -67,8 +67,8 @@ function goOn()
 	--local login = loadfile("TheOS/Core/Login")
 	--login()
 	local kernel, err= loadfile("TheOS/Core/Kernel.lua")
-	local desktop = loadfile("TheOS/Core/Desktop")
-	kernel("Desktop",desktop)
+	local desktop = loadfile("TheOS/Programs/Desktop.app/Main.lua")
+	kernel("Desktop","Desktop",desktop,"user")
 end
 
 ok, err = pcall(goOn)

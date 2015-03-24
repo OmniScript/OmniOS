@@ -97,8 +97,7 @@ local function drawOpen()
 	end
 end
 
-function newRoutine(name,func,permission,path,...)
-	local sName = name
+function newRoutine(name,title,func,permission,...)
 	name = name.."1"
 	local notUnique = true
 	local tries = 1
@@ -120,7 +119,7 @@ function newRoutine(name,func,permission,path,...)
 	else
 		routines[name].window = window.create(term.current(),1,1,w-1,h,false)
 	end
-	routines[name].title = sName
+	routines[name].title = title
 	routines[name].ID = name
 	routines[name].arguments = arguments
 	routines[name].hasRun = false

@@ -1,0 +1,4 @@
+ Kernel.lua:114: bad argument: function expected, got nil
+ Kernel.lua:114: bad argument: function expected, got nil
+ Kernel.lua:137: attempt to index ? (a nil value)
+ Kernel.lua:137: attempt to index ? (a nil value)

@@ -11,6 +11,14 @@ function reboot()
 	os.reboot()
 end
 
-function newTask(programName,title,...)
-	newRoutine(...)
+function newTask(name,title,...)
+	local mainPath = "TheOS/Programs/"..name..".app/Main.lua"
+	if fs.exists(mainPath) then
+		local func = loadfile(mainPath)
+		local file = fs.open("TheOS/Programs/"..name..".app/permission.data")
+		local permission = file.readAll()
+		file.close()
+		newRoutine(name,title,func,permission,...)
+	end
+	return false
 end
