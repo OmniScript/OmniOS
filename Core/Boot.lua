@@ -55,7 +55,7 @@ langFile.close()
 
 --Load APIs--
 nPrint(lang[3])
-dofile("TheOS/Core/LoadAPIs")
+dofile("TheOS/Core/LoadAPIs.lua")
 nPrint(lang[4])
 
 --Overwrite os.pullEventFunctions--
