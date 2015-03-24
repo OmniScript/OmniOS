@@ -13,6 +13,8 @@ end
 
 function newTask(name,title,...)
 	local mainPath = "TheOS/Programs/"..name..".app/Main.lua"
+	print(mainPath)
+	os.pullEvent()
 	if fs.exists(mainPath) then
 		local func = loadfile(mainPath)
 		local file = fs.open("TheOS/Programs/"..name..".app/permission.data")
