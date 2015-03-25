@@ -7,3 +7,6 @@
 [236:22.123].[Missing]: Kernel.lua:143: attempt to index ? (a nil value)
 [236:23.182].[Missing]: Kernel.lua:143: attempt to index ? (a nil value)
 [237:11.121].[Missing]: Kernel.lua:143: attempt to index ? (a nil value)
+[239:13.207].[Missing]: Kernel.lua:143: attempt to index ? (a nil value)
+[240:21.467].[Missing]: Kernel.lua:143: attempt to index ? (a nil value)
+[240:23.478].[Missing]: Kernel.lua:143: attempt to index ? (a nil value)
