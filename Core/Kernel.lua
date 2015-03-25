@@ -83,10 +83,15 @@ local function drawOpen()
 		print(activeRoutine)
 		activeRoutine = xVsProcess[evnt[4]]
 		print(activeRoutine)
-		--os.pullEventRaw()
-		--term.clear()
-		routines[activeRoutine].window.setVisible(true)
-		routines[activeRoutine].window.redraw()
+		if routines[activeRoutine].hasRun then
+			routines[activeRoutine].window.setVisible(true)
+			routines[activeRoutine].window.redraw()
+		else
+			term.redirect(routines[activeRoutine].window)
+			coroutine.resume(routines[activeRoutine].routine,unpack(routines[activeRoutine].arguments))
+			routines[activeRoutine].hasRun = true
+			term.redirect(currTerm)
+		end
 	elseif toDelete then
 		if activeRoutine == xVsProcess[evnt[4]] then activeRoutine = "Desktop1" end
 		if not xVsProcess[evnt[4]] == "Desktop1" then
@@ -132,6 +137,7 @@ local function checkIfDead(routine)
 	status = coroutine.status(routines[routine].routine)
 	if status == "dead" then
 		wasDead = true
+		routines[routine] = nil
 		if routine == activeRoutine then activeRoutine = "Desktop1" end
 		routines[routine] = nil
 		routines.Desktop1.window.setVisible(true)

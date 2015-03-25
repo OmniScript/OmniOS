@@ -18,8 +18,6 @@ for i,v in pairs(tArgs) do
 	err = err.." "..v
 end
 term.write(err)
-local m = fs.open("TheOS/Logs/Error","a")
-m.write(err.."\n")
-m.close()
+log.log("Error",err,"Missing")
 os.pullEvent("mouse_click")
 --os.reboot()

@@ -36,9 +36,12 @@ local function split(str,sep)
 	return buffer
 end
 
-local function loadShortcuts()
-	local buffer = readFile("TheOS/Programs/Desktop.app/Data/Shortcuts")
-	local sBuffer = textutilsunserialize(buffer)
+function loadShortcut()
+	local file = fs.open("TheOS/Programs/Desktop.app/Data/Shortcuts","r")
+	local buffer = file.readAll()
+	file.close()
+	
+	local sBuffer = textutils.unserialize(buffer)
 	local nBuffer = {}
 	paths = {}
 	for i,v in pairs(sBuffer) do
@@ -60,71 +63,15 @@ local function loadShortcuts()
 	Main.BetterPaint = nBuffer
 end
 
-local function loadObjects()
---Object table--
-	local func = loadfile("TheOS/Programs/Desktop.app/Data/Layouts/Main.layout")
-	setfenv(func,{
-			h = h,
-			MatchingColors = MatchingColors,
-			Settings = Settings
-		})
-		Main = func()
-	local func = loadfile("TheOS/Programs/Desktop.app/Data/Layouts/QuickSettings.layout")
-	setfenv(func,{
-			h = h,
-			MatchingColors = MatchingColors,
-			Settings = Settings
-		})
-		QuickSettings = func()
-	
-
-	loadShortcuts()
-
-end
-
-local function loadGUI()
-	--Initializing GUI components
-	gui = Interact.Initialize()
-	mainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
-	quickSettingsLayout = gui.Layout.new({xPos = 1,yPos = h-7,xLength = w,yLength = h, nilClick = true})
-	mainLayoutTable = {}
-	quickSettingsLayoutTable = {}
-end
-
-local function InitializeGUI()
-	loadObjects()
-	--Main--
-	mainLayoutTable = {}
-	mainLayoutTable = gui.loadObjects(Main)
-	mainLayoutTable.mainBgColor = gui.BackgroundColor.new({color = Settings.bgColor})
-	
-	--QuickSettings--
-	quickSettingsLayoutTable = {}
-	quickSettingsLayoutTable.Text = {}
-	quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
-	quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = MatchingColors[Settings.bgColor]["quickSettings"]})
-	--quickSettingsLayoutTable.Text.Test = gui.Text.new(QuickSettings.Text.Test)
-	
-	--Initializing structures--
-	--Main--
-	for i,v in pairs(mainLayoutTable.Button) do
-		mainLayout:addButton(mainLayoutTable.Button[i]:returnData())
-	end
-	for i,v in pairs(mainLayoutTable.BetterPaint) do
-		mainLayout:addBetterPaint(mainLayoutTable.BetterPaint[i]:returnData())
-	end
-	mainLayout:addBackgroundColor(mainLayoutTable.mainBgColor:returnData())
-	
-	--QuickSettings--
-	for i,v in pairs(quickSettingsLayoutTable.Button) do
-		quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
-	end
-	quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
-	quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
-	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
-	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
-	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
-	quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
+function initializeGUI()
+	local funcTable = {
+		w = w,
+		h = h,
+		Settings = Settings,
+		MatchingColors = MatchingColors,
+	}
+	local func = loadstring(readFile("TheOS/Programs/Desktop.app/Data/Layouts/Main.layout"))
+	setfenv(func,funcTable)
 end
 
 local function changeColor(color)
@@ -136,24 +83,7 @@ local function changeColor(color)
 	Settings = textutils.unserialize( buffer )
 	local buffer = readFile("TheOS/Desktop/MatchingColors")
 	MatchingColors = textutilsunserialize(buffer)
-	loadObjects()
-	InitializeGUI()
 end
-
-local function writeTable()
-	file = fs.open("TheOS/Programs/Desktop.app/Data/MatchingColorsLKK","w")
-	file.write(textutilsserialize({
-		[8192] = {
-			name = "green",
-			quickSettings = colors.lime,
-		},
-	}))
-	--for i,v in pairs (colors) do
-	--	file.write(tostring(i).." "..tostring(v).."\n")
-	--end
-	file.close()
-end
-
 
 --Loading settings--
 local buffer = readFile("TheOS/Programs/Desktop.app/Data/Settings")
@@ -161,12 +91,6 @@ Settings = textutils.unserialize( buffer )
 
 local buffer = readFile("TheOS/Programs/Desktop.app/Data/MatchingColors")
 MatchingColors = textutilsunserialize(buffer)
-
-
-
-loadObjects()
-loadGUI()
-InitializeGUI()
 
 
 --Code--
