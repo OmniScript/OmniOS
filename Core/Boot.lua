@@ -2,7 +2,6 @@
 --by Creator--
 
 --Variables--
---os.loadAPI("TheOS/Core/Kernel")
 local tasks = 2
 local finishedTasks = 0
 term.redirect(term.native())
@@ -67,7 +66,9 @@ function goOn()
 	--local login = loadfile("TheOS/Core/Login")
 	--login()
 	local kernel, err= loadfile("TheOS/Core/Kernel.lua")
-	local desktop = loadfile("TheOS/Programs/Desktop.app/Main.lua")
+	local desktop,err = loadfile("TheOS/Programs/Desktop.app/Main.lua")
+	if not desktop then print(err) end
+	os.pullEvent()
 	kernel("Desktop","Desktop",desktop,"user")
 end
 

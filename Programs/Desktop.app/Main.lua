@@ -19,7 +19,7 @@ local mainLayoutTable = {}
 local quickSettingsLayoutTable = {}
 local paths = {}
 local scroll = 0
-local programPath = "TheOS/Programs/Desktop.lua/Data/"
+local programPath = "TheOS/Programs/Desktop.app/Data/"
 
 --Functions--
 local function readFile(_path)
