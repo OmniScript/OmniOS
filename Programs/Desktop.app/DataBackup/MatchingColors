@@ -1,0 +1,82 @@
+{
+  [ 8192 ] = {
+    name = "green",
+    quickSettings = 32,
+	mainButtons  = 1,
+  },
+  [ 4096 ] = {
+    name = "brown",
+    quickSettings = 2,
+	mainButtons  = 1,
+  },
+  [ 32768 ] = {
+    name = "black",
+    quickSettings = 128,
+	mainButtons  = 1,
+  },
+  [ 64 ] = {
+    name = "pink",
+    quickSettings = 16384,
+	mainButtons  = 1,
+  },
+  [ 16 ] = {
+    name = "yellow",
+    quickSettings = 1,
+	mainButtons  = 32768,
+  },
+  [ 2 ] = {
+    name = "orange",
+    quickSettings = 4096,
+	mainButtons  = 1,
+  },
+  [ 4 ] = {
+    name = "magenta",
+    quickSettings = 1024,
+	mainButtons  = 1,
+  },
+  [ 1024 ] = {
+    name = "purple",
+    quickSettings = 4,
+	mainButtons  = 1,
+  },
+  [ 512 ] = {
+    name = "cyan",
+    quickSettings = 8,
+	mainButtons  = 1,
+  },
+  [ 16384 ] = {
+    name = "red",
+    quickSettings = 64,
+	mainButtons  = 1,
+  },
+  [ 1 ] = {
+    name = "white",
+    quickSettings = 128,
+	mainButtons  = 32768,
+  },
+  [ 8 ] = {
+    name = "lightBlue",
+    quickSettings = 2048,
+	mainButtons  = 1,
+  },
+  [ 256 ] = {
+    name = "lightGray",
+    quickSettings = 1,
+	mainButtons  = 1,
+  },
+  [ 128 ] = {
+    name = "gray",
+    quickSettings = 256,
+	mainButtons  = 1,
+  },
+  [ 32 ] = {
+    name = "lime",
+    quickSettings = 8192,
+	mainButtons  = 1,
+  },
+  [ 2048 ] = {
+    name = "blue",
+    quickSettings = 8,
+	mainButtons  = 1,
+  },
+}
