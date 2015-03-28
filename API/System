@@ -14,12 +14,13 @@ end
 function newTask(name,title,...)
 	local mainPath = "TheOS/Programs/"..name..".app/Main.lua"
 	print(mainPath)
-	os.pullEvent()
 	if fs.exists(mainPath) then
+		print("yeah")
 		local func = loadfile(mainPath)
 		local file = fs.open("TheOS/Programs/"..name..".app/permission.data")
 		local permission = file.readAll()
 		file.close()
+		os.pullEvent()
 		newRoutine(name,title,func,permission,...)
 	end
 	return false

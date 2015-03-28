@@ -525,8 +525,7 @@ while true do
 					elseif answer[2] == "Close" then
 						notClose = false
 					elseif answer[2] == "settings" then
-					local func = loadfile("TheOS/Programs/Settings.app/Settings")
-						System.newTask("Settings",func)
+						System.newTask("Settings","Settings")
 					else
 						local buffer = split(answer[2],"[^:]+")
 						changeColor(buffer[2])
@@ -543,8 +542,7 @@ while true do
 		elseif result[2] == "windowMinus" then
 			scroll = scroll + 51
 		else
-			local func = loadfile(paths[result[2]])
-			System.newTask(result[2],func)
+			System.newTask(result[2],result[2])
 		end
 	end
 end

@@ -126,28 +126,36 @@ function newRoutine(name,title,func,permission,...)
 	end
 	routines[name].title = title
 	routines[name].ID = name
-	routines[name].arguments = arguments
-	routines[name].hasRun = false
 	routines[name].permission = permission
 	routines[name].path = path
+	--Run it!
+	routines[activeRoutine].window.setVisible(false)
+	activeRoutine = name
+	term.redirect(routines[activeRoutine].window)
+	routines[activeRoutine].window.setVisible(true)
+	coroutine.resume(routines[activeRoutine].routine,unpack(arguments))
+	term.redirect(currTerm)
 end
 
 local function checkIfDead(routine)
 	local wasDead = false
 	status = coroutine.status(routines[routine].routine)
+	print(routine.."."..status)
 	if status == "dead" then
 		wasDead = true
+		routines[activeRoutine].window.setVisible(false)
 		routines[routine] = nil
 		if routine == activeRoutine then activeRoutine = "Desktop1" end
-		routines[routine] = nil
-		routines.Desktop1.window.setVisible(true)
-		routines.Desktop1.window.redraw()
+		for i,v in pairs(routines) do print(i) end
+		print("cow")
+		os.pullEventRaw()
+		routines[activeRoutine].window.setVisible(true)
+		routines[activeRoutine].window.redraw()
 	end
 	return wasDead
 end
 
 local function main()
-	os.queueEvent("mouse_click",1,1,1)
 	while true do
 		routinesToKill = {}
 		event = {os.pullEventRaw()}
@@ -159,31 +167,16 @@ local function main()
 			routines[activeRoutine].window.redraw()
 		elseif event[1] == "key" or event[1] == "mouse_click" or event[1] == "monitor_touch" or event[1] == "paste" or event[1] == "char" then
 			checkIfDead(activeRoutine)
-			if routines[activeRoutine].hasRun == true then
-				term.redirect(routines[activeRoutine].window)
-				routines[activeRoutine].window.redraw()
-				coroutine.resume(routines[activeRoutine].routine,unpack(event))
-				term.redirect(currTerm)
-			else
-				term.redirect(routines[activeRoutine].window)
-				routines[activeRoutine].window.redraw()
-				coroutine.resume(routines[activeRoutine].routine,unpack(routines[activeRoutine].arguments))
-				routines[activeRoutine].hasRun = true
-				term.redirect(currTerm)
-			end
+			term.redirect(routines[activeRoutine].window)
+			routines[activeRoutine].window.redraw()
+			coroutine.resume(routines[activeRoutine].routine,unpack(event))
+			term.redirect(currTerm)
 		else
 			for i,v in safePairs(routines) do
 				if not checkIfDead(i) then
-					if routines[i].hasRun == true then
-						term.redirect(routines[i].window)
-						coroutine.resume(routines[i].routine,unpack(event))
-						term.redirect(currTerm)
-					else
-						term.redirect(routines[i].window)
-						coroutine.resume(routines[i].routine,unpack(routines[activeRoutine].arguments))
-						routines[i].hasRun = true
-						term.redirect(currTerm)
-					end
+					term.redirect(routines[i].window)
+					coroutine.resume(routines[i].routine,unpack(event))
+					term.redirect(currTerm)
 				end
 			end
 		end
