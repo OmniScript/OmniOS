@@ -93,7 +93,7 @@ local function drawOpen()
 			term.redirect(currTerm)
 		end
 	elseif toDelete then
-		if activeRoutine == xVsProcess[evnt[4]] then activeRoutine = "Desktop1" end
+		if activeRoutine == xVsProcess[evnt[4]] then print("Changing to "..xVsProcess[evnt[4]]) activeRoutine = "Desktop1" end
 		if not xVsProcess[evnt[4]] == "Desktop1" then
 			routines[xVsProcess[evnt[4]]] = nil
 			routines[activeRoutine].window.setVisible(true)

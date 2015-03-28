@@ -213,90 +213,8 @@ local Buttons = {
 		"paste"
 	},
 }
-local folderIcon = {
-	{
-	2,
-	2,
-	2,
-	2,
-	16,
-	16,
-	16,
-	16,
-	},
-	{
-	2,
-	2,
-	2,
-	2,
-	2,
-	2,
-	2,
-	2,
-	},
-	{
-	2,
-	2,
-	2,
-	2,
-	2,
-	2,
-	2,
-	2,
-	},
-	{
-	2,
-	2,
-	2,
-	2,
-	2,
-	2,
-	2,
-	2,
-	},
-}
-local fileIcon = {
-	{
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	},
-	{
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	},
-	{
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	},
-	{
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	8192,
-	},
-}
+local folderIcon = {{2,2,2,2,16,16,16,16,},{2,2,2,2,2,2,2,2,},{2,2,2,2,2,2,2,2,},{2,2,2,2,2,2,2,2,},}
+local fileIcon = {{8192,8192,8192,8192,8192,8192,8192,8192,},{8192,8192,8192,8192,8192,8192,8192,8192,},{8192,8192,8192,8192,8192,8192,8192,8192,},{8192,8192,8192,8192,8192,8192,8192,8192,},}
 local scroll = 0
 local globalButtonList = {}
 local notEnded = true
@@ -306,6 +224,7 @@ nfa = "nPaintPro",
 txt = "edit",
 exe = "shell",
 lua = "shell",
+ico = "paint2"
 }
 
 --Functions--
@@ -741,7 +660,8 @@ local function main(filesToDisplay,buttonsToDisplay)
 				fileExtension = "txt"
 			end
 			programT = program(fileExtension)
-			shell.run(progsDir.."/"..programT.." "..currDir.."/"..action)
+			--shell.run(progsDir.."/"..programT.." "..currDir.."/"..action)
+			System.newTask(programT,programT,currDir.."/"..action)
 		elseif button == 2 then
 			local result = dropDownMenu(fileMenu,false,detectedButtonUnparsedTable[3],detectedButtonUnparsedTable[4])
 			if result == "open" then

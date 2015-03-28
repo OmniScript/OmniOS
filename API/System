@@ -6,8 +6,6 @@
 ]]--
 
 function reboot()
-	print("Fuck you")
-	os.pullEvent()
 	os.reboot()
 end
 
@@ -20,8 +18,8 @@ function newTask(name,title,...)
 		local file = fs.open("TheOS/Programs/"..name..".app/permission.data")
 		local permission = file.readAll()
 		file.close()
-		os.pullEvent()
 		newRoutine(name,title,func,permission,...)
+		os.pullEvent()
 	end
 	return false
 end
