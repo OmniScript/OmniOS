@@ -65,7 +65,7 @@ local function drawOpen()
 			end
 		elseif w-14 == evnt[3] then
 			term.setCursorPos(evnt[3],evnt[4])
-			print("dick")
+			print("yes")
 			if xVsProcess[evnt[4]] ~= nil then
 				print("himom")
 				notH = false
@@ -82,59 +82,52 @@ local function drawOpen()
 		routines[activeRoutine].window.setVisible( false )
 		print(activeRoutine)
 		activeRoutine = xVsProcess[evnt[4]]
-		print(activeRoutine)
-		if routines[activeRoutine].hasRun then
-			routines[activeRoutine].window.setVisible(true)
-			routines[activeRoutine].window.redraw()
-		else
-			term.redirect(routines[activeRoutine].window)
-			coroutine.resume(routines[activeRoutine].routine,unpack(routines[activeRoutine].arguments))
-			routines[activeRoutine].hasRun = true
-			term.redirect(currTerm)
-		end
+		routines[activeRoutine].window.setVisible(true)
 	elseif toDelete then
-		if activeRoutine == xVsProcess[evnt[4]] then print("Changing to "..xVsProcess[evnt[4]]) activeRoutine = "Desktop1" end
+		if activeRoutine == xVsProcess[evnt[4]] then print("Changing "..xVsProcess[evnt[4]]) activeRoutine = "Desktop1" end
 		if not xVsProcess[evnt[4]] == "Desktop1" then
 			routines[xVsProcess[evnt[4]]] = nil
-			routines[activeRoutine].window.setVisible(true)
-			routines[activeRoutine].window.redraw()
 		end
+		term.redirect(routines[activeRoutine].window)
+		routines[activeRoutine].window.setVisible(true)
 	end
 end
 
 function newRoutine(name,title,func,permission,...)
 	name = name.."1"
-	local notUnique = true
-	local tries = 1
-	while notUnique do
-		tries = tries + 1
-		if routines[name] ~= nil then
-			name = name:sub(1,-2)..tostring(tries)
-		else
-			notUnique = false
+	if not routines[name] then
+		local notUnique = true
+		local tries = 1
+		while notUnique do
+			tries = tries + 1
+			if routines[name] ~= nil then
+				name = name:sub(1,-2)..tostring(tries)
+			else
+				notUnique = false
+			end
 		end
-	end
-	local arguments = {...}
-	routines[name] = {}
-	routines[name].routine = coroutine.create(func)
-	if first then
-		routines[name].window = window.create(term.current(),1,1,w-1,h,true)
+		local arguments = {...}
+		routines[name] = {}
+		routines[name].routine = coroutine.create(func)
+		if first then
+			routines[name].window = window.create(term.current(),1,1,w-1,h,true)
+			activeRoutine = name
+			first = false
+		else
+			routines[name].window = window.create(term.current(),1,1,w-1,h,false)
+		end
+		routines[name].title = title
+		routines[name].ID = name
+		routines[name].permission = permission
+		routines[name].path = path
+		--Run it!
+		routines[activeRoutine].window.setVisible(false)
 		activeRoutine = name
-		first = false
-	else
-		routines[name].window = window.create(term.current(),1,1,w-1,h,false)
+		term.redirect(routines[activeRoutine].window)
+		routines[activeRoutine].window.setVisible(true)
+		coroutine.resume(routines[activeRoutine].routine,unpack(arguments))
+		term.redirect(currTerm)
 	end
-	routines[name].title = title
-	routines[name].ID = name
-	routines[name].permission = permission
-	routines[name].path = path
-	--Run it!
-	routines[activeRoutine].window.setVisible(false)
-	activeRoutine = name
-	term.redirect(routines[activeRoutine].window)
-	routines[activeRoutine].window.setVisible(true)
-	coroutine.resume(routines[activeRoutine].routine,unpack(arguments))
-	term.redirect(currTerm)
 end
 
 local function checkIfDead(routine)
@@ -150,7 +143,6 @@ local function checkIfDead(routine)
 		print("cow")
 		os.pullEventRaw()
 		routines[activeRoutine].window.setVisible(true)
-		routines[activeRoutine].window.redraw()
 	end
 	return wasDead
 end
