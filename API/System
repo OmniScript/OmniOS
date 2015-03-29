@@ -15,10 +15,7 @@ function newTask(name,title,...)
 	if fs.exists(mainPath) then
 		print("yeah")
 		local func = loadfile(mainPath)
-		local file = fs.open("TheOS/Programs/"..name..".app/permission.data")
-		local permission = file.readAll()
-		file.close()
-		newRoutine(name,title,func,permission,...)
+		newRoutine(name,title,func,...)
 		os.pullEvent()
 	end
 	return false
