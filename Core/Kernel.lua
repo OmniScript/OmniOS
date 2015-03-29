@@ -78,9 +78,9 @@ local function drawOpen()
 	end
 	print(toDelete)
 	if switchRoutine then
-		print(xVsProcess[evnt[4]])
+		--print(xVsProcess[evnt[4]])
 		routines[activeRoutine].window.setVisible( false )
-		print(activeRoutine)
+		--print(activeRoutine)
 		activeRoutine = xVsProcess[evnt[4]]
 		routines[activeRoutine].window.setVisible(true)
 	elseif toDelete then
@@ -88,12 +88,12 @@ local function drawOpen()
 		if not xVsProcess[evnt[4]] == "Desktop1" then
 			routines[xVsProcess[evnt[4]]] = nil
 		end
-		term.redirect(routines[activeRoutine].window)
+		--term.redirect(routines[activeRoutine].window)
 		routines[activeRoutine].window.setVisible(true)
 	end
 end
 
-function newRoutine(name,title,func,permission,...)
+function newRoutine(name,title,func,...)
 	name = name.."1"
 	if not routines[name] then
 		local notUnique = true
@@ -109,13 +109,13 @@ function newRoutine(name,title,func,permission,...)
 		local arguments = {...}
 		routines[name] = {}
 		routines[name].routine = coroutine.create(func)
-		if first then
+		--if first then
 			routines[name].window = window.create(term.current(),1,1,w-1,h,true)
 			activeRoutine = name
-			first = false
-		else
-			routines[name].window = window.create(term.current(),1,1,w-1,h,false)
-		end
+			--first = false
+		--else
+		--	routines[name].window = window.create(term.current(),1,1,w-1,h,false)
+		--end
 		routines[name].title = title
 		routines[name].ID = name
 		routines[name].permission = permission
