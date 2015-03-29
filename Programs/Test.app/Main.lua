@@ -1,8 +1,8 @@
+while true do
 term.setBackgroundColor(colors.black)
 term.setTextColor(colors.white)
 term.clear()
-ter.setCursorPos(1,1)
-
+term.setCursorPos(1,1)
 print("Protocol is initializng...")
 if System then 
 	print("System API has been loaded..")
@@ -15,3 +15,5 @@ else
 	print("System API has not been loaded..")
 end
 os.pullEvent()
+System.newTask("FileX","FileX")
+end

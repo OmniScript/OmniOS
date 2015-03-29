@@ -78,13 +78,11 @@ local function drawOpen()
 	end
 	print(toDelete)
 	if switchRoutine then
-		--print(xVsProcess[evnt[4]])
 		routines[activeRoutine].window.setVisible( false )
-		--print(activeRoutine)
 		activeRoutine = xVsProcess[evnt[4]]
 		routines[activeRoutine].window.setVisible(true)
 	elseif toDelete then
-		if activeRoutine == xVsProcess[evnt[4]] then print("Changing "..xVsProcess[evnt[4]]) activeRoutine = "Desktop1" end
+		if activeRoutine == xVsProcess[evnt[4]] then print("Changing to "..xVsProcess[evnt[4]]) activeRoutine = "Desktop1" end
 		if not xVsProcess[evnt[4]] == "Desktop1" then
 			routines[xVsProcess[evnt[4]]] = nil
 		end
@@ -95,7 +93,7 @@ end
 
 function newRoutine(name,title,func,...)
 	name = name.."1"
-	if not routines[name] then
+	--if not routines[name] then
 		local notUnique = true
 		local tries = 1
 		while notUnique do
@@ -127,20 +125,20 @@ function newRoutine(name,title,func,...)
 		routines[activeRoutine].window.setVisible(true)
 		coroutine.resume(routines[activeRoutine].routine,unpack(arguments))
 		term.redirect(currTerm)
-	end
+	--end
 end
 
 local function checkIfDead(routine)
 	local wasDead = false
 	status = coroutine.status(routines[routine].routine)
-	print(routine.."."..status)
+	--print(routine.."."..status)
 	if status == "dead" then
 		wasDead = true
 		routines[activeRoutine].window.setVisible(false)
 		routines[routine] = nil
 		if routine == activeRoutine then activeRoutine = "Desktop1" end
-		for i,v in pairs(routines) do print(i) end
-		print("cow")
+		--for i,v in pairs(routines) do print(i) end
+		--print("cow")
 		os.pullEventRaw()
 		routines[activeRoutine].window.setVisible(true)
 	end

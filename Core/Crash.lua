@@ -17,7 +17,7 @@ term.setCursorPos(4,13)
 for i,v in pairs(tArgs) do
 	err = err.." "..v
 end
-term.write(err)
+print(err)
 log.log("Error",err,"Missing")
 os.pullEvent("mouse_click")
 --os.reboot()

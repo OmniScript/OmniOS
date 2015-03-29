@@ -32,3 +32,8 @@
 [285:9.947].[Missing]: Kernel.lua:145: attempt to index ? (a nil value)
 [289:7.356].[Missing]: Kernel.lua:145: attempt to index ? (a nil value)
 [289:7.706].[Missing]: Kernel.lua:145: attempt to index ? (a nil value)
+[290:10.052].[Missing]: Kernel.lua:145: attempt to index ? (a nil value)
+[290:11.972].[Missing]: Kernel.lua:145: attempt to index ? (a nil value)
+[290:12.754].[Missing]: Kernel.lua:145: attempt to index ? (a nil value)
+[290:14.181].[Missing]: Kernel.lua:145: attempt to index ? (a nil value)
+[290:18.154].[Missing]: Kernel.lua:145: attempt to index ? (a nil value)
