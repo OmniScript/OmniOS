@@ -65,13 +65,12 @@ local function drawOpen()
 			end
 		elseif w-14 == evnt[3] then
 			term.setCursorPos(evnt[3],evnt[4])
-			print("yes")
+			--print("yes")
 			if xVsProcess[evnt[4]] ~= nil then
-				print("himom")
+				--print("himom")
 				notH = false
 				toDelete = true
 			end
-			os.pullEventRaw()
 		else
 			notH = false
 		end
