@@ -11,7 +11,7 @@ function log(destination,message,app)
 	else
 		finalMsg = finalMsg..":"..message
 	end
-	local m = fs.open("TheOS/Logs/"..destination,"a")
+	local m = fs.open("TheOS/Logs/"..destination..".log","a")
 	m.write(finalMsg.."\n")
 	m.close()
 end
