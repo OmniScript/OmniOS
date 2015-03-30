@@ -14,9 +14,16 @@ function newTask(name,title,...)
 	print(mainPath)
 	if fs.exists(mainPath) then
 		print("yeah")
-		local func = loadfile(mainPath)
+		local func, err = loadfile(mainPath)
+		if err then 
+			term.setCursorPos(1,1)
+			term.setTextColor(colors.white)
+			term.setBackgroundColor(colors.black)
+			term.clear()
+			print(err) 
+			os.pullEvent() 
+		end
 		newRoutine(name,title,func,...)
-		os.pullEvent()
 	end
 	return false
 end

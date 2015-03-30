@@ -57,7 +57,7 @@
   [ 8 ] = {
     name = "lightBlue",
     quickSettings = 2048,
-	mainButtons  = 1,
+	mainButtons  = 32768,
   },
   [ 256 ] = {
     name = "lightGray",
