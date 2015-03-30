@@ -10,20 +10,19 @@ function reboot()
 end
 
 function newTask(name,title,...)
-	local mainPath = "TheOS/Programs/"..name..".app/Main.lua"
-	print(mainPath)
 	if fs.exists(mainPath) then
-		print("yeah")
 		local func, err = loadfile(mainPath)
-		if err then 
+		--[[if err then 
 			term.setCursorPos(1,1)
 			term.setTextColor(colors.white)
 			term.setBackgroundColor(colors.black)
 			term.clear()
 			print(err) 
 			os.pullEvent() 
+		end]]--
+		if func then
+			newRoutine(name,title,func,...)
 		end
-		newRoutine(name,title,func,...)
 	end
 	return false
 end
