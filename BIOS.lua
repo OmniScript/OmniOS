@@ -73,12 +73,14 @@ defaultOS = loadDefault()
 currentOS = findCurrent()
 while true do 
 	gui.drawMain()
-	local event = {os.pullEvent()}
+	local event = {os.pullEvent("char")}
 	print(event[1])
-	print(keys[event[2]].." wow")
-	if tonumber(keys[event[2]]) then
-		if OS[keys[event[2]]] then
-			toBoot = keys[event[2]]
+	print(event[2])
+	if tonumber(event[2]) then
+		print("cow")
+		if OS[tonumber(event[2])] then
+			print"hell"
+			toBoot = tonumber(event[2])
 			break
 		end
 	else

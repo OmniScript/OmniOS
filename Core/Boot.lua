@@ -67,7 +67,8 @@ function goOn()
 	--login()
 	local kernel, err= loadfile("TheOS/Core/Kernel.lua")
 	local desktop,err = loadfile("TheOS/Programs/Desktop.app/Main.lua")
-	if not desktop then print(err) os.pullEvent() end
+	term.setTextColor(colors.black)
+	print(err) os.pullEvent()
 	kernel("Desktop","Desktop",desktop)
 end
 
