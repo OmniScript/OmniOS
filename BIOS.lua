@@ -6,6 +6,7 @@
 --Variables--
 local gui = {}
 local OS = {}
+loca timeLeft = 5
 local currentOS = 1
 local layout = [[
      +-----------------------------------------+
@@ -49,7 +50,14 @@ local function loadOS()
 	return dofile("TheOS/BIOS/List")
 end
 
+local function loadDefault()
+	return dofile("TheOS/BIOS/default")
+end
+
 --Code
 OS = loadOS()
-gui.drawMain()
-os.pullEvent()
+
+while true do 
+	gui.drawMain()
+	os.pullEvent()
+end
