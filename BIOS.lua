@@ -75,6 +75,10 @@ while true do
 	gui.drawMain()
 	local timerID = os.startTimer(1)
 	local event = {os.pullEvent()}
+	if timeLeft == 0 then
+		toBoot = currentOS
+		break
+	end
 	if event[1] == "key" then
 		os.cancelTimer(timerID)
 		if 2 <= event[2] and event[2] <= 11 then
