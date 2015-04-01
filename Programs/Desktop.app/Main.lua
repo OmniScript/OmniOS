@@ -106,19 +106,6 @@ local function loadObjects()
 	}
 
 	QuickSettings.Button = {
-		--[[Close = {
-			name = "Close",
-			label = "x",
-			xPos = w,
-			yPos = 1,
-			xLength = 1,
-			yLength = 1,
-			xTextPos = 1,
-			yTextPos = 1,
-			fgColor = Settings.bgColor,
-			bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
-			returnValue = "Close",
-		},]]--
 		Right = {
 			name = "Right",
 			label = ">",
