@@ -93,8 +93,8 @@ function newRoutine(name,title,func,...)
 		["permission"] = permission,
 		["path"] = path,
 		["routine"] = coroutine.create(func),
-		["window"] = window.create(currTerm,1,1,w-1,h,true)
-		["filter"] = ""
+		["window"] = window.create(currTerm,1,1,w-1,h,true),
+		["filter"] = "",
 	}
 
 	--Run it!
@@ -102,7 +102,8 @@ function newRoutine(name,title,func,...)
 	activeRoutine = name
 	term.redirect(routines[activeRoutine].window)
 	routines[activeRoutine].window.setVisible(true)
-	routines.[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
+	_, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
+    os.pullEventRaw()
 	term.redirect(currTerm)
 	checkIfDead(activeRoutine)
 end
@@ -120,14 +121,14 @@ while true do
 	elseif eventFilter[event[1]] then
 		if routines[activeRoutine].filter == nil or routines[activeRoutine].filter == "" or routines[activeRoutine].filter == event[1] then
 			term.redirect(routines[activeRoutine].window)
-			coroutine.resume(routines[activeRoutine].routine,unpack(event))
+			_, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,unpack(event))
 			term.redirect(currTerm)
 			checkIfDead(activeRoutine)
 		end
 	else
 		for i,v in safePairs(routines) do
 			term.redirect(routines[i].window)
-			coroutine.resume(routines[i].routine,unpack(event))
+			_, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
 			term.redirect(currTerm)
 			checkIfDead(i)
 		end

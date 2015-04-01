@@ -106,7 +106,7 @@ local function loadObjects()
 	}
 
 	QuickSettings.Button = {
-		Close = {
+		--[[Close = {
 			name = "Close",
 			label = "x",
 			xPos = w,
@@ -118,7 +118,7 @@ local function loadObjects()
 			fgColor = Settings.bgColor,
 			bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
 			returnValue = "Close",
-		},
+		},]]--
 		Right = {
 			name = "Right",
 			label = ">",
@@ -355,7 +355,7 @@ local function loadObjects()
 		},
 	}
 	
-	QuickSettings.ColorField = {
+	--[[QuickSettings.ColorField = {
 		TopBar = {
 			name = "TopBar",
 			xPos = 1,
@@ -364,7 +364,7 @@ local function loadObjects()
 			yLength = 1,
 			color = MatchingColors[Settings.bgColor]["mainButtons"],
 		},
-	}
+	}]]--
 
 	QuickSettings.BetterPaint = {
 	Restart = {
@@ -411,7 +411,7 @@ local function loadObjects()
 		text = "QuickSettings",
 		xPos = w/2-6,
 		yPos = 1,
-		bgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+		bgColor = MatchingColors[Settings.bgColor]["quickSettings"],
 		fgColor = Settings.bgColor,
 	},
 }
@@ -441,7 +441,6 @@ local function InitializeGUI()
 	quickSettingsLayoutTable.Text = {}
 	quickSettingsLayoutTable = gui.loadObjects(QuickSettings)
 	quickSettingsLayoutTable.quickSettingsBgColor = gui.BackgroundColor.new({color = MatchingColors[Settings.bgColor]["quickSettings"]})
-	--quickSettingsLayoutTable.Text.Test = gui.Text.new(QuickSettings.Text.Test)
 	
 	--Initializing structures--
 	--Main--
@@ -458,11 +457,11 @@ local function InitializeGUI()
 		quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
 	end
 	quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
-	quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
+	--quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
-	quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
+	--quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
 end
 
 local function changeColor(color)
