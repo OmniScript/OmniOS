@@ -355,16 +355,16 @@ local function loadObjects()
 		},
 	}
 	
-	--QuickSettings.ColorField = {
-	--	TopBar = {
-	--		name = "TopBar",
-	--		xPos = 1,
-	--		yPos = 1,
-	--		xLength = w,
-	--		yLength = 1,
-	--		color = MatchingColors[Settings.bgColor]["mainButtons"],
-	--	},
-	--}
+	QuickSettings.ColorField = {
+		TopBar = {
+			name = "TopBar",
+			xPos = 1,
+			yPos = 1,
+			xLength = w,
+			yLength = 1,
+			color = MatchingColors[Settings.bgColor]["mainButtons"],
+		},
+	}
 
 	QuickSettings.BetterPaint = {
 	Restart = {
