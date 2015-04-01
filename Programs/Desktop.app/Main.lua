@@ -128,7 +128,7 @@ local function loadObjects()
 			yLength = 1,
 			xTextPos = 1,
 			yTextPos = 1,
-			fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+			fgColor = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
 			bgColor = MatchingColors[Settings.bgColor]["quickSettings"],
 			returnValue = "Right",
 		},
@@ -141,7 +141,7 @@ local function loadObjects()
 			yLength = 1,
 			xTextPos = 1,
 			yTextPos = 1,
-			fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+			fgColor = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
 			bgColor = MatchingColors[Settings.bgColor]["quickSettings"],
 			returnValue = "Left",
 		},
@@ -354,17 +354,6 @@ local function loadObjects()
 			returnValue = "color:gray",
 		},
 	}
-	
-	--[[QuickSettings.ColorField = {
-		TopBar = {
-			name = "TopBar",
-			xPos = 1,
-			yPos = 1,
-			xLength = w,
-			yLength = 1,
-			color = MatchingColors[Settings.bgColor]["mainButtons"],
-		},
-	}]]--
 
 	QuickSettings.BetterPaint = {
 	Restart = {
@@ -376,7 +365,7 @@ local function loadObjects()
 		xLength = 7,
 		returnValue = "reboot",
 		label = "Restart",
-		labelFg = colors.white,
+		labelFg = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
 		labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
 	},
 	Shutdown = {
@@ -388,7 +377,7 @@ local function loadObjects()
 		xLength = 7,
 		returnValue = "shutdown",
 		label = "Shutdown",
-		labelFg = colors.white,
+		labelFg = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
 		labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
 	},
 	Settings = {
@@ -400,7 +389,7 @@ local function loadObjects()
 		xLength = 7,
 		returnValue = "settings",
 		label = "Settings",
-		labelFg = colors.white,
+		labelFg = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
 		labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
 	},
 }
