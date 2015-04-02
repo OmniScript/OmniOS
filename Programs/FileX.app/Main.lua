@@ -720,7 +720,7 @@ local function main(filesToDisplay,buttonsToDisplay)
 				openWith[8][#openWith[8]+1] = {"Cancel","cancel"}
 				globalButtonList = {}
 				result = dropDownMenu(openWith,false,detectedButtonUnparsedTable[3],detectedButtonUnparsedTable[4]+6)
-				System.newTask(result,result, currDir.."/"..action)
+				System.newTask(result,result,currDir.."/"..action)
 				--shell.run(progsDir.."/"..result.." "..currDir.."/"..action)
 			elseif result == "copy" then
 				copyPath = currDir.."/"..action

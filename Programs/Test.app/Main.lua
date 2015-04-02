@@ -1,3 +1,4 @@
+local tArgs = {...}
 while true do
 term.setBackgroundColor(colors.black)
 term.setTextColor(colors.white)
@@ -14,6 +15,7 @@ if System then
 else
 	print("System API has not been loaded..")
 end
+print(tArgs[1])
 os.pullEvent()
-System.newTask("FileX","FileX")
+System.newTask("Edit","Edit","TheOS_15w14b")
 end
