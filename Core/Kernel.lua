@@ -7,10 +7,11 @@
 	theoriginalbit
 	also gets credit for 
 	his safePairs function.
+	Lots of thanks to BombBloke too for finalizing it.
 ]]--
 
 local w,h = term.getSize()
-local currTerm, routines, activeRoutine, eventBuffer = term.current(), {}, "", {}
+currTerm, routines, activeRoutine, eventBuffer = term.current(), {}, "", {}
 local eventFilter = {["key"] = true, ["mouse_click"] = true, ["monitor_touch"] = true, ["paste"] = true,
 	["char"] = true, ["terminate"] = true, ["mouse_scroll"] = true, ["mouse_drag"] = true}
 
