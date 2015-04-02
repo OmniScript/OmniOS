@@ -66,11 +66,7 @@ function goOn()
 	--local login = loadfile("TheOS/Core/Login")
 	--login()
 	local kernel, err= loadfile("TheOS/Core/Kernel.lua")
-	print(err)
-	os.pullEvent()
-	local desktop,err = loadfile("TheOS/Programs/Test.app/Main.lua")
-	print(err)
-	os.pullEvent()
+	local desktop,err = loadfile("TheOS/Programs/Desktop.app/Main.lua")
 	kernel("Desktop","Desktop",desktop)
 end
 
