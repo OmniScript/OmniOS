@@ -673,7 +673,8 @@ local function main(filesToDisplay,buttonsToDisplay)
 					fileExtension = "txt"
 				end
 				programT = program(fileExtension)
-				shell.run(progsDir.."/"..programT.." "..currDir.."/"..action)
+				System.newTask(programT,programT, currDir.."/"..action)
+				--shell.run(progsDir.."/"..programT.." "..currDir.."/"..action)
 			elseif result == "delete" then
 				fs.delete(currDir.."/"..action)
 				files = refresh(currDir)
@@ -719,7 +720,8 @@ local function main(filesToDisplay,buttonsToDisplay)
 				openWith[8][#openWith[8]+1] = {"Cancel","cancel"}
 				globalButtonList = {}
 				result = dropDownMenu(openWith,false,detectedButtonUnparsedTable[3],detectedButtonUnparsedTable[4]+6)
-				shell.run(progsDir.."/"..result.." "..currDir.."/"..action)
+				System.newTask(result,result, currDir.."/"..action)
+				--shell.run(progsDir.."/"..result.." "..currDir.."/"..action)
 			elseif result == "copy" then
 				copyPath = currDir.."/"..action
 				copyHelp = action
