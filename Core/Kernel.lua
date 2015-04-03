@@ -84,7 +84,7 @@ local function checkIfDead(routine)
 	else return false end
 end
 
-function newRoutine(name,title,func,...)
+function newRoutine(name,title,func,permission,...)
 	local tries = 1
 	while routines[name .. tries] do tries = tries + 1 end
 	name = name .. tries

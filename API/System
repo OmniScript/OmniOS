@@ -11,10 +11,14 @@ end
 
 function newTask(name,title,...)
 	local mainPath = "TheOS/Programs/"..name..".app/Main.lua"
+	local permissionPath = "TheOS/Programs/"..name..".app/permission.data"
+	local file = fs.open(permissionPath,"r")
+	local permission = file.readAll()
+	file.close()
 	if fs.exists(mainPath) then
 		local func, err = loadfile(mainPath)
 		if func then
-			newRoutine(name,title,func,...)
+			newRoutine(name,title,func,permission,...)
 		end
 	end
 	return false

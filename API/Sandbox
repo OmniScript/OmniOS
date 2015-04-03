@@ -173,16 +173,16 @@ local function customEnv()
 			copy = copy(a,b)
 			getFreeSpace = fs.getFreeSpace,
 			makeDir = makeDir,
-			find
-			getDir
-			delete
+			find = fs.find,
+			getDir = fs.getDir,
+			delete = 
 			open
 			list
 			getDrive
 			getName
 			isDir
 		},
-		rawget 
+		rawget = rawget
 		_G 
 		__inext 
 		read 

@@ -7,7 +7,7 @@
 --variables--
 local w,h = term.getSize()
 local MainLayoutTable = {}
-local path = "TheOS/Programs/Settings.app/"
+local path = "TheOS/Programs/Settings.app/Data/"
 
 --functions--
 local loadLayout = function(sPath)
@@ -17,12 +17,12 @@ local loadLayout = function(sPath)
 end
 
 local function changeColor(color)
-	local f = fs.open("TheOS/Desktop/Settings","r")
+	local f = fs.open("TheOS/Programs/Desktop.app/Data/Settings","r")
 	local Settings = textutils.unserialize(f.readAll())
 	print(f.readAll())
 	f.close()
 	Settings.bgColor = colors[color] or colors.green
-	local f = fs.open("TheOS/Desktop/Settings","w")
+	local f = fs.open("TheOS/Programs/Desktop.app/Data/Settings","w")
 	f.write(textutils.serialize(Settings))
 	f.close()
 end
@@ -45,17 +45,17 @@ local DesktopLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h}
 local SecurityLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 
 --MainLayout--
-local MainLayoutTable = gui.loadObjects(loadLayout(path.."Main.layout"))
+local MainLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Main.layout"))
 gui.loadLayout(MainLayoutTable,MainLayout)
 MainLayout:addBackgroundColor({color = colors.white})
 
 --Desktop Layout--
-local DesktopLayoutTable = gui.loadObjects(loadLayout(path.."Desktop.layout"))
+local DesktopLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Desktop.layout"))
 gui.loadLayout(DesktopLayoutTable,DesktopLayout)
 DesktopLayout:addBackgroundColor({color = colors.white})
 
 --SecurityLayout--
-local SecurityLayoutTable = gui.loadObjects(loadLayout(path.."Security.layout"))
+local SecurityLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Security.layout"))
 gui.loadLayout(SecurityLayoutTable,SecurityLayout)
 SecurityLayout:addBackgroundColor({color = colors.white})
 
@@ -94,6 +94,8 @@ while true do
 					end
 				end
 			end
+		elseif MainLayoutEvent[2] == "Close" then
+			break
 		end
 	end
 end

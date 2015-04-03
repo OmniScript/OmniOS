@@ -340,6 +340,19 @@ local function loadObjects()
 			bgColor = colors.gray,
 			returnValue = "color:gray",
 		},
+		RefreshColor = {
+			name = "RefreshColor",
+			label = "Refresh",
+			xPos = 40,
+			yPos = 3,
+			xLength = 9,
+			yLength = 5,
+			xTextPos = 2,
+			yTextPos = 3,
+			fgColor = 1,
+			bgColor = colors.gray,
+			returnValue = "Refresh",
+		},
 	}
 
 	QuickSettings.BetterPaint = {
@@ -433,11 +446,9 @@ local function InitializeGUI()
 		quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
 	end
 	quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
-	--quickSettingsLayout:addColorField(quickSettingsLayoutTable.ColorField.TopBar:returnData())
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
-	--quickSettingsLayout:addText(quickSettingsLayoutTable.Text.Label:returnData())
 end
 
 local function changeColor(color)
@@ -501,6 +512,15 @@ while true do
 						notClose = false
 					elseif answer[2] == "settings" then
 						System.newTask("Settings","Settings")
+						notClose = false
+					elseif answer[2] == "Refresh" then
+						local buffer = readFile(programPath.."Settings")
+						Settings = textutils.unserialize( buffer )
+						local buffer = readFile(programPath.."MatchingColors")
+						MatchingColors = textutilsunserialize(buffer)
+						loadObjects()
+						InitializeGUI()
+						notClose = false
 					else
 						local buffer = split(answer[2],"[^:]+")
 						changeColor(buffer[2])
