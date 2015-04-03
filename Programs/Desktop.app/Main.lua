@@ -51,7 +51,7 @@ local function loadShortcuts()
 			yLength = 4,
 			xLength = 3,
 			returnValue = v.name,
-			label = v.name,
+			label = string.sub(v.name,1,5),
 			labelFg = MatchingColors[Settings.bgColor]["mainButtons"],
 			labelBg = Settings.bgColor,
 			moveY = true,

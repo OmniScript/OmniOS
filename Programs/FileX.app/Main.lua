@@ -185,29 +185,29 @@ local Buttons = {
 	{
 		2,
 		2,
-		7,
+		9,
 		1,
-		"Refresh",
+		" Refresh ",
 		colors.white,
 		colors.green,
 		"refresh"
 	},
 	{
-		11,
+		13,
 		2,
-		2,
+		4,
 		1,
-		"Up",
+		" Up ",
 		colors.white,
 		colors.green,
 		"up"
 	},
 	{
-		15,
+		19,
 		2,
-		5,
+		7,
 		1,
-		"Paste",
+		" Paste ",
 		colors.white,
 		colors.green,
 		"paste"
@@ -581,7 +581,7 @@ local function main(filesToDisplay,buttonsToDisplay)
 							currDir = currDir..currDirBuffer[i]
 						end
 					end
-				end 
+				end
 				files = refresh(currDir)
 			end
 		elseif action == "refresh" then
@@ -674,7 +674,6 @@ local function main(filesToDisplay,buttonsToDisplay)
 				end
 				programT = program(fileExtension)
 				System.newTask(programT,programT, currDir.."/"..action)
-				--shell.run(progsDir.."/"..programT.." "..currDir.."/"..action)
 			elseif result == "delete" then
 				fs.delete(currDir.."/"..action)
 				files = refresh(currDir)
@@ -721,7 +720,6 @@ local function main(filesToDisplay,buttonsToDisplay)
 				globalButtonList = {}
 				result = dropDownMenu(openWith,false,detectedButtonUnparsedTable[3],detectedButtonUnparsedTable[4]+6)
 				System.newTask(result,result,currDir.."/"..action)
-				--shell.run(progsDir.."/"..result.." "..currDir.."/"..action)
 			elseif result == "copy" then
 				copyPath = currDir.."/"..action
 				copyHelp = action

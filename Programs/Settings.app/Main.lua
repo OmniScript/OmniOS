@@ -43,6 +43,7 @@ local gui = Interact.Initialize()
 local MainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 local DesktopLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 local SecurityLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
+local DesktopShortcutsLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 
 --MainLayout--
 local MainLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Main.layout"))
@@ -56,6 +57,11 @@ DesktopLayout:addBackgroundColor({color = colors.white})
 
 --SecurityLayout--
 local SecurityLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Security.layout"))
+gui.loadLayout(SecurityLayoutTable,SecurityLayout)
+SecurityLayout:addBackgroundColor({color = colors.white})
+
+--Desktop Shortcuts Layout
+local DesktopShortcutsTable = gui.loadObjects(loadLayout(path.."Layouts/DesktopShortcuts.layout"))
 gui.loadLayout(SecurityLayoutTable,SecurityLayout)
 SecurityLayout:addBackgroundColor({color = colors.white})
 

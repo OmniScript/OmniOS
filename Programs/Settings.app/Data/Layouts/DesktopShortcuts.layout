@@ -1,0 +1,61 @@
+local w,h = term.getSize()
+local programPath = "TheOS/Programs/Desktop.app/Data/"
+
+MainTable = {
+	Button = {
+		Done = {
+			name = "Done",
+			label = "Done",
+			xPos = w-6,
+			yPos = h-3,
+			fgColor = colors.white,
+			bgColor = colors.green,
+			xLength = 6,
+			yLength = 3,
+			returnValue = "Done",
+			xTextPos = 2,
+			yTextPos = 2,
+		},
+		Shortcuts = {
+			name = "Shortcuts",
+			label = "Shortcuts",
+			xPos = 3,
+			yPos = h-3,
+			fgColor = colors.white,
+			bgColor = colors.cyan,
+			xLength = 11,
+			yLength = 3,
+			returnValue = "Shortcuts",
+			xTextPos = 2,
+			yTextPos = 2,
+		},
+	},
+}
+
+local function loadShortcuts()
+	local buffer = readFile(programPath.."Shortcuts")
+	local sBuffer = textutilsunserialize(buffer)
+	local nBuffer = {}
+	paths = {}
+	for i,v in pairs(sBuffer) do
+		nBuffer[v.name] = {
+			xPos = 2+(6*(v.xPos-1)),
+			yPos = 1+(5*(v.yPos-1)),
+			name = v.name,
+			path = v.path..".ico",
+			yLength = 4,
+			xLength = 3,
+			returnValue = v.name,
+			label = string.sub(v.name,1,5),
+			labelFg = MatchingColors[Settings.bgColor]["mainButtons"],
+			labelBg = Settings.bgColor,
+			moveY = true,
+		}
+		paths[v.name] = v.path
+	end
+	MainTable.BetterPaint = nBuffer
+end
+
+loadShortcuts()
+
+return MainTable

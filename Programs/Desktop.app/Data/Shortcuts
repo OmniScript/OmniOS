@@ -18,7 +18,7 @@
 		name = "Aware"
 	},
 	{
-		xPos = 1,
+		xPos = 3,
 		yPos = 1,
 		path = "TheOS/Programs/BetterPaint.app/BetterPaint",
 		name = "BetterPaint"
