@@ -221,10 +221,10 @@ local notEnded = true
 local fileExtensions = {
 nfp = "nPaintPro",
 nfa = "nPaintPro",
-txt = "edit",
-exe = "shell",
-lua = "shell",
-ico = "paint2"
+txt = "Edit",
+exe = "Shell",
+lua = "Shell",
+ico = "BeterPaint",
 }
 
 --Functions--
@@ -755,3 +755,4 @@ files = refresh(currDir)
 while notEnded do
 	main(files,Buttons)
 end
+shell.setDir(currDir)

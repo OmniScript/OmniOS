@@ -6,7 +6,8 @@ if #tArgs == 0 then
 end
 
 -- Error checking
-local sPath = shell.resolve( tArgs[1] )
+--local sPath = shell.resolve( tArgs[1] )
+local sPath = tArgs[1]
 local bReadOnly = fs.isReadOnly( sPath )
 if fs.exists( sPath ) and fs.isDir( sPath ) then
 	print( "Cannot edit a directory." )

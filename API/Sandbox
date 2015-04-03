@@ -6,7 +6,6 @@
 ]]--
 
 --Variables--
-local CustomEnvironement = {}
 local oldGetfenv = getfenv
 local oldLoadfile = loadfile
 --Functions--
@@ -118,7 +117,7 @@ local function isReadOnly(path)
 end
 
 local function customEnv()
-	return CustomEnvironement = {
+	return {
 		redstone = redstone,
 		gps = gps,
 		_VERSION = _VERSION,
