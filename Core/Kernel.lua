@@ -109,6 +109,10 @@ function newRoutine(name,title,func,permission,...)
 	checkIfDead(activeRoutine)
 end
 
+function getPermission(program)
+	return routines[program].permission or "Not a valid program"
+end
+
 drawClosed()
 
 newRoutine(...)

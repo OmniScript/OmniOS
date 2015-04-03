@@ -23,3 +23,7 @@ function newTask(name,title,...)
 	end
 	return false
 end
+
+function getPerimssion(program)
+	return getPerimssion(program)
+end
