@@ -560,7 +560,7 @@ local function main(filesToDisplay,buttonsToDisplay)
 		if action == "x" then
 			term.setBackgroundColor(colors.black)
 			clear()
-			print("Thank you for using Creator\'s FTPclient. More coming soon...\nSpecial thanks to:\nNitrogenFinger\'s for nPaintPro")
+			print("Thank you for using Creator\'s FTPclient. More coming soon...\nSpecial thanks to:\nNitrogenFingers for nPaintPro")
 			notEnded = false
 		elseif action == "up" then
 			scroll = 0

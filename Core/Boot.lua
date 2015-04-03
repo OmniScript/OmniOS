@@ -63,7 +63,7 @@ nPrint(lang[4])
 
 --Go to next
 function goOn()
-	--local login = loadfile("TheOS/Core/Login")
+	local login, err = loadfile("TheOS/Core/Login.lua")
 	--login()
 	local kernel, err= loadfile("TheOS/Core/Kernel.lua")
 	local desktop,err = loadfile("TheOS/Programs/Desktop.app/Main.lua")

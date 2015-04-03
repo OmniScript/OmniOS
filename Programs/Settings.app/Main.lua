@@ -87,6 +87,9 @@ while true do
 				if SecurityLayoutEvent[1] == "TextBox" then
 					if SecurityLayoutEvent[2] == "Password" then
 						local newPass = SecurityLayout.TextBox.Password:read()
+						local file = fs.open("TheOS/Settings/Users/Admin","w")
+						file.write(Sha.sha256(newPass))
+						file.close()
 					end
 				elseif SecurityLayoutEvent[1] == "Button" then
 					if SecurityLayoutEvent[2] == "Done" then
