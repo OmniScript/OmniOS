@@ -6,35 +6,42 @@ MainTable = {
 		Done = {
 			name = "Done",
 			label = "Done",
-			xPos = w-6,
-			yPos = h-3,
+			xPos = w-3,
+			yPos = h,
 			fgColor = colors.white,
 			bgColor = colors.green,
-			xLength = 6,
-			yLength = 3,
+			xLength = 4,
+			yLength = 1,
 			returnValue = "Done",
-			xTextPos = 2,
-			yTextPos = 2,
+			xTextPos = 1,
+			yTextPos = 1,
 		},
-		Shortcuts = {
-			name = "Shortcuts",
-			label = "Shortcuts",
-			xPos = 3,
-			yPos = h-3,
-			fgColor = colors.white,
-			bgColor = colors.cyan,
+		Add = {
+			name = "Add",
+			label = "+",
+			xPos = 1,
+			yPos = h,
+			fgColor = colors.black,
+			bgColor = colors.white,
 			xLength = 11,
 			yLength = 3,
-			returnValue = "Shortcuts",
-			xTextPos = 2,
-			yTextPos = 2,
+			returnValue = "Add",
+			xTextPos = 1,
+			yTextPos = 1,
 		},
 	},
 }
 
+local function readFile(_path)
+	local file = fs.open(_path,"r")
+	local data = file.readAll()
+	file.close()
+	return data
+end
+
 local function loadShortcuts()
 	local buffer = readFile(programPath.."Shortcuts")
-	local sBuffer = textutilsunserialize(buffer)
+	local sBuffer = textutils.unserialize(buffer)
 	local nBuffer = {}
 	paths = {}
 	for i,v in pairs(sBuffer) do
@@ -47,8 +54,8 @@ local function loadShortcuts()
 			xLength = 3,
 			returnValue = v.name,
 			label = string.sub(v.name,1,5),
-			labelFg = MatchingColors[Settings.bgColor]["mainButtons"],
-			labelBg = Settings.bgColor,
+			labelFg = colors.black,
+			labelBg = colors.white,
 			moveY = true,
 		}
 		paths[v.name] = v.path

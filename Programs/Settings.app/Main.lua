@@ -35,6 +35,15 @@ local function split(str,sep)
 	return buffer
 end
 
+local function drawPrograms()
+	local tRawPrograms = fs.list("TheOS/Programs")
+	local tPrograms = {}
+	for i,v in pairs(tRawPrograms) do
+		tPrograms[i] = string.match(v,"[^.]+")
+	end
+	
+end
+
 --Code--
 os.loadAPI("TheOS/API/Interact")
 local gui = Interact.Initialize()
@@ -43,7 +52,7 @@ local gui = Interact.Initialize()
 local MainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 local DesktopLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 local SecurityLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
-local DesktopShortcutsLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
+local ShortcutsLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 
 --MainLayout--
 local MainLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Main.layout"))
@@ -61,9 +70,9 @@ gui.loadLayout(SecurityLayoutTable,SecurityLayout)
 SecurityLayout:addBackgroundColor({color = colors.white})
 
 --Desktop Shortcuts Layout
-local DesktopShortcutsTable = gui.loadObjects(loadLayout(path.."Layouts/DesktopShortcuts.layout"))
-gui.loadLayout(SecurityLayoutTable,SecurityLayout)
-SecurityLayout:addBackgroundColor({color = colors.white})
+local ShortcutsLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Shortcuts.layout"))
+gui.loadLayout(ShortcutsLayoutTable,ShortcutsLayout)
+ShortcutsLayout:addBackgroundColor({color = colors.white})
 
 
 while true do
@@ -77,6 +86,12 @@ while true do
 				DesktopLayoutEvent = gui.eventHandler(DesktopLayout)
 				if DesktopLayoutEvent[1] == "Button" then
 					if DesktopLayoutEvent[2] == "Done" then
+						notClose = false
+					elseif DesktopLayoutEvent[2] == "Shortcuts" then
+						while true do
+							ShortcutsLayout:draw()
+							ShortcutsLayoutEvent = gui.eventHandler(ShortcutsLayout)
+						end
 						notClose = false
 					else
 						local buffer = split(DesktopLayoutEvent[2],"[^:]+")
