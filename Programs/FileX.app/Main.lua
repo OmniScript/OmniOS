@@ -581,7 +581,7 @@ local function main(filesToDisplay,buttonsToDisplay)
 							currDir = currDir..currDirBuffer[i]
 						end
 					end
-				end
+				end 
 				files = refresh(currDir)
 			end
 		elseif action == "refresh" then
