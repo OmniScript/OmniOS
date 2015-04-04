@@ -102,4 +102,15 @@ while true do
 	end
 end
 
-dofile(OS[toBoot][2])
+print(OS[toBoot][1])
+os.pullEvent()
+
+if OS[toBoot][1] == "CraftOS" then
+	term.setBackgroundColor(colors.black)
+	term.setTextColor(colors.yellow)
+	term.clear()
+	term.setCursorPos(1,1)
+	print("CraftOS 1.7")
+else
+	dofile(OS[toBoot][2])
+end

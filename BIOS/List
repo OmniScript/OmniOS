@@ -1,4 +1,4 @@
  return {
 	{ "TheOS","TheOS/Core/Boot.lua" },
-	{"LyqydOS","LyqydOS/Boot.lua"},
+	{"CraftOS","shell"},
 }
