@@ -39,12 +39,16 @@ local function drawPrograms()
 	local tPrograms = {}
 	for i,v in pairs(tRawPrograms) do
 		tPrograms[#tPrograms+1] = string.match(v,"[^.]+")
-		print(string.match(v,"[^.]+"))
-		os.pullEvent()
 	end
-	ShortcutsLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Select.layout",tPrograms))
-	gui.loadLayout(ShortcutsLayoutTable,ShortcutsLayout)
-	ShortcutsLayout:addBackgroundColor({color = colors.white})
+	local SelectLayout = gui.Layout.new({xPos = 1,
+		yPos = h-#tPrograms,
+		xLength = 15,
+		yLength = #tPrograms})
+	SelectLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Select.layout",tPrograms))
+	gui.loadLayout(SelectLayoutTable,SelectLayout)
+	SelectLayout:addBackgroundColor({color = colors.white})
+	SelectLayout:draw()
+	SelectLayoutEvent = gui.eventHandler(SelectLayout)
 end
 
 --Code--

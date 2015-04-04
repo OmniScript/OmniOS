@@ -6,12 +6,10 @@ local tReturnTable = {
 		Title = {
 			name = "Title",
 			text = "Select",
-			xPos = 
-			yPos = 
-			bgColor = 
-			fgColor = 
-			moveX = 
-			moveY = 
+			xPos = 1,
+			yPos = 1,
+			bgColor = colors.gray,
+			fgColor = colors.white,
 		},
 	}
 }
