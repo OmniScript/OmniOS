@@ -7,11 +7,13 @@
 	theoriginalbit
 	also gets credit for 
 	his safePairs function.
-	Lots of thanks to BombBloke too for finalizing it.
+	Lots of thanks to BombBloke too for 
+	finalizing and bug fixing it.
 ]]--
 
+local history = {}
 local w,h = term.getSize()
-currTerm, routines, activeRoutine, eventBuffer = term.current(), {}, "", {}
+local currTerm, routines, activeRoutine, eventBuffer = term.current(), {}, "", {}
 local eventFilter = {["key"] = true, ["mouse_click"] = true, ["monitor_touch"] = true, ["paste"] = true,
 	["char"] = true, ["terminate"] = true, ["mouse_scroll"] = true, ["mouse_drag"] = true}
 
@@ -50,6 +52,10 @@ local function drawOpen()
 		xVsProcess[curr*2] = i
 		curr = curr + 1
 	end
+	--print(activeRoutine)
+	--for i,v in pairs(history) do
+	--	print(i.." "..v)
+	--end
 
 	while true do
 		local evnt = {os.pullEventRaw()}
@@ -59,12 +65,19 @@ local function drawOpen()
 					routines[activeRoutine].window.setVisible( false )
 					activeRoutine = xVsProcess[evnt[4]]
 					routines[activeRoutine].window.setVisible(true)
+					history[#history+1] = activeRoutine
 					return
 				end
 			elseif w-14 == evnt[3] then
 				if xVsProcess[evnt[4]] and xVsProcess[evnt[4]] ~= "Desktop1" then
 					if activeRoutine == xVsProcess[evnt[4]] then
-						activeRoutine = "Desktop1"
+						--history[#history] = nil
+						for i,v in pairs(history) do
+							if xVsProcess[evnt[4]] == v then
+								table.remove(history,i)
+							end
+						activeRoutine = history[#history]
+						--activeRoutine = "Desktop1"
 						routines[activeRoutine].window.setVisible(true)
 					end
 					routines[xVsProcess[evnt[4]]] = nil
@@ -79,7 +92,14 @@ local function checkIfDead(routine)
 	if coroutine.status(routines[routine].routine) == "dead" then
 		routines[routine] = nil
 		if routine == activeRoutine then
-			activeRoutine = "Desktop1"
+			--history[#history] = nil
+			for i,v in pairs(history) do
+				if routine == v then
+					table.remove(history,i)
+				end
+			end
+			activeRoutine = history[#history]
+			--activeRoutine = "Desktop1"
 			routines[activeRoutine].window.setVisible(true)
 		end
 		return true
@@ -109,6 +129,7 @@ function newRoutine(name,title,func,permission,...)
     os.pullEventRaw()
 	term.redirect(currTerm)
 	checkIfDead(activeRoutine)
+	history[#history+1] = activeRoutine
 end
 
 function getPermission(program)
