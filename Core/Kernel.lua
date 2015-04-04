@@ -40,6 +40,8 @@ local function drawOpen()
 	local xVsProcess, curr = {}, 1
 	term.setTextColor(colors.white)
 	for i,v in pairs(routines) do
+		paintutils.drawLine(w-15,curr*2,w,curr*2,i == activeRoutine and colours.blue or colours.black)
+		paintutils.drawLine(w-15,curr*2+1,w,curr*2+1,i == activeRoutine and colours.blue or colours.black)
 		term.setBackgroundColour(i == activeRoutine and colours.blue or colours.black)
 		term.setCursorPos(w-14,curr*2)
 		term.write("x "..v.title)

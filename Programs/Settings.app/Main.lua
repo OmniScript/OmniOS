@@ -10,9 +10,8 @@ local MainLayoutTable = {}
 local path = "TheOS/Programs/Settings.app/Data/"
 
 --functions--
-local loadLayout = function(sPath)
-	local func = loadfile(sPath)
-	--dofile(sPath)
+local loadLayout = function(sPath,...)
+	local func = loadfile(sPath,...)
 	return func()
 end
 
@@ -39,9 +38,11 @@ local function drawPrograms()
 	local tRawPrograms = fs.list("TheOS/Programs")
 	local tPrograms = {}
 	for i,v in pairs(tRawPrograms) do
-		tPrograms[i] = string.match(v,"[^.]+")
+		tPrograms[#tPrograms+1] = string.match(v,"[^.]+")
 	end
-	
+	ShortcutsLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Select.layout",tPrograms))
+	gui.loadLayout(ShortcutsLayoutTable,ShortcutsLayout)
+	ShortcutsLayout:addBackgroundColor({color = colors.white})
 end
 
 --Code--
@@ -74,6 +75,9 @@ local ShortcutsLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Shortcuts
 gui.loadLayout(ShortcutsLayoutTable,ShortcutsLayout)
 ShortcutsLayout:addBackgroundColor({color = colors.white})
 
+--Select Layout
+local SelectLayoutTable = {}
+
 
 while true do
 	MainLayout:draw()
@@ -91,6 +95,15 @@ while true do
 						while true do
 							ShortcutsLayout:draw()
 							ShortcutsLayoutEvent = gui.eventHandler(ShortcutsLayout)
+							if ShortcutsLayoutEvent[1] == "Button" then
+								if ShortcutsLayoutEvent[2] == "Add" then
+									drawPrograms()
+								elseif ShortcutsLayoutEvent[2] == "Done" then
+									break
+								end
+							elseif ShortcutsLayoutEvent[1] == "BeterPaint" then
+
+							end
 						end
 						notClose = false
 					else

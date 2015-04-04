@@ -224,7 +224,7 @@ nfa = "nPaintPro",
 txt = "Edit",
 exe = "Shell",
 lua = "Shell",
-ico = "BeterPaint",
+ico = "BetterPaint",
 }
 
 --Functions--

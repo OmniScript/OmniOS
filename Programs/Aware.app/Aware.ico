@@ -3,8 +3,8 @@ error('This is an image, not a program!')
   {
     {
       2,
-      " ",
-      2,
+      "^",
+      1,
     },
     {
       2,
@@ -13,15 +13,15 @@ error('This is an image, not a program!')
     },
     {
       2,
-      " ",
-      2,
+      "v",
+      1,
     },
   },
   {
     {
       2,
-      " ",
-      2,
+      "^",
+      1,
     },
     {
       2,
@@ -30,8 +30,8 @@ error('This is an image, not a program!')
     },
     {
       2,
-      " ",
-      2,
+      "v",
+      1,
     },
   },
   {
@@ -42,8 +42,8 @@ error('This is an image, not a program!')
     },
     {
       2,
-      " ",
-      2,
+      ">",
+      1,
     },
     {
       2,
@@ -59,8 +59,8 @@ error('This is an image, not a program!')
     },
     {
       2,
-      " ",
-      2,
+      "<",
+      1,
     },
     {
       2,
