@@ -72,12 +72,12 @@ local function drawOpen()
 				if xVsProcess[evnt[4]] and xVsProcess[evnt[4]] ~= "Desktop1" then
 					if activeRoutine == xVsProcess[evnt[4]] then
 						--history[#history] = nil
-						for i,v in pairs(history) do
-							if xVsProcess[evnt[4]] == v then
-								table.remove(history,i)
-							end
-						activeRoutine = history[#history]
-						--activeRoutine = "Desktop1"
+						--for i,v in pairs(history) do
+						--	if xVsProcess[evnt[4]] == v then
+						--		table.remove(history,i)
+						--	end
+						--activeRoutine = history[#history]
+						activeRoutine = "Desktop1"
 						routines[activeRoutine].window.setVisible(true)
 					end
 					routines[xVsProcess[evnt[4]]] = nil
@@ -93,13 +93,13 @@ local function checkIfDead(routine)
 		routines[routine] = nil
 		if routine == activeRoutine then
 			--history[#history] = nil
-			for i,v in pairs(history) do
+			--[[for i,v in pairs(history) do
 				if routine == v then
 					table.remove(history,i)
 				end
 			end
-			activeRoutine = history[#history]
-			--activeRoutine = "Desktop1"
+			activeRoutine = history[#history]]--
+			activeRoutine = "Desktop1"
 			routines[activeRoutine].window.setVisible(true)
 		end
 		return true
