@@ -45,7 +45,7 @@ while notLogin do
 			paintutils.drawFilledBox(15,15,35,15,colors.lightGray)
 			local realPass
 			ok = pcall( function()
-			f = fs.open("TheOS/Settings/Users/"..user,"r")
+			f = fs.open("TheOS/Settings/Users/Admin","r")
 			realPass = f.readAll()
 			f.close()
 			end )
