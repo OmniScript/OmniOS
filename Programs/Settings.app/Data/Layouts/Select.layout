@@ -1,9 +1,17 @@
 local tArgs = {...}
+local w,h = term.getSize()
 local tReturnTable = {
 	Button = {},
 	Text = {
 		Title = {
-			
+			name = "Title",
+			text = "Select",
+			xPos = 
+			yPos = 
+			bgColor = 
+			fgColor = 
+			moveX = 
+			moveY = 
 		},
 	}
 }

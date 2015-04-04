@@ -102,9 +102,6 @@ while true do
 	end
 end
 
-print(OS[toBoot][1])
-os.pullEvent()
-
 if OS[toBoot][1] == "CraftOS" then
 	term.setBackgroundColor(colors.black)
 	term.setTextColor(colors.yellow)

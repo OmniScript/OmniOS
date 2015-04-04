@@ -39,6 +39,8 @@ local function drawPrograms()
 	local tPrograms = {}
 	for i,v in pairs(tRawPrograms) do
 		tPrograms[#tPrograms+1] = string.match(v,"[^.]+")
+		print(string.match(v,"[^.]+"))
+		os.pullEvent()
 	end
 	ShortcutsLayoutTable = gui.loadObjects(loadLayout(path.."Layouts/Select.layout",tPrograms))
 	gui.loadLayout(ShortcutsLayoutTable,ShortcutsLayout)
