@@ -64,12 +64,12 @@ nPrint(lang[4])
 --Go to next
 function goOn()
 	local login, err = loadfile("TheOS/Core/Login.lua")
-	if err then print(err) os.pullEvent() end
+	if err then print(err) log.log("Error",err) os.pullEvent() end
 	--login()
 	local kernel, err= loadfile("TheOS/Core/Kernel.lua")
-	if err then print(err) os.pullEvent() end
+	if err then print(err) os.pullEvent() log.log("Error",err) end
 	local desktop,err = loadfile("TheOS/Programs/Desktop.app/Main.lua")
-	if err then print(err) os.pullEvent() end
+	if err then print(err) os.pullEvent() log.log("Error",err) end
 	kernel("Desktop","Desktop",desktop,"user")
 end
 
