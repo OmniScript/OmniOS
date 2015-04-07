@@ -125,6 +125,8 @@ Layout.addTextBox = function(self,_elementData)
 end
 
 Layout.draw = function(self,xPlus,yPlus)
+	local oldTerm= term.current()
+	term.redirect(self.window)
 	local buttonFunctions = {}
 	local toggleFunctions = {}
 	local colorFieldFunctions = {}
@@ -156,6 +158,7 @@ Layout.draw = function(self,xPlus,yPlus)
 	for i,v in pairs(self.TextBox) do
 		textBoxFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
 	end
+	term.redirect(oldTerm)
 end
 
 --Class Button--
