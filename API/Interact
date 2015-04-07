@@ -246,7 +246,7 @@ Toggle.new = function(input)
 	return self
 end
 
-Toggle.draw = function(self,layoutX,layoutY,addX,addY)
+function Toggle.draw(self,addX,addY)
 	addX = self.moveX and addX or 0
 	addY = self.moveY and addX or 0
 	local finalX = self.xPos + addX
@@ -271,7 +271,7 @@ Toggle.draw = function(self,layoutX,layoutY,addX,addY)
 	end
 end
 
-Toggle.returnData = function(self)
+function Toggle.returnData(self)
 	local toReturn = {}
 	for i,v in pairs(self) do
 		toReturn[i] = v
@@ -326,7 +326,7 @@ function ColorField.new(input)
 	return self
 end
 
-function  ColorField.draw(self,layoutX,layoutY,addX,addY)
+function  ColorField.draw(self,addX,addY)
 	addX = self.moveX and addX or 0
 	addY = self.moveY and addX or 0
 	local finalX = self.xPos + addX
@@ -372,7 +372,7 @@ function BetterPaint.returnData(self)
 	return toReturn
 end
 
-function BetterPaint.draw(self,layoutX,layoutY,addX,addY)
+function BetterPaint.draw(self,addX,addY)
 	addX = self.moveX and addX or 0
 	addY = self.moveY and addX or 0
 	local finalX = self.xPos + addX
@@ -401,7 +401,7 @@ function Text.new(input)
 	return self
 end
 
-function Text.draw(self,layoutX,layoutY,addX,addY)
+function Text.draw(self,addX,addY)
 	addX = self.moveX and addX or 0
 	addY = self.moveY and addX or 0
 	local finalX = self.xPos + addX
@@ -453,7 +453,7 @@ function TextBox.returnData(self)
 	return toReturn
 end
 
-function TextBox.draw(self,layoutX,layoutY,addX,addY)
+function TextBox.draw(self,addX,addY)
 	addX = self.moveX and addX or 0
 	addY = self.moveY and addX or 0
 	local finalX = self.xPos + addX
