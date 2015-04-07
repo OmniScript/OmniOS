@@ -10,8 +10,8 @@ function reboot()
 end
 
 function newTask(name,title,...)
-	local mainPath = "TheOS/Programs/"..name..".app/Main.lua"
-	local permissionPath = "TheOS/Programs/"..name..".app/permission.data"
+	local mainPath = "OmniOS/Programs/"..name..".app/Main.lua"
+	local permissionPath = "OmniOS/Programs/"..name..".app/permission.data"
 	local file = fs.open(permissionPath,"r")
 	local permission = file.readAll()
 	file.close()

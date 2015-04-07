@@ -2,25 +2,25 @@
 	{
 		xPos = 7,
 		yPos = 3,
-		path = "TheOS/Programs/FileX.app/FileX",
+		path = "OmniOS/Programs/FileX.app/FileX",
 		name = "FileX",
 	},
 	{
 		xPos = 2,
 		yPos = 1,
-		path = "TheOS/Programs/nPaintPro.app/nPaintPro",
+		path = "OmniOS/Programs/nPaintPro.app/nPaintPro",
 		name = "nPaintPro"
 	},
 	{
 		xPos = 2,
 		yPos = 3,
-		path = "TheOS/Programs/Aware.app/Aware",
+		path = "OmniOS/Programs/Aware.app/Aware",
 		name = "Aware"
 	},
 	{
 		xPos = 3,
 		yPos = 1,
-		path = "TheOS/Programs/BetterPaint.app/BetterPaint",
+		path = "OmniOS/Programs/BetterPaint.app/BetterPaint",
 		name = "BetterPaint"
 	},
 }

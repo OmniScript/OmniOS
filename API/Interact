@@ -90,6 +90,7 @@ Layout.new = function(input)
 	self.xLength = input.xLength or 51
 	self.yLength = input.yLength or 19
 	self.nilClick = input.nilClick or false
+	self.window = window.create(term.current(),self.xPos,self.yPos,self.xLength,self.yLength)
 	return self
 end
 
@@ -179,21 +180,11 @@ Button.new = function(input)
 end
 
 --Draw function
-Button.draw = function(self,layoutX,layoutY,addX,addY)
-	layoutX = layoutX or 0
-	layoutY = layoutY or 0
-	if self.moveX then
-		addX = addX or 0
-	else
-		addX = 0
-	end
-	if self.moveY then
-		addY = addY or 0
-	else
-		addY = 0
-	end
-	local finalX = self.xPos + layoutX + addX - 1
-	local finalY = self.yPos + layoutY + addY - 1
+Button.draw = function(self,addX,addY)
+	addX = self.moveX and addX or 0
+	addY = self.moveY and addX or 0
+	local finalX = self.xPos + addX
+	local finalY = self.yPos + addY
 	self.finalX = finalX
 	self.finalY = finalY
 	local newText
@@ -256,20 +247,10 @@ Toggle.new = function(input)
 end
 
 Toggle.draw = function(self,layoutX,layoutY,addX,addY)
-	layoutX = layoutX or 0
-	layoutY = layoutY or 0
-	if self.moveX then
-		addX = addX or 0
-	else
-		addX = 0
-	end
-	if self.moveY then
-		addY = addY or 0
-	else
-		addY = 0
-	end
-	local finalX = self.xPos + layoutX + addX - 1
-	local finalY = self.yPos + layoutY + addY - 1
+	addX = self.moveX and addX or 0
+	addY = self.moveY and addX or 0
+	local finalX = self.xPos + addX
+	local finalY = self.yPos + addY
 	self.finalX = finalX
 	self.finalY = finalY
 	term.setCursorPos(finalX,finalY)
@@ -346,20 +327,10 @@ function ColorField.new(input)
 end
 
 function  ColorField.draw(self,layoutX,layoutY,addX,addY)
-	layoutX = layoutX or 0
-	layoutY = layoutY or 0
-	if self.moveX then
-		addX = addX or 0
-	else
-		addX = 0
-	end
-	if self.moveY then
-		addY = addY or 0
-	else
-		addY = 0
-	end
-	local finalX = self.xPos + layoutX + addX - 1
-	local finalY = self.yPos + layoutY + addY - 1
+	addX = self.moveX and addX or 0
+	addY = self.moveY and addX or 0
+	local finalX = self.xPos + addX
+	local finalY = self.yPos + addY
 	self.finalX = finalX
 	self.finalY = finalY
 	term.setTextColor(colors.black)
@@ -402,20 +373,10 @@ function BetterPaint.returnData(self)
 end
 
 function BetterPaint.draw(self,layoutX,layoutY,addX,addY)
-	if layoutX == nil then layoutX = 0 end
-	if layoutY == nil then layoutY = 0 end
-	if self.moveX then
-		if laddX == nil then addX = 0 end
-	else
-		addX = 0
-	end
-	if self.moveY then
-		if addY == nil then addY = 0 end
-	else
-		addY = 0
-	end
-	local finalX = self.xPos + layoutX + addX - 1
-	local finalY = self.yPos + layoutY + addY - 1
+	addX = self.moveX and addX or 0
+	addY = self.moveY and addX or 0
+	local finalX = self.xPos + addX
+	local finalY = self.yPos + addY
 	self.finalX = finalX
 	self.finalY = finalY
 	paint.drawImage(self.path,finalX,finalY)
@@ -441,20 +402,10 @@ function Text.new(input)
 end
 
 function Text.draw(self,layoutX,layoutY,addX,addY)
-	if layoutX == nil then layoutX = 0 end
-	if layoutY == nil then layoutY = 0 end
-	if self.moveX then
-		if laddX == nil then addX = 0 end
-	else
-		addX = 0
-	end
-	if self.moveY then
-		if addY == nil then addY = 0 end
-	else
-		addY = 0
-	end
-	local finalX = self.xPos + layoutX + addX - 1
-	local finalY = self.yPos + layoutY + addY - 1
+	addX = self.moveX and addX or 0
+	addY = self.moveY and addX or 0
+	local finalX = self.xPos + addX
+	local finalY = self.yPos + addY
 	self.finalX = finalX
 	self.finalY = finalY
 	term.setCursorPos(finalX,finalY)
@@ -503,20 +454,10 @@ function TextBox.returnData(self)
 end
 
 function TextBox.draw(self,layoutX,layoutY,addX,addY)
-	if layoutX == nil then layoutX = 0 end
-	if layoutY == nil then layoutY = 0 end
-	if self.moveX then
-		if laddX == nil then addX = 0 end
-	else
-		addX = 0
-	end
-	if self.moveY then
-		if addY == nil then addY = 0 end
-	else
-		addY = 0
-	end
-	local finalX = self.xPos + layoutX + addX - 1
-	local finalY = self.yPos + layoutY + addY - 1
+	addX = self.moveX and addX or 0
+	addY = self.moveY and addX or 0
+	local finalX = self.xPos + addX
+	local finalY = self.yPos + addY
 	self.finalX = finalX
 	self.finalY = finalY
 	paintutils.drawFilledBox(finalX,finalY,finalX+self.xLength-1,finalY+self.yLength-1,self.bgColor)
@@ -678,27 +619,27 @@ eventHandler = function(self)
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
 				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
-					return {"Button",tostring(v.returnValue)}
+					return {"Button",tostring(v.returnValue),p1,p2,p3}
 				end
 			end
 			for i,v in pairs(self.Toggle) do
 				if v.finalX <= p2 and p2 <= v.finalX + 3 and v.finalY == p3 then
-					return {"Toggle",tostring(v.returnValue)}
+					return {"Toggle",tostring(v.returnValue),p1,p2,p3}
 				end
 			end
 			for i,v in pairs(self.BetterPaint) do 
 				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
-					return {"Button",tostring(v.returnValue)}
+					return {"Button",tostring(v.returnValue),p1,p2,p3}
 				end
 			end
 			for i,v in pairs(self.TextBox) do 
 				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
-					return {"TextBox",tostring(v.returnValue)}
+					return {"TextBox",tostring(v.returnValue),p1,p2,p3}
 				end
 			end
 			if self.nilClick then
 				if not (self.xPos <= p2 and p2 <= self.xPos+self.xLength-1 and self.yPos <= p3 and p3 <= self.yPos+self.yLength-1) then
-					return {"Nil","Nil"}
+					return {"Nil","Nil",p1,p2,p3}
 				end
 			end
 		elseif event == "key" then
