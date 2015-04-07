@@ -1,6 +1,6 @@
 --[[
 	BIOS by Creator
-	for TheOS
+	for OmniOS
 ]]--
 
 --Variables--
@@ -51,11 +51,11 @@ function gui.drawMain()
 end
 
 local function loadOS()
-	return dofile("TheOS/BIOS/List")
+	return dofile("OmniOS/BIOS/List")
 end
 
 local function loadDefault()
-	return dofile("TheOS/BIOS/default")
+	return dofile("OmniOS/BIOS/default")
 end
 
 local function findCurrent()

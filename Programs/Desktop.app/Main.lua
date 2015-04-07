@@ -1,7 +1,7 @@
 --[[
 	Desktop in ComputerCraft
 	by Creator
-	for TheOS
+	for OmniOS
 ]]--
 --Variables--
 local textutilsserialize = textutils.serialize
@@ -19,7 +19,7 @@ local mainLayoutTable = {}
 local quickSettingsLayoutTable = {}
 local paths = {}
 local scroll = 0
-local programPath = "TheOS/Programs/Desktop.app/Data/"
+local programPath = "OmniOS/Programs/Desktop.app/Data/"
 
 --Functions--
 local function readFile(_path)

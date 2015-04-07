@@ -1,12 +1,10 @@
---TheOS: Boot--
+--OmniOS: Boot--
 --by Creator--
 
 --Variables--
 local tasks = 2
 local finishedTasks = 0
 term.redirect(term.native())
---local mon = peripheral.wrap("right")
---term.redirect(mon)
 local w,h = term.getSize()
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
@@ -15,14 +13,14 @@ local oldPullEvent = os.pullEvent
 local whichLang = nil
 local lang = {}
 local oldFs = {}
-local logo  = paintutils.loadImage("TheOS/Media/Boot/Boot_Logo.nfp")
-local hideLogo = paintutils.loadImage("TheOS/Media/Boot/Boot_Hide.nfp")
+local logo  = paintutils.loadImage("OmniOS/Media/Boot/Boot_Logo.nfp")
+local hideLogo = paintutils.loadImage("OmniOS/Media/Boot/Boot_Hide.nfp")
 local logoWide = 18
 --Functions--
 
 local function nPrint(text)
 	finishedTasks = finishedTasks + 1
-	local txt = "theOS by Creator"
+	local txt = "OmniOS by Creator"
 	term.setBackgroundColor(colors.white)
 	term.setTextColor(colors.lightGray)
 	term.clear()
@@ -44,17 +42,17 @@ term.clear()
 term.setCursorPos(1,1)
 
 --Load language file--
-langFile = fs.open("TheOS/Settings/Language/CurrentLang","r")
+langFile = fs.open("OmniOS/Settings/Language/CurrentLang","r")
 whichLang = langFile.readAll()
 langFile.close()
 
-langFile = fs.open("TheOS/Languages/Boot_"..whichLang..".lang","r")
+langFile = fs.open("OmniOS/Languages/Boot_"..whichLang..".lang","r")
 lang = textutilsunserialize(langFile.readAll())
 langFile.close()
 
 --Load APIs--
 nPrint(lang[3])
-dofile("TheOS/Core/LoadAPIs.lua")
+dofile("OmniOS/Core/LoadAPIs.lua")
 nPrint(lang[4])
 
 --Overwrite os.pullEventFunctions--
@@ -63,12 +61,12 @@ nPrint(lang[4])
 
 --Go to next
 function goOn()
-	local login, err = loadfile("TheOS/Core/Login.lua")
+	local login, err = loadfile("OmniOS/Core/Login.lua")
 	if err then print(err) log.log("Error",err) os.pullEvent() end
 	--login()
-	local kernel, err= loadfile("TheOS/Core/Kernel.lua")
+	local kernel, err= loadfile("OmniOS/Core/Kernel.lua")
 	if err then print(err) os.pullEvent() log.log("Error",err) end
-	local desktop,err = loadfile("TheOS/Programs/Desktop.app/Main.lua")
+	local desktop,err = loadfile("OmniOS/Programs/Desktop.app/Main.lua")
 	if err then print(err) os.pullEvent() log.log("Error",err) end
 	kernel("Desktop","Desktop",desktop,"user")
 end
@@ -76,5 +74,5 @@ end
 ok, err = pcall(goOn)
 
 if not ok then
-	pcall(shell.run("TheOS/Core/Crash.lua "..err))
+	pcall(shell.run("OmniOS/Core/Crash.lua "..err))
 end
