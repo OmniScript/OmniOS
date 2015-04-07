@@ -11,7 +11,7 @@ function create( parent, nX, nY, nWidth, nHeight, bStartVisible )
     end
 
     if parent == term then
-        error( "term is not a recommended window parent, try term.current() instead", 2 )
+        parent = term.current()
     end
 
     -- Setup
@@ -23,12 +23,6 @@ function create( parent, nX, nY, nWidth, nHeight, bStartVisible )
     local nBackgroundColor = colors.black
     local sEmpty = string.rep( " ", nWidth )
     local tLines = {}
-    do
-        local tEmpty = { { sEmpty, nTextColor, nBackgroundColor } }
-        for y=1,nHeight do
-            tLines[y] = tEmpty
-        end
-    end
 
     -- Helper functions
     local function updateCursorPos()
@@ -46,106 +40,6 @@ function create( parent, nX, nY, nWidth, nHeight, bStartVisible )
     
     local function updateCursorColor()
         parent.setTextColor( nTextColor )
-    end
-    
-    local function redrawLine( n )
-        parent.setCursorPos( nX, nY + n - 1 )
-        local tLine = tLines[ n ]
-        for m=1,#tLine do
-            local tBit = tLine[ m ]
-            parent.setTextColor( tBit[2] )
-            parent.setBackgroundColor( tBit[3] )
-            parent.write( tBit[1] )
-        end
-    end
-
-    local function lineLen( tLine )
-        local nLength = 0
-        for n=1,#tLine do
-            nLength = nLength + string.len( tLine[n][1] )
-        end
-        return nLength
-    end
-
-    local function lineSub( tLine, nStart, nEnd )
-        --assert( math.floor(nStart) == nStart )
-        --assert( math.floor(nEnd) == nEnd )
-        --assert( nStart >= 1 )
-        --assert( nEnd >= nStart )
-        --assert( nEnd <= lineLen( tLine ) )
-        local tSubLine = {}
-        local nBitStart = 1
-        for n=1,#tLine do
-            local tBit = tLine[n]
-            local sBit = tBit[1]
-            local nBitEnd = nBitStart + string.len( sBit ) - 1
-            if nBitEnd >= nStart and nBitStart <= nEnd then
-                if nBitStart >= nStart and nBitEnd <= nEnd then
-                    -- Include bit wholesale
-                    table.insert( tSubLine, tBit )
-                    --assert( lineLen( tSubLine ) == (math.min(nEnd, nBitEnd) - nStart + 1) )
-                elseif nBitStart < nStart and nBitEnd <= nEnd then
-                    -- Include end of bit
-                    table.insert( tSubLine, {
-                        string.sub( sBit, nStart - nBitStart + 1 ),
-                        tBit[2], tBit[3]
-                    } )
-                    --assert( lineLen( tSubLine ) == (math.min(nEnd, nBitEnd) - nStart + 1) )
-                elseif nBitStart >= nStart and nBitEnd > nEnd then
-                    -- Include beginning of bit
-                    table.insert( tSubLine, {
-                        string.sub( sBit, 1, nEnd - nBitStart + 1 ),
-                        tBit[2], tBit[3]
-                    } )
-                    --assert( lineLen( tSubLine ) == (math.min(nEnd, nBitEnd) - nStart + 1) )
-                else
-                    -- Include middle of bit
-                    table.insert( tSubLine, {
-                        string.sub( sBit, nStart - nBitStart + 1, nEnd - nBitStart + 1 ),
-                        tBit[2], tBit[3]
-                    } )
-                    --assert( lineLen( tSubLine ) == (math.min(nEnd, nBitEnd) - nStart + 1) )
-                end
-            end
-            nBitStart = nBitEnd + 1
-        end
-        --assert( lineLen( tSubLine ) == (nEnd - nStart + 1) )
-        return tSubLine
-    end
-
-    local function lineJoin( tLine1, tLine2 )
-        local tNewLine = {}
-        if tLine1[#tLine1][2] == tLine2[1][2] and
-           tLine1[#tLine1][3] == tLine2[1][3] then
-            -- Merge middle bits
-            for n=1,#tLine1-1 do
-                table.insert( tNewLine, tLine1[n] )
-            end
-            table.insert( tNewLine, {
-                tLine1[#tLine1][1] .. tLine2[1][1],
-                tLine2[1][2], tLine2[1][3]
-            } )
-            for n=2,#tLine2 do
-                table.insert( tNewLine, tLine2[n] )
-            end
-            --assert( lineLen( tNewLine ) == lineLen(tLine1) + lineLen(tLine2) )
-        else
-            -- Just concatenate
-            for n=1,#tLine1 do
-                table.insert( tNewLine, tLine1[n] )
-            end
-            for n=1,#tLine2 do
-                table.insert( tNewLine, tLine2[n] )
-            end
-            --assert( lineLen( tNewLine ) == lineLen(tLine1) + lineLen(tLine2) )
-        end
-        return tNewLine
-    end
-
-    local function redraw()
-        for n=1,nHeight do
-            redrawLine( n )
-        end
     end
 
     local window = {}
