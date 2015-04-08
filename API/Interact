@@ -139,7 +139,8 @@ Layout.draw = function(self,xPlus,yPlus)
 	setmetatable(betterPaintFunctions,{__index = BetterPaint})
 	setmetatable(textFunctions,{__index = Text})
 	setmetatable(textBoxFunctions,{__index = TextBox})
-	paintutils.drawFilledBox(self.xPos,self.yPos,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.BackgroundColor)
+	--paintutils.drawFilledBox(self.xPos,self.yPos,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.BackgroundColor)
+	paintutils.drawFilledBox(1,1,self.xLength,self.yLength,self.BackgroundColor)
 	for i,v in pairs(self.ColorField) do
 		colorFieldFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
 	end
@@ -617,11 +618,13 @@ end
 
 --Event handler function--
 eventHandler = function(self)
+	local toAddX = self.xPos - 1
+	local toAddY = self.yPos - 1
 	while true do
 		local event, p1, p2, p3, p4, p5, p6 = os.pullEvent()
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
-				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
+				if v.finalX + toAddX <= p2 and p2 <= v.finalX + v.xLength-1 + toAddX and v.finalY + toAddY <= p3 and p3 <= v.finalY + v.yLength-1 + toAddY then
 					return {"Button",tostring(v.returnValue),p1,p2,p3}
 				end
 			end
@@ -631,12 +634,12 @@ eventHandler = function(self)
 				end
 			end
 			for i,v in pairs(self.BetterPaint) do 
-				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
+				if v.finalX + toAddX <= p2 and p2 <= v.finalX + v.xLength-1 + toAddX and v.finalY + toAddY <= p3 and p3 <= v.finalY + v.yLength-1 + toAddY then
 					return {"Button",tostring(v.returnValue),p1,p2,p3}
 				end
 			end
 			for i,v in pairs(self.TextBox) do 
-				if v.finalX <= p2 and p2 <= v.finalX + v.xLength-1 and v.finalY <= p3 and p3 <= v.finalY + v.yLength-1 then
+				if v.finalX + toAddX <= p2 and p2 <= v.finalX + v.xLength-1 + toAddX and v.finalY + toAddY <= p3 and p3 <= v.finalY + v.yLength-1 + toAddY then
 					return {"TextBox",tostring(v.returnValue),p1,p2,p3}
 				end
 			end
