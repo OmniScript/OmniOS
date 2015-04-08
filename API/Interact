@@ -629,7 +629,7 @@ eventHandler = function(self)
 				end
 			end
 			for i,v in pairs(self.Toggle) do
-				if v.finalX <= p2 and p2 <= v.finalX + 3 and v.finalY == p3 then
+				if v.finalX + toAddX <= p2 and p2 <= v.finalX + 3 + toAddX and v.finalY + toAddY == p3 then
 					return {"Toggle",tostring(v.returnValue),p1,p2,p3}
 				end
 			end
