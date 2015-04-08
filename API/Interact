@@ -180,6 +180,8 @@ Button.new = function(input)
 	self.yTextPos = input.yTextPos
 	self.moveX = input.moveX or false
 	self.moveY = input.moveY or false
+	self.onRightClick = input.onRightClick or nil
+	self.onLeftClick = input.onLeftClick or nil
 	return self
 end
 
@@ -247,6 +249,8 @@ Toggle.new = function(input)
 	self.returnValue = input.returnValue or "mmmmmmm"
 	self.moveX = input.moveX or false
 	self.moveY = input.moveY or false
+	self.onRightClick = input.onRightClick or nil
+	self.onLeftClick = input.onLeftClick or nil
 	return self
 end
 
@@ -365,6 +369,8 @@ function BetterPaint.new(input)
 	self.labelFg = input.labelFg
 	self.moveX = input.moveX or false
 	self.moveY = input.moveY or false
+	self.onRightClick = input.onRightClick or nil
+	self.onLeftClick = input.onLeftClick or nil
 	return self
 end
 

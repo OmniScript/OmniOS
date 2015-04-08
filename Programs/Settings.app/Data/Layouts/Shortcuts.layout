@@ -1,5 +1,5 @@
 local w,h = term.getSize()
-local programPath = "TheOS/Programs/Desktop.app/Data/"
+local programPath = "OmniOS/Programs/Desktop.app/Data/"
 
 MainTable = {
 	Button = {

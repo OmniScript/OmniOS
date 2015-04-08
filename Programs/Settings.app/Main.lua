@@ -1,13 +1,13 @@
 --[[
 	Settings app
 	by Creator
-	for TheOS
+	for OmniOS
 ]]--
 
 --variables--
 local w,h = term.getSize()
 local MainLayoutTable = {}
-local path = "TheOS/Programs/Settings.app/Data/"
+local path = "OmniOS/Programs/Settings.app/Data/"
 
 --functions--
 local loadLayout = function(sPath,...)
@@ -16,12 +16,12 @@ local loadLayout = function(sPath,...)
 end
 
 local function changeColor(color)
-	local f = fs.open("TheOS/Programs/Desktop.app/Data/Settings","r")
+	local f = fs.open("OmniOS/Programs/Desktop.app/Data/Settings","r")
 	local Settings = textutils.unserialize(f.readAll())
 	print(f.readAll())
 	f.close()
 	Settings.bgColor = colors[color] or colors.green
-	local f = fs.open("TheOS/Programs/Desktop.app/Data/Settings","w")
+	local f = fs.open("OmniOS/Programs/Desktop.app/Data/Settings","w")
 	f.write(textutils.serialize(Settings))
 	f.close()
 end
@@ -35,7 +35,7 @@ local function split(str,sep)
 end
 
 local function drawPrograms()
-	local tRawPrograms = fs.list("TheOS/Programs")
+	local tRawPrograms = fs.list("OmniOS/Programs")
 	local tPrograms = {}
 	for i,v in pairs(tRawPrograms) do
 		tPrograms[#tPrograms+1] = string.match(v,"[^.]+")
@@ -52,7 +52,7 @@ local function drawPrograms()
 end
 
 --Code--
-os.loadAPI("TheOS/API/Interact")
+os.loadAPI("OmniOS/API/Interact")
 local gui = Interact.Initialize()
 
 --Layouts--
@@ -127,7 +127,7 @@ while true do
 				if SecurityLayoutEvent[1] == "TextBox" then
 					if SecurityLayoutEvent[2] == "Password" then
 						local newPass = SecurityLayout.TextBox.Password:read()
-						local file = fs.open("TheOS/Settings/Users/Admin","w")
+						local file = fs.open("OmniOS/Settings/Users/Admin","w")
 						file.write(Sha.sha256(newPass))
 						file.close()
 					end
