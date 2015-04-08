@@ -5,7 +5,7 @@ function new( parent, nX, nY, nWidth, nHeight)
 	   type( nY ) ~= "number" or
 	   type( nWidth ) ~= "number" or
 	   type( nHeight ) ~= "number" then
-		error( "Expected object, number, number, number, number, [boolean]", 2 )
+		error( "Expected object, number, number, number, number", 2 )
 	end
 
 	if parent == term then
@@ -34,31 +34,29 @@ function new( parent, nX, nY, nWidth, nHeight)
 		updateCursorPos()
 		for i = 1, nLen do
 			if nCursorX <= nWidth and nCursorY <= nHeight then
-				parent.write(sText:sub(nLen,nLen))
+				parent.write(sText:sub(i,i))
 				nCursorX = nCursorX + 1
 			end
 		end
 	end
 
-	function window.clear()
-		local tEmpty = { { sEmpty, nTextColor, nBackgroundColor } }
-		for y=1,nHeight do
-			tLines[y] = tEmpty
+	local function clearLine()
+		for i=1,nWidth do
+			parent.write(" ")
+			nCursorX = nCursorX + 1
 		end
-		if bVisible then
-			redraw()
-			updateCursorColor()
+	end
+
+	function window.clear()
+		for m=1, nHeight do
 			updateCursorPos()
+			clearLine()
+			nCursorY = nCursorY + 1
 		end
 	end
 
 	function window.clearLine()
-		if nCursorY >= 1 and nCursorY <= nHeight then
-			tLines[ nCursorY ] = { { sEmpty, nTextColor, nBackgroundColor } }
-			redrawLine( nCursorY )
-			updateCursorColor()
-			updateCursorPos()
-		end
+		clearLine()
 	end
 
 	function window.getCursorPos()
@@ -68,14 +66,11 @@ function new( parent, nX, nY, nWidth, nHeight)
 	function window.setCursorPos( x, y )
 		nCursorX = math.floor( x )
 		nCursorY = math.floor( y )
-			updateCursorPos()
+		updateCursorPos()
 	end
 
 	function window.setCursorBlink( blink )
-		bCursorBlink = blink
-		if bVisible then
-			updateCursorBlink()
-		end
+		parent.setCursorBlink(blink)
 	end
 
 	function window.isColor()
@@ -92,10 +87,7 @@ function new( parent, nX, nY, nWidth, nHeight)
 				error( "Colour not supported", 3 )
 			end
 		end
-		nTextColor = color
-		if bVisible then
-			updateCursorColor()
-		end
+		parent.setTextColour(color)
 	end
 
 	function window.setTextColor( color )
@@ -112,7 +104,7 @@ function new( parent, nX, nY, nWidth, nHeight)
 				error( "Colour not supported", 3 )
 			end
 		end
-		nBackgroundColor = color
+		parent.setBackgroundColor(color)
 	end
 
 	function window.setBackgroundColor( color )
@@ -128,88 +120,8 @@ function new( parent, nX, nY, nWidth, nHeight)
 	end
 
 	function window.scroll( n )
-		if n ~= 0 then
-			local tNewLines = {}
-			local tEmpty = { { sEmpty, nTextColor, nBackgroundColor } }
-			for newY=1,nHeight do
-				local y = newY + n
-				if y >= 1 and y <= nHeight then
-					tNewLines[newY] = tLines[y]
-				else
-					tNewLines[newY] = tEmpty
-				end
-			end
-			tLines = tNewLines
-			if bVisible then
-				redraw()
-				updateCursorColor()
-				updateCursorPos()
-			end
-		end
+		print("Fuck you! No freaking buffer.")
 	end
 
-	-- Other functions
-	function window.setVisible( bVis )
-		if bVisible ~= bVis then
-			bVisible = bVis
-			if bVisible then
-				window.redraw()
-			end
-		end
-	end
-
-	function window.redraw()
-		if bVisible then
-			redraw()
-			updateCursorBlink()
-			updateCursorColor()
-			updateCursorPos()
-		end
-	end
-
-	function window.restoreCursor()
-		if bVisible then
-			updateCursorBlink()
-			updateCursorColor()
-			updateCursorPos()
-		end
-	end
-
-	function window.getPosition()
-		return nX, nY
-	end
-
-	function window.reposition( nNewX, nNewY, nNewWidth, nNewHeight )
-		nX = nNewX
-		nY = nNewY
-		if nNewWidth and nNewHeight then
-			sEmpty = string.rep( " ", nNewWidth )
-			local tNewLines = {}
-			local tEmpty = { { sEmpty, nTextColor, nBackgroundColor } }
-			for y=1,nNewHeight do
-				if y > nHeight then
-					tNewLines[y] = tEmpty
-				else
-					if nNewWidth == nWidth then
-						tNewLines[y] = tLines[y]
-					elseif nNewWidth < nWidth then
-						tNewLines[y] = lineSub( tLines[y], 1, nNewWidth )
-					else
-						tNewLines[y] = lineJoin( tLines[y], { { string.sub( sEmpty, nWidth + 1, nNewWidth ), nTextColor, nBackgroundColor } } )
-					end
-				end
-			end
-			nWidth = nNewWidth
-			nHeight = nNewHeight
-			tLines = tNewLines
-		end
-		if bVisible then
-			window.redraw()
-		end
-	end
-
-	if bVisible then
-		window.redraw()
-	end
 	return window
 end

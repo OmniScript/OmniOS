@@ -90,7 +90,7 @@ Layout.new = function(input)
 	self.xLength = input.xLength or 51
 	self.yLength = input.yLength or 19
 	self.nilClick = input.nilClick or false
-	self.window = window.create(term.current(),self.xPos,self.yPos,self.xLength,self.yLength)
+	self.window = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength)
 	return self
 end
 
