@@ -76,6 +76,9 @@ function loadLayout(input,output)
 	for i,v in pairs(input.TextBox) do
 		output:addTextBox(input.TextBox[i])
 	end
+	for i,v in pairs(input.Key) do
+		output:addKey(input.Key[i])
+	end
 end
 
 --Class Layout--
@@ -89,6 +92,7 @@ Layout.new = function(input)
 	self.BetterPaint = {}
 	self.Text = {}
 	self.TextBox = {}
+	self.Key = {}
 	self.BackgroundColor = 1
 	self.xPos = input.xPos or 1
 	self.yPos = input.yPos or 1
@@ -125,8 +129,11 @@ Layout.addText = function(self,_elementData)
 end
 
 Layout.addTextBox = function(self,_elementData)
-	self.TextBox[_elementData.name]
-	= _elementData
+	self.TextBox[_elementData.name] = _elementData
+end
+
+Layout.addKey = function(self,_elementData)
+	self.Key[_elementData.name] = _elementData
 end
 
 Layout.draw = function(self,xPlus,yPlus)
@@ -655,6 +662,9 @@ eventHandler = function(self)
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
 				if v.finalX + toAddX <= p2 and p2 <= v.finalX + v.xLength-1 + toAddX and v.finalY + toAddY <= p3 and p3 <= v.finalY + v.yLength-1 + toAddY then
+					if v.onLeftClick then
+
+					elseif 
 					return {"Button",tostring(v.returnValue),p1,p2,p3}
 				end
 			end

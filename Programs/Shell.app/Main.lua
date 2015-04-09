@@ -170,30 +170,6 @@ function shell.programs( _bIncludeHidden )
 	return tItemList
 end
 
-function shell.getRunningProgram()
-	if #tProgramStack > 0 then
-		return tProgramStack[#tProgramStack]
-	end
-	return nil
-end
-
-function shell.setAlias( _sCommand, _sProgram )
-	tAliases[ _sCommand ] = _sProgram
-end
-
-function shell.clearAlias( _sCommand )
-	tAliases[ _sCommand ] = nil
-end
-
-function shell.aliases()
-	-- Add aliases
-	local tCopy = {}
-	for sAlias, sCommand in pairs( tAliases ) do
-		tCopy[sAlias] = sCommand
-	end
-	return tCopy
-end
-
 if multishell then
     function shell.openTab( ... )
         local tWords = tokenise( ... )
