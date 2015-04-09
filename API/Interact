@@ -390,7 +390,7 @@ function BetterPaint.draw(self,addX,addY)
 	self.finalX = finalX
 	self.finalY = finalY
 	paint.drawImage(self.path,finalX,finalY)
-	term.setCursorPos(finalX,finalY+self.yLength+1)
+	term.setCursorPos(finalX,finalY+self.yLength)
 	term.setTextColor(self.labelFg)
 	term.setBackgroundColor(self.labelBg)
 	term.write(self.label)
