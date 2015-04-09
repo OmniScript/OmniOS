@@ -17,6 +17,7 @@ local ColorField = {}
 local BetterPaint = {}
 local Text = {}
 local TextBox = {}
+local Key = {}
 
 function loadObjects(self)
 	local output = {}
@@ -26,6 +27,7 @@ function loadObjects(self)
 	output.BetterPaint = {}
 	output.Text = {}
 	output.TextBox = {}
+	output.Key = {}
 	for o,v in pairs(output) do
 		if self[o] == nil then
 			self[o] = {}
@@ -48,6 +50,9 @@ function loadObjects(self)
 	end
 	for i,v in pairs(self.TextBox) do
 		output.TextBox[i] = TextBox.new(self.TextBox[i])
+	end
+	for i,v in pairs(self.Key) do
+		output.Key[i] = Key.new(self.Key[i])
 	end
 	return output
 end
@@ -621,6 +626,25 @@ function TextBox.read(self,_sReplaceChar, _tHistory)
     
     return sLine
 end
+
+--Key Class
+function Key.new(input)
+	local self = {}
+	setmetatable(self,{__index = TextBox})
+	self.key = input.key
+	self.onPress = input.onPress or nil
+	return self
+end
+
+function Key.returnData(self)
+	local toReturn = {}
+	for i,v in pairs(self) do
+		toReturn[i] = v
+	end
+	return toReturn
+end
+
+
 
 --Event handler function--
 eventHandler = function(self)
