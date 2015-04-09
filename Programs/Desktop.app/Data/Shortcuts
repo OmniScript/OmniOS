@@ -23,4 +23,16 @@
 		path = "OmniOS/Programs/BetterPaint.app/BetterPaint",
 		name = "BetterPaint"
 	},
+	{
+		xPos = 2,
+		yPos = 2,
+		path = "OmniOS/Programs/Edit.app/Edit",
+		name = "Edit"
+	},
+	{
+		xPos = 3,
+		yPos = 2,
+		path = "OmniOS/Programs/Shell.app/Shell",
+		name = "Shell"
+	},
 }

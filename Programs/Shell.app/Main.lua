@@ -1,3 +1,6 @@
+--[[
+    Modified version of Shell
+]]--
 
 local multishell = multishell
 local parentShell = shell
@@ -30,6 +33,9 @@ else
 	textColour = colours.white
 	bgColour = colours.black
 end
+
+term.setBackgroundColor(bgColour)
+term.clear()
 
 local function run( _sCommand, ... )
 	local sPath = shell.resolveProgram( _sCommand )
@@ -222,11 +228,6 @@ else
     term.setTextColour( promptColour )
     print( os.version() )
     term.setTextColour( textColour )
-
-    -- Run the startup program
-    if parentShell == nil then
-        shell.run( "/rom/startup" )
-    end
 
     -- Read commands and execute them
     local tCommandHistory = {}
