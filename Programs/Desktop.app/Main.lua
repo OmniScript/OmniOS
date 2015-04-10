@@ -356,62 +356,61 @@ local function loadObjects()
 	}
 
 	QuickSettings.BetterPaint = {
-	Restart = {
-		xPos = 4,
-		yPos = 2,
-		name = "Restart",
-		path = programPath.."QuickSettings/restart.ico",
-		yLength = 6,
-		xLength = 7,
-		returnValue = "reboot",
-		label = "Restart",
-		labelFg = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
-		labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
-	},
-	Shutdown = {
-		xPos = 22,
-		yPos = 2,
-		name = "Shutdown",
-		path = programPath.."QuickSettings/shutdown.ico",
-		yLength = 6,
-		xLength = 7,
-		returnValue = "shutdown",
-		label = "Shutdown",
-		labelFg = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
-		labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
-	},
-	Settings = {
-		xPos = 13,
-		yPos = 2,
-		name = "Settings",
-		path = programPath.."QuickSettings/settings.ico",
-		yLength = 6,
-		xLength = 7,
-		returnValue = "settings",
-		label = "Settings",
-		labelFg = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
-		labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
-	},
-}
-
-QuickSettings.Text = {
-	Label = {
-		name = "Label",
-		text = "QuickSettings",
-		xPos = w/2-6,
-		yPos = 1,
-		bgColor = MatchingColors[Settings.bgColor]["quickSettings"],
-		fgColor = Settings.bgColor,
-	},
-}
-
-QuickSettings.Key = {
-	R = {
-		name = "R",
-		key = "r",
-		onPress = function() os.reboot() end,
+		Restart = {
+			xPos = 4,
+			yPos = 2,
+			name = "Restart",
+			path = programPath.."QuickSettings/restart.ico",
+			yLength = 6,
+			xLength = 7,
+			returnValue = "reboot",
+			label = "Restart",
+			labelFg = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
+			labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
 		},
-}
+		Shutdown = {
+			xPos = 22,
+			yPos = 2,
+			name = "Shutdown",
+			path = programPath.."QuickSettings/shutdown.ico",
+			yLength = 6,
+			xLength = 7,
+			returnValue = "shutdown",
+			label = "Shutdown",
+			labelFg = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
+			labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
+		},
+		Settings = {
+			xPos = 13,
+			yPos = 2,
+			name = "Settings",
+			path = programPath.."QuickSettings/settings.ico",
+			yLength = 6,
+			xLength = 7,
+			returnValue = "settings",
+			label = "Settings",
+			labelFg = MatchingColors[MatchingColors[Settings.bgColor]["quickSettings"]]["mainButtons"],
+			labelBg = MatchingColors[Settings.bgColor]["quickSettings"],
+		},
+	}
+
+	QuickSettings.Text = {
+		Label = {
+			name = "Label",
+			text = "QuickSettings",
+			xPos = w/2-6,
+			yPos = 1,
+			bgColor = MatchingColors[Settings.bgColor]["quickSettings"],
+			fgColor = Settings.bgColor,
+		},
+	}
+	QuickSettings.Key = {
+		R = {
+			name = "R",
+			key = "r",
+			onPress = function() os.reboot() end,
+		},
+	}
 
 	loadShortcuts()
 
@@ -457,6 +456,7 @@ local function InitializeGUI()
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
+	quickSettingsLayout:addKey(quickSettingsLayoutTable.Key.R:returnData())
 end
 
 local function changeColor(color)
@@ -500,12 +500,6 @@ loadObjects()
 loadGUI()
 InitializeGUI()
 
-term.setTextColor(colors.white)
---term.setBackgroundColor(colors.black)
---term.clear()
---term.setCursorPos(1,1)
---term.write(textutilsserialize(quickSettingsLayout))
-os.pullEvent()
 
 --Code--
 while true do

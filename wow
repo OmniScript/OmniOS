@@ -1,0 +1,7 @@
+function test()
+pritn("hello") --# will error
+end
+
+local ok, res = coroutine.resume( coroutine.create( test ) )
+
+print( tostring(ok) .. ":" .. res )

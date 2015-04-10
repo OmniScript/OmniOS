@@ -688,15 +688,8 @@ eventHandler = function(self)
 				end
 			end
 		elseif event == "key" then
-			print("yeah")
 			local pressedKey = p1
-			print(pressedKey)
-			print(KeyCodes[pressedKey])
-			print(textutilsserialize(self.Key))
 			for i,v in pairs(self.Key) do
-				print("wow")
-				print(v.key)
-				os.pullEvent()
 				if v.key == KeyCodes[pressedKey] then
 					if v.onPress then
 						v.onPress()

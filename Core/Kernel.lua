@@ -128,7 +128,7 @@ function newRoutine(name,title,func,permission,...)
 	routines[activeRoutine].window.setVisible(true)
 	logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
 	log.log(activeRoutine,"Success: "..tostring(logMessage),activeRoutine)
-	log.log(activeRoutine,"Filter: "..tostring(routines[activeRoutine].filter),activeRoutine)
+	log.log(activeRoutine,logMessage and "Filter: "..tostring(routines[activeRoutine].filter) or "Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
 	term.redirect(currTerm)
 	checkIfDead(activeRoutine)
 	history[#history+1] = activeRoutine
