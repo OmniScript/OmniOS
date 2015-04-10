@@ -500,6 +500,12 @@ loadObjects()
 loadGUI()
 InitializeGUI()
 
+term.setTextColor(colors.white)
+--term.setBackgroundColor(colors.black)
+--term.clear()
+--term.setCursorPos(1,1)
+--term.write(textutilsserialize(quickSettingsLayout))
+os.pullEvent()
 
 --Code--
 while true do

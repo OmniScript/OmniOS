@@ -11,6 +11,7 @@
 	finalizing and bug fixing it.
 ]]--
 
+local logMessage = ""
 local history = {}
 local w,h = term.getSize()
 local currTerm, routines, activeRoutine, eventBuffer = term.current(), {}, "", {}
@@ -125,8 +126,9 @@ function newRoutine(name,title,func,permission,...)
 	activeRoutine = name
 	term.redirect(routines[activeRoutine].window)
 	routines[activeRoutine].window.setVisible(true)
-	_, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
-    os.pullEventRaw()
+	logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
+	log.log(activeRoutine,"Success: "..tostring(logMessage),activeRoutine)
+	log.log(activeRoutine,"Filter: "..tostring(routines[activeRoutine].filter),activeRoutine)
 	term.redirect(currTerm)
 	checkIfDead(activeRoutine)
 	history[#history+1] = activeRoutine
@@ -149,14 +151,18 @@ while true do
 	elseif eventFilter[event[1]] then
 		if routines[activeRoutine].filter == nil or routines[activeRoutine].filter == "" or routines[activeRoutine].filter == event[1] then
 			term.redirect(routines[activeRoutine].window)
-			_, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,unpack(event))
+			logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,unpack(event))
+			log.log(activeRoutine,"Success: "..tostring(logMessage),activeRoutine)
+			log.log(activeRoutine,"Filter: "..tostring(routines[activeRoutine].filter),activeRoutine)
 			term.redirect(currTerm)
 			checkIfDead(activeRoutine)
 		end
 	else
 		for i,v in safePairs(routines) do
 			term.redirect(routines[i].window)
-			_, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
+			logMessage, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
+			log.log(i,"Success: "..tostring(logMessage),i)
+			log.log(i,"Filter: "..tostring(routines[activeRoutine].filter),i)
 			term.redirect(currTerm)
 			checkIfDead(i)
 		end
