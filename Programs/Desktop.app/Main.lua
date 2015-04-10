@@ -394,7 +394,7 @@ local function loadObjects()
 	},
 }
 
-	QuickSettings.Text = {
+QuickSettings.Text = {
 	Label = {
 		name = "Label",
 		text = "QuickSettings",
@@ -403,6 +403,14 @@ local function loadObjects()
 		bgColor = MatchingColors[Settings.bgColor]["quickSettings"],
 		fgColor = Settings.bgColor,
 	},
+}
+
+QuickSettings.Key = {
+	R = {
+		name = "R",
+		key = "r",
+		onPress = function() os.reboot() end,
+		},
 }
 
 	loadShortcuts()

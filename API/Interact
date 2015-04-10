@@ -763,6 +763,7 @@ end
 function Key.new(input)
 	local self = {}
 	setmetatable(self,{__index = TextBox})
+	self.name = input.name
 	self.key = input.key
 	self.onPress = input.onPress or nil
 	return self
@@ -787,17 +788,16 @@ eventHandler = function(self)
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
 				if v.finalX + toAddX <= p2 and p2 <= v.finalX + v.xLength-1 + toAddX and v.finalY + toAddY <= p3 and p3 <= v.finalY + v.yLength-1 + toAddY then
-					if p1 = 1 then
+					if p1 == 1 then
 						if v.onLeftClick then 
 							v.onLeftClick()
 						end
-					elseif p1 = 2
+					elseif p1 == 2 then
 						if v.onRightClick then
 							v.onRightClick()
 						end
-					else
-						return {"Button",tostring(v.returnValue),p1,p2,p3}
 					end
+					return {"Button",tostring(v.returnValue),p1,p2,p3}
 				end
 			end
 			for i,v in pairs(self.Toggle) do
@@ -821,6 +821,7 @@ eventHandler = function(self)
 				end
 			end
 		elseif event == "key" then
+			print("yeah")
 			local pressedKey = p1
 			for i,v in pairs(self.Key) do
 				if v.key == KeyCodes[pressedKey] then
