@@ -410,6 +410,16 @@ local function loadObjects()
 			key = "r",
 			onPress = function() os.reboot() end,
 		},
+		S = {
+			name = "S",
+			key = "s",
+			onPress = function() os.shutdown() end,
+		},
+		LeftAlt = {
+			name = "LeftAlt",
+			key = "LeftAlt",
+			onPress = function() System.newTask("Settings","Settings") end,
+		},
 	}
 
 	loadShortcuts()
@@ -457,6 +467,7 @@ local function InitializeGUI()
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
 	quickSettingsLayout:addKey(quickSettingsLayoutTable.Key.R:returnData())
+	quickSettingsLayout:addKey(quickSettingsLayoutTable.Key.S:returnData())
 end
 
 local function changeColor(color)
