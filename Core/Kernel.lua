@@ -127,8 +127,9 @@ function newRoutine(name,title,func,permission,...)
 	term.redirect(routines[activeRoutine].window)
 	routines[activeRoutine].window.setVisible(true)
 	logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
-	log.log(activeRoutine,"Success: "..tostring(logMessage),activeRoutine)
-	log.log(activeRoutine,logMessage and "Filter: "..tostring(routines[activeRoutine].filter) or "Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
+	if not logMessage then
+		log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
+	end
 	term.redirect(currTerm)
 	checkIfDead(activeRoutine)
 	history[#history+1] = activeRoutine
@@ -152,8 +153,9 @@ while true do
 		if routines[activeRoutine].filter == nil or routines[activeRoutine].filter == "" or routines[activeRoutine].filter == event[1] then
 			term.redirect(routines[activeRoutine].window)
 			logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,unpack(event))
-			log.log(activeRoutine,"Success: "..tostring(logMessage),activeRoutine)
-			log.log(activeRoutine,"Filter: "..tostring(routines[activeRoutine].filter),activeRoutine)
+			if not logMessage then
+				log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
+			end
 			term.redirect(currTerm)
 			checkIfDead(activeRoutine)
 		end
@@ -161,8 +163,9 @@ while true do
 		for i,v in safePairs(routines) do
 			term.redirect(routines[i].window)
 			logMessage, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
-			log.log(i,"Success: "..tostring(logMessage),i)
-			log.log(i,"Filter: "..tostring(routines[activeRoutine].filter),i)
+			if not logMessage then
+				log.log(activeRoutine,"Error: "..tostring(routines[i].filter),activeRoutine)
+			end
 			term.redirect(currTerm)
 			checkIfDead(i)
 		end

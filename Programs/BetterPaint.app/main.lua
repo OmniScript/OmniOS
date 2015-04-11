@@ -417,12 +417,32 @@ end
 end
 
 if #args > 0 then
- init()
- menuStatus = false
- saved = false
- writeMenuBar(menuStatus)
- menuItemSelected = 1
- drawData(3,0)
- drawMenu()
- eventHandler()
+  init()
+  menuStatus = false
+  saved = false
+  writeMenuBar(menuStatus)
+  menuItemSelected = 1
+  drawData(3,0)
+  drawMenu()
+  eventHandler()
+else
+  term.setBackgroundColor(colors.black)
+  term.setTextColor(colors.white)
+  term.clear()
+  term.setCursorPos(1,1)
+  term.write("Do you want to create a new file? <y/n>")
+  local answ = read()
+  if answ:sub(1,1) == "y" then
+    print()
+    term.write("Path please!")
+    args[1] = "OmniOS/Data/"..read()
+     init()
+      menuStatus = false
+      saved = false
+      writeMenuBar(menuStatus)
+      menuItemSelected = 1
+      drawData(3,0)
+      drawMenu()
+      eventHandler()
+  end
 end

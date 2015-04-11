@@ -418,7 +418,8 @@ local function loadObjects()
 		LeftAlt = {
 			name = "LeftAlt",
 			key = "LeftAlt",
-			onPress = function() System.newTask("Settings","Settings") end,
+			onPress = --function() System.newTask("Settings","Settings") end,
+			function() os.shutdown() end,
 		},
 	}
 
