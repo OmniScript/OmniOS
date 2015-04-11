@@ -1,0 +1,65 @@
+local function loadShortcuts()
+	local buffer = readFile(programPath.."Shortcuts")
+	local sBuffer = textutilsunserialize(buffer)
+	local nBuffer = {}
+	paths = {}
+	for i,v in pairs(sBuffer) do
+		nBuffer[v.name] = {
+			xPos = 2+(6*(v.xPos-1)),
+			yPos = 1+(5*(v.yPos-1)),
+			name = v.name,
+			path = v.path..".ico",
+			yLength = 4,
+			xLength = 3,
+			returnValue = v.name,
+			label = string.sub(v.name,1,5),
+			labelFg = MatchingColors[Settings.bgColor]["mainButtons"],
+			labelBg = Settings.bgColor,
+			moveY = true,
+		}
+		paths[v.name] = v.path
+	end
+	Main.BetterPaint = nBuffer
+end
+
+Main.Button = {
+		quickSettings = {
+			name = "quickSettings",
+			label = "^",
+			xPos = 1,
+			yPos = h,
+			xLength = 1,
+			yLength = 1,
+			xTextPos = 1,
+			yTextPos = 1,
+			fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+			bgColor = Settings.bgColor,
+			returnValue = "quickSettings",
+		},
+		windowPlus = {
+			name = "windowPlus",
+			label = ">",
+			xPos = w,
+			yPos = 1,
+			xLength = 1,
+			yLength = 1,
+			xTextPos = 1,
+			yTextPos = 1,
+			fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+			bgColor = Settings.bgColor,
+			returnValue = "windowPlus",
+		},
+		windowMinus = {
+			name = "windowMinus",
+			label = "<",
+			xPos = 1,
+			yPos = 1,
+			xLength = 1,
+			yLength = 1,
+			xTextPos = 1,
+			yTextPos = 1,
+			fgColor = MatchingColors[Settings.bgColor]["mainButtons"],
+			bgColor = Settings.bgColor,
+			returnValue = "windowMinus",
+		},
+	}

@@ -418,15 +418,14 @@ local function loadObjects()
 		LeftAlt = {
 			name = "LeftAlt",
 			key = "LeftAlt",
-			onPress = --function() System.newTask("Settings","Settings") end,
-			function() os.shutdown() end,
+			onPress = function() System.newTask("Settings","Settings") end,
 		},
 	}
 
 	loadShortcuts()
 
 end
-sfd
+
 local function loadGUI()
 	--Initializing GUI components
 	gui = Interact.Initialize()
@@ -469,6 +468,7 @@ local function InitializeGUI()
 	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
 	quickSettingsLayout:addKey(quickSettingsLayoutTable.Key.R:returnData())
 	quickSettingsLayout:addKey(quickSettingsLayoutTable.Key.S:returnData())
+	quickSettingsLayout:addKey(quickSettingsLayoutTable.Key.LeftAlt:returnData())
 end
 
 local function changeColor(color)
