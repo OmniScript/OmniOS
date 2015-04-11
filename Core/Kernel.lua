@@ -164,7 +164,7 @@ while true do
 			term.redirect(routines[i].window)
 			logMessage, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
 			if not logMessage then
-				log.log(activeRoutine,"Error: "..tostring(routines[i].filter),activeRoutine)
+				log.log(i,"Error: "..tostring(routines[i].filter),i)
 			end
 			term.redirect(currTerm)
 			checkIfDead(i)

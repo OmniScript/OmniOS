@@ -426,7 +426,7 @@ local function loadObjects()
 	loadShortcuts()
 
 end
-
+sfd
 local function loadGUI()
 	--Initializing GUI components
 	gui = Interact.Initialize()
