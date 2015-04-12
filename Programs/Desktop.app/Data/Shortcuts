@@ -35,4 +35,10 @@
 		path = "OmniOS/Programs/Shell.app/Shell",
 		name = "Shell"
 	},
+	{
+		xPos = 1,
+		yPos = 1,
+		path = "OmniOS/Programs/Calculator.app/Calculator",
+		name = "Calculator"
+	},
 }
