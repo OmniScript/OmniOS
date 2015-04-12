@@ -1,0 +1,21 @@
+local Main = {
+	Button = {
+		[1] = {
+			name = 1,
+			label = 1,
+			xPos = 10,
+			yPos = 4,
+			fgColor = colors.white,
+			bgColor = colors.blue,
+			xLength = 3,
+			yLength = 3,
+			returnValue = "1",
+			xTextPos = 2,
+			yTextPos = 2,
+			moveX = 
+			moveY = 
+			onRightClick =
+			onLeftClick = 
+		}
+	}
+}

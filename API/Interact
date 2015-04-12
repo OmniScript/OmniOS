@@ -315,8 +315,6 @@ Button.new = function(input)
 	self.returnValue = input.returnValue
 	self.xTextPos = input.xTextPos
 	self.yTextPos = input.yTextPos
-	self.moveX = input.moveX or false
-	self.moveY = input.moveY or false
 	self.onRightClick = input.onRightClick or nil
 	self.onLeftClick = input.onLeftClick or nil
 	return self
@@ -324,10 +322,11 @@ end
 
 --Draw function
 Button.draw = function(self,addX,addY)
-	addX = self.moveX and addX or 0
-	addY = self.moveY and addX or 0
+	addX = addX or 0
+	addY = addY or 0
 	local finalX = self.xPos + addX
 	local finalY = self.yPos + addY
+
 	self.finalX = finalX
 	self.finalY = finalY
 	local newText
@@ -392,8 +391,8 @@ Toggle.new = function(input)
 end
 
 function Toggle.draw(self,addX,addY)
-	addX = self.moveX and addX or 0
-	addY = self.moveY and addX or 0
+	addX = addX or 0
+	addY = addY or 0
 	local finalX = self.xPos + addX
 	local finalY = self.yPos + addY
 	self.finalX = finalX
@@ -472,8 +471,8 @@ function ColorField.new(input)
 end
 
 function  ColorField.draw(self,addX,addY)
-	addX = self.moveX and addX or 0
-	addY = self.moveY and addX or 0
+	addX = addX or 0
+	addY = addY or 0
 	local finalX = self.xPos + addX
 	local finalY = self.yPos + addY
 	self.finalX = finalX
@@ -520,8 +519,8 @@ function BetterPaint.returnData(self)
 end
 
 function BetterPaint.draw(self,addX,addY)
-	addX = self.moveX and addX or 0
-	addY = self.moveY and addX or 0
+	addX = addX or 0
+	addY = addY or 0
 	local finalX = self.xPos + addX
 	local finalY = self.yPos + addY
 	self.finalX = finalX
@@ -549,8 +548,8 @@ function Text.new(input)
 end
 
 function Text.draw(self,addX,addY)
-	addX = self.moveX and addX or 0
-	addY = self.moveY and addX or 0
+	addX = addX or 0
+	addY = addY or 0
 	local finalX = self.xPos + addX
 	local finalY = self.yPos + addY
 	self.finalX = finalX
@@ -601,8 +600,8 @@ function TextBox.returnData(self)
 end
 
 function TextBox.draw(self,addX,addY)
-	addX = self.moveX and addX or 0
-	addY = self.moveY and addX or 0
+	addX = addX or 0
+	addY = addY or 0
 	local finalX = self.xPos + addX
 	local finalY = self.yPos + addY
 	self.finalX = finalX
