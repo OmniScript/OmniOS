@@ -1,4 +1,4 @@
-{
+ {
   files = {
     [ "README.md" ] = "admin",
     [ "Boot.lua" ] = "admin",
