@@ -179,6 +179,8 @@ function loadObjects(self)
 	for i,v in pairs(self.Key) do
 		output.Key[i] = Key.new(self.Key[i])
 	end
+	output.BackgroundColor = self.BackgroundColor or 1
+	output.nilClick = self.nilClick or false
 	return output
 end
 
@@ -204,6 +206,8 @@ function loadLayout(input,output)
 	for i,v in pairs(input.Key) do
 		output:addKey(input.Key[i])
 	end
+	output.BackgroundColor = input.BackgroundColor
+	output.nilClick = input.nilClick
 end
 
 --Class Layout--
@@ -276,25 +280,24 @@ Layout.draw = function(self,xPlus,yPlus)
 	setmetatable(betterPaintFunctions,{__index = BetterPaint})
 	setmetatable(textFunctions,{__index = Text})
 	setmetatable(textBoxFunctions,{__index = TextBox})
-	--paintutils.drawFilledBox(self.xPos,self.yPos,self.xPos+self.xLength-1,self.yPos+self.yLength-1,self.BackgroundColor)
 	paintutils.drawFilledBox(1,1,self.xLength,self.yLength,self.BackgroundColor)
 	for i,v in pairs(self.ColorField) do
-		colorFieldFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
+		colorFieldFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
 	end
 	for i,v in pairs(self.Button) do
-		buttonFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
+		buttonFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
 	end
 	for i,v in pairs(self.BetterPaint) do
-		betterPaintFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
+		betterPaintFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
 	end
 	for i,v in pairs(self.Toggle) do
-		toggleFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
+		toggleFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
 	end
 	for i,v in pairs(self.Text) do
-		textFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
+		textFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
 	end
 	for i,v in pairs(self.TextBox) do
-		textBoxFunctions.draw(v,self.xPos,self.yPos,xPlus,yPlus)
+		textBoxFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
 	end
 	term.redirect(oldTerm)
 end
@@ -542,8 +545,6 @@ function Text.new(input)
 	self.yPos = input.yPos
 	self.bgColor = input.bgColor
 	self.fgColor = input.fgColor
-	self.moveX = input.moveX or false
-	self.moveY = input.moveY or false
 	return self
 end
 

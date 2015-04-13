@@ -2,7 +2,6 @@
 --by Creator--
 
 --Variables--
-OmniOS = true
 local tasks = 2
 local finishedTasks = 0
 term.redirect(term.native())
