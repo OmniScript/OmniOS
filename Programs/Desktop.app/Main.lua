@@ -105,7 +105,7 @@ local function loadObjects()
 		},
 	}
 	Main.Layout = {
-		quickSettingsLayout
+		QuickSettings
 	}
 	QuickSettings.Button = {
 		Right = {
