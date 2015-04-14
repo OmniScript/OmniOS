@@ -1,8 +1,11 @@
 -- Get file to edit
 local tArgs = { ... }
 if #tArgs == 0 then
-	print( "Usage: edit <path>" )
-	return
+	term.setTextColour(colors.white)
+	term.setBackgroundColour(colors.black)
+	term.clear()
+    term.write("Path please!")
+    tArgs[1] = "OmniOS/Data/"..read()
 end
 
 -- Error checking
