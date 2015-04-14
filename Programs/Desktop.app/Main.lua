@@ -104,7 +104,9 @@ local function loadObjects()
 			returnValue = "windowMinus",
 		},
 	}
-
+	Main.Layout = {
+		quickSettingsLayout
+	}
 	QuickSettings.Button = {
 		Right = {
 			name = "Right",

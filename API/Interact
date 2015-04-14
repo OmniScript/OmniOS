@@ -153,6 +153,7 @@ function loadObjects(self)
 	output.Text = {}
 	output.TextBox = {}
 	output.Key = {}
+	output.Layout = {}
 	for o,v in pairs(output) do
 		if self[o] == nil then
 			self[o] = {}
@@ -178,6 +179,9 @@ function loadObjects(self)
 	end
 	for i,v in pairs(self.Key) do
 		output.Key[i] = Key.new(self.Key[i])
+	end
+	for i,v in pairs(self.Layout) do
+		output.Layout[i] = Layout.new(self.Layout[i])
 	end
 	output.BackgroundColor = self.BackgroundColor or 1
 	output.nilClick = self.nilClick or false
@@ -206,6 +210,9 @@ function loadLayout(input,output)
 	for i,v in pairs(input.Key) do
 		output:addKey(input.Key[i])
 	end
+	for i,v in pairs(input.Layout) do
+		output:addLayout(input.Layout[i])
+	end
 	output.BackgroundColor = input.BackgroundColor
 	output.nilClick = input.nilClick
 end
@@ -215,20 +222,23 @@ end
 Layout.new = function(input)
 	local self = {}
 	setmetatable(self,{__index = Layout})
-	self.Button = {}
-	self.Toggle = {}
-	self.ColorField = {}
-	self.BetterPaint = {}
-	self.Text = {}
-	self.TextBox = {}
-	self.Key = {}
-	self.BackgroundColor = 1
-	self.xPos = input.xPos or 1
-	self.yPos = input.yPos or 1
-	self.xLength = input.xLength or 51
-	self.yLength = input.yLength or 19
-	self.nilClick = input.nilClick or false
-	self.window = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength)
+	self = {
+		Button = {},
+		Toggle = {},
+		ColorField = {},
+		BetterPaint = {},
+		Text = {},
+		TextBox = {},
+		Key = {},
+		Window = {},
+		BackgroundColor = 1,
+		xPos = input.xPos or 1,
+		yPos = input.yPos or 1,
+		xLength = input.xLength or 51,
+		yLength = input.yLength or 19,
+		nilClick = input.nilClick or false,
+		windowBuffer = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength),
+	}
 	return self
 end
 
@@ -265,39 +275,50 @@ Layout.addKey = function(self,_elementData)
 	self.Key[_elementData.name] = _elementData
 end
 
+Layout.addWindow = function(self,_elementData)
+	self.Window[_elementData.name] = _elementData
+end
+
 Layout.draw = function(self,xPlus,yPlus)
+	xPlus = xPlus or 0
+	yPlus = yPlus or 0
 	local oldTerm= term.current()
-	term.redirect(self.window)
+	term.redirect(self.windowBuffer)
 	local buttonFunctions = {}
 	local toggleFunctions = {}
 	local colorFieldFunctions = {}
 	local betterPaintFunctions = {}
 	local textFunctions = {}
 	local textBoxFunctions = {}
+	local layoutFunctions = {}
 	setmetatable(buttonFunctions,{__index = Button})
 	setmetatable(toggleFunctions,{__index = Toggle})
 	setmetatable(colorFieldFunctions,{__index = ColorField})
 	setmetatable(betterPaintFunctions,{__index = BetterPaint})
 	setmetatable(textFunctions,{__index = Text})
 	setmetatable(textBoxFunctions,{__index = TextBox})
+	setmetatable(layoutFunctions,{__index = Layout})
 	paintutils.drawFilledBox(1,1,self.xLength,self.yLength,self.BackgroundColor)
 	for i,v in pairs(self.ColorField) do
-		colorFieldFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
+		colorFieldFunctions.draw(v,self.xPos-1+xPlus,self.yPos-1+yPlus)
 	end
 	for i,v in pairs(self.Button) do
-		buttonFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
+		buttonFunctions.draw(v,self.xPos-1+xPlus,self.yPos-1+yPlus)
 	end
 	for i,v in pairs(self.BetterPaint) do
-		betterPaintFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
+		betterPaintFunctions.draw(v,self.xPos-1+xPlus,self.yPos-1+yPlus)
 	end
 	for i,v in pairs(self.Toggle) do
-		toggleFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
+		toggleFunctions.draw(v,self.xPos-1+xPlus,self.yPos-1+yPlus)
 	end
 	for i,v in pairs(self.Text) do
-		textFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
+		textFunctions.draw(v,self.xPos-1+xPlus,self.yPos-1+yPlus)
 	end
 	for i,v in pairs(self.TextBox) do
-		textBoxFunctions.draw(v,self.xPos-1,self.yPos-1,xPlus,yPlus)
+		textBoxFunctions.draw(v,self.xPos-1+xPlus,self.yPos-1+yPlus)
+	end
+	for i,v in pairs(self.Layout) do
+		layoutFunctions.draw(v,self.xPos-1+xPlus,self.yPos-1+yPlus)
 	end
 	term.redirect(oldTerm)
 end
