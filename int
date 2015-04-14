@@ -1,0 +1,20 @@
+	term.clear()
+	gui = Interact.Initialize()
+	button = gui.Button.new( {
+			name = "Hi",
+			label = "hello",
+			xPos = 2,
+			yPos = 5,
+			fgColor = colors.white,
+			bgColor = colors.orange,
+			xLength = 7,
+			yLength = 3,
+			returnValue = "hi",
+			xTextPos = 2,
+			yTextPos = 2,
+			onRightClick = function() print("wow") sleep(3) end,
+			onLeftClick = function() os.shutdown() end,
+	    })
+	button:draw()
+	
+	os.pullEvent()

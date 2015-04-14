@@ -463,9 +463,9 @@ local function InitializeGUI()
 		quickSettingsLayout:addButton(quickSettingsLayoutTable.Button[i]:returnData())
 	end
 	quickSettingsLayout:addBackgroundColor(quickSettingsLayoutTable.quickSettingsBgColor:returnData())
-	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart:returnData())
-	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown:returnData())
-	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings:returnData())
+	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Restart)
+	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Shutdown)
+	quickSettingsLayout:addBetterPaint(quickSettingsLayoutTable.BetterPaint.Settings)
 	quickSettingsLayout:addKey(quickSettingsLayoutTable.Key.R:returnData())
 	quickSettingsLayout:addKey(quickSettingsLayoutTable.Key.S:returnData())
 	quickSettingsLayout:addKey(quickSettingsLayoutTable.Key.LeftAlt:returnData())
@@ -483,21 +483,6 @@ local function changeColor(color)
 	loadObjects()
 	InitializeGUI()
 end
-
-local function writeTable()
-	file = fs.open(programPath.."MatchingColorsLKK","w")
-	file.write(textutilsserialize({
-		[8192] = {
-			name = "green",
-			quickSettings = colors.lime,
-		},
-	}))
-	--for i,v in pairs (colors) do
-	--	file.write(tostring(i).." "..tostring(v).."\n")
-	--end
-	file.close()
-end
-
 
 --Loading settings--
 local buffer = readFile(programPath.."Settings")
