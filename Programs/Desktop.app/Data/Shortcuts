@@ -39,6 +39,6 @@
 		xPos = 1,
 		yPos = 1,
 		path = "OmniOS/Programs/Calculator.app/Calculator",
-		name = "Calc"
+		name = "Calculator"
 	},
 }
