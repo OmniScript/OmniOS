@@ -66,7 +66,7 @@ function goOn()
 	--login()
 	local kernel, err= loadfile("OmniOS/Core/Kernel.lua")
 	if err then print(err) os.pullEvent() log.log("Error",err) end
-	local desktop,err = loadfile("OmniOS/Programs/Desktop.app/Main.lua")
+	local desktop,err = loadfile("OmniOS/Programs/Calculator.app/Main.lua")
 	if err then print(err) os.pullEvent() log.log("Error",err) end
 	kernel("Desktop","Desktop",desktop,"user")
 end

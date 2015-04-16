@@ -230,6 +230,12 @@ Layout.new = function(input)
 	self.TextBox = {}
 	self.Key = {}
 	self.Window = {}
+	self.Layout = {}
+	for i,v in pairs(self) do
+		if input[i] == nil then
+			input[i] = {}
+		end
+	end
 	self.BackgroundColor = 1
 	self.xPos = input.xPos or 1
 	self.yPos = input.yPos or 1
