@@ -318,6 +318,8 @@ end
 Layout.draw = function(self,xPlus,yPlus)
 	xPlus = xPlus or 0
 	yPlus = yPlus or 0
+	self.finalX = xPlus
+	self.finalY = yPlus
 	local oldTerm = term.current()
 	term.redirect(self.window)
 	local buttonFunctions = {}
@@ -731,6 +733,12 @@ local function localEventHandler(self,toAddX, toAddY, event, p1, p2, p3, p4, p5,
 			for i,v in pairs(self.TextBox) do 
 				if v.finalX + toAddX <= p2 and p2 <= v.finalX + v.xLength-1 + toAddX and v.finalY + toAddY <= p3 and p3 <= v.finalY + v.yLength-1 + toAddY then
 					return {"TextBox",tostring(v.returnValue),p1,p2,p3}
+				end
+			end
+			for i,v in pairs(self.Layout) do 
+				if v.finalX + toAddX <= p2 and p2 <= v.finalX + v.xLength-1 + toAddX and v.finalY + toAddY <= p3 and p3 <= v.finalY + v.yLength-1 + toAddY then
+					local toReturn = localEventHandler(v,v.finalX-1,v.finalY-1, event, p1, p2, p3, p4, p5, p6)
+					return {toReturn[1],toReturn[2],p1,p2,p3}
 				end
 			end
 			if self.nilClick then

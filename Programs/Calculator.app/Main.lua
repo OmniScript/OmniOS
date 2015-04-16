@@ -84,8 +84,6 @@ while true do
 		input.text = ""
 	elseif MainLayoutEvent[2] == "Delete" then
 		input.text = input.text:sub(1,-2)
-	elseif MainLayoutEvent[2] == "xxx" then
-		input.text = "laglag"
 	else
 		input.text = input.text..MainLayoutEvent[2]
 	end
