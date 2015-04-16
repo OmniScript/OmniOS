@@ -701,9 +701,7 @@ function Key.returnData(self)
 	return toReturn
 end
 
-local function localEventHandler(self,event, p1, p2, p3, p4, p5, p6)
-	local toAddX = self.xPos - 1
-	local toAddY = self.yPos - 1
+local function localEventHandler(self,toAddX, toAddY, event, p1, p2, p3, p4, p5, p6)
 	while true do
 		if event == "mouse_click" then
 			for i,v in pairs(self.Button) do
@@ -760,7 +758,8 @@ end
 
 --Event handler function--
 eventHandler = function(self)
-	return localEventHandler(self,os.pullEvent())
+
+	return localEventHandler(self,self.xPos-1,self.yPos-1,os.pullEvent())
 end
 
 --Load Function--

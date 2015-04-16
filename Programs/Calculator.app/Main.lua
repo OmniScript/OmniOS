@@ -58,10 +58,7 @@ if not OmniOS or not Interact then
 	os.loadAPI("Intearct")
 end
 gui = NewInteract:Initialize()
-print(type(NewInteract:Initialize()))
-os.pullEvent()
 MainLayout = gui.Layout.new(readLayoutFile("Main"))
---gui.loadLayout(gui.loadObjects(),MainLayout)
 local input = gui.Text.new({name = "input",text = "",xPos = 1,yPos = 2,bgColor = colors.orange,fgColor = colors.white})
 
 MainLayout:draw()
@@ -70,6 +67,7 @@ while true do
 	MainLayout.Button.Exit:draw()
 	MainLayout.Button.Clear:draw()
 	MainLayout.Button.Delete:draw()
+	MainLayout.Button.xxx:draw()
 	input:draw()
 	local MainLayoutEvent = gui.eventHandler(MainLayout)
 	if MainLayoutEvent[2] == "=" then
@@ -86,6 +84,8 @@ while true do
 		input.text = ""
 	elseif MainLayoutEvent[2] == "Delete" then
 		input.text = input.text:sub(1,-2)
+	elseif MainLayoutEvent[2] == "xxx" then
+		input.text = "laglag"
 	else
 		input.text = input.text..MainLayoutEvent[2]
 	end

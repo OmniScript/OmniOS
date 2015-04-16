@@ -45,6 +45,19 @@ local tTable = {
 			xTextPos = 1,
 			yTextPos = 1,
 		},
+		xxx = {
+			name = "xxx",
+			label = "xxx",
+			xPos = w-11,
+			yPos = 1,
+			fgColor = colors.white,
+			bgColor = colors.orange,
+			xLength = 3,
+			yLength = 1,
+			returnValue = "xxx",
+			xTextPos = 1,
+			yTextPos = 1,
+		},
 	},
 	ColorField = {
 		Top = {
