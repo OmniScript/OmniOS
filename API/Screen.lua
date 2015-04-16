@@ -1,12 +1,10 @@
 function new( parent, nX, nY, nWidth, nHeight)
 
-	if type( parent ) ~= "table" or
-	   type( nX ) ~= "number" or
-	   type( nY ) ~= "number" or
-	   type( nWidth ) ~= "number" or
-	   type( nHeight ) ~= "number" then
-		error( "Expected object, number, number, number, number", 2 )
-	end
+	if type( parent ) ~= "table" then error( "Expected object",2 ) end
+	if type( nX ) ~= "number" then error( "Expected number1", 2 ) end
+	if type( nY ) ~= "number" then error( "Expected number2", 2 ) end
+	if type( nWidth ) ~= "number" then error( "Expected number3", 2 ) end
+	if type( nHeight ) ~= "number" then error( "Expected number4", 2 ) end
 
 	if parent == term then
 		parent = term.current()

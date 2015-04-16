@@ -230,16 +230,15 @@ Layout.new = function(input)
 		Text = {},
 		TextBox = {},
 		Key = {},
-		Window = {},
+		Layout = {},
 		BackgroundColor = 1,
 		xPos = input.xPos or 1,
 		yPos = input.yPos or 1,
 		xLength = input.xLength or 51,
 		yLength = input.yLength or 19,
-		nilClick = input.nilClick or false
+		nilClick = input.nilClick or false,
+		window = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength),
 	}
-	self.windowBuffer = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength)
-	return self
 end
 
 --Add element function--
@@ -282,8 +281,8 @@ end
 Layout.draw = function(self,xPlus,yPlus)
 	xPlus = xPlus or 0
 	yPlus = yPlus or 0
-	local oldTerm= term.current()
-	term.redirect(self.windowBuffer)
+	local oldTerm = term.current()
+	term.redirect(self.window)
 	local buttonFunctions = {}
 	local toggleFunctions = {}
 	local colorFieldFunctions = {}
