@@ -229,7 +229,6 @@ Layout.new = function(input)
 	self.Text = {}
 	self.TextBox = {}
 	self.Key = {}
-	self.Window = {}
 	self.Layout = {}
 	for i,v in pairs(self) do
 		if input[i] == nil then
@@ -242,7 +241,7 @@ Layout.new = function(input)
 	self.xLength = input.xLength or 51
 	self.yLength = input.yLength or 19
 	self.nilClick = input.nilClick or false
-	self.windowBuffer = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength)
+	self.window = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength)
 	for i,v in pairs(input.Button) do
 		self:addButton(input.Button[i])
 	end
@@ -274,10 +273,12 @@ end
 
 --Add element function--
 Layout.addButton = function(self,_elementData)
+	setmetatable(_elementData,{__index = Button})
 	self.Button[_elementData.name] = _elementData
 end
 
 Layout.addToggle = function(self,_elementData)
+	setmetatable(_elementData,{__index = Toggle})
 	self.Toggle[_elementData.name] = _elementData
 end
 
@@ -286,22 +287,27 @@ Layout.addBackgroundColor = function(self,_elementData)
 end
 
 Layout.addColorField = function(self,_elementData)
+	setmetatable(_elementData,{__index = ColorField})
 	self.ColorField[_elementData.name] = _elementData
 end
 
 Layout.addBetterPaint = function(self,_elementData)
+	setmetatable(_elementData,{__index = BetterPaint})
 	self.BetterPaint[_elementData.name] = _elementData
 end
 
 Layout.addText = function(self,_elementData)
+	setmetatable(_elementData,{__index = Text})
 	self.Text[_elementData.name] = _elementData
 end
 
 Layout.addTextBox = function(self,_elementData)
+	setmetatable(_elementData,{__index = TextBox})
 	self.TextBox[_elementData.name] = _elementData
 end
 
 Layout.addKey = function(self,_elementData)
+	setmetatable(_elementData,{__index = Key})
 	self.Key[_elementData.name] = _elementData
 end
 

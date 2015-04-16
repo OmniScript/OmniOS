@@ -1,6 +1,11 @@
 local w,h = term.getSize()
 local tTable = {
 	BackgroundColor = colors.gray,
+	xPos = 1,
+	yPos = 1,
+	xLength = w,
+	yLength = h,
+	Button = {
 		Exit = {
 			name = "Exit",
 			label = "x",
@@ -50,7 +55,7 @@ local tTable = {
 			yLength = 2,
 			color = colors.orange,
 		},
-	}
+	},
 	Layout  = {
 		Input = {
 			name = "Input",

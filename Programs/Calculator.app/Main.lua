@@ -43,7 +43,10 @@ local env = {
 
 --Functions--
 local function readLayoutFile(sLayout)
-	local func = loadfile(path.."Layouts/"..sLayout..".layout")
+	local func, err = loadfile(path.."Layouts/"..sLayout..".layout")
+	if err then
+		log.log("Calculator",err)
+	end
 	setfenv(func,_G)
 	return func()
 end
@@ -55,8 +58,10 @@ if not OmniOS or not Interact then
 	os.loadAPI("Intearct")
 end
 gui = NewInteract:Initialize()
-MainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
-gui.loadLayout(gui.loadObjects(readLayoutFile("Main")),MainLayout)
+print(type(NewInteract:Initialize()))
+os.pullEvent()
+MainLayout = gui.Layout.new(readLayoutFile("Main"))
+--gui.loadLayout(gui.loadObjects(),MainLayout)
 local input = gui.Text.new({name = "input",text = "",xPos = 1,yPos = 2,bgColor = colors.orange,fgColor = colors.white})
 
 MainLayout:draw()
