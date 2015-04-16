@@ -86,5 +86,6 @@ while true do
 		input.text = input.text:sub(1,-2)
 	else
 		input.text = input.text..MainLayoutEvent[2]
+		log.log("Calculator",MainLayoutEvent[2])
 	end
 end
