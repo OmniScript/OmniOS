@@ -760,8 +760,7 @@ end
 
 --Event handler function--
 eventHandler = function(self)
-	local tEvent = {os.pullEvent()}
-	return localEventHandler(self,unpack(tEvent))
+	return localEventHandler(self,os.pullEvent())
 end
 
 --Load Function--
