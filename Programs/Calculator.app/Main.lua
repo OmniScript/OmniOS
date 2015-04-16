@@ -54,7 +54,7 @@ if not OmniOS or not Interact then
 	shell.run("pastebin --- Interact")
 	os.loadAPI("Intearct")
 end
-gui = Interact.Initialize()
+gui = NewInteract:Initialize()
 MainLayout = gui.Layout.new({xPos = 1,yPos = 1,xLength = w,yLength = h})
 gui.loadLayout(gui.loadObjects(readLayoutFile("Main")),MainLayout)
 local input = gui.Text.new({name = "input",text = "",xPos = 1,yPos = 2,bgColor = colors.orange,fgColor = colors.white})

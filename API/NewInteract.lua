@@ -222,23 +222,48 @@ end
 Layout.new = function(input)
 	local self = {}
 	setmetatable(self,{__index = Layout})
-	self = {
-		Button = {},
-		Toggle = {},
-		ColorField = {},
-		BetterPaint = {},
-		Text = {},
-		TextBox = {},
-		Key = {},
-		Layout = {},
-		BackgroundColor = 1,
-		xPos = input.xPos or 1,
-		yPos = input.yPos or 1,
-		xLength = input.xLength or 51,
-		yLength = input.yLength or 19,
-		nilClick = input.nilClick or false,
-		window = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength),
-	}
+	self.Button = {}
+	self.Toggle = {}
+	self.ColorField = {}
+	self.BetterPaint = {}
+	self.Text = {}
+	self.TextBox = {}
+	self.Key = {}
+	self.Window = {}
+	self.BackgroundColor = 1
+	self.xPos = input.xPos or 1
+	self.yPos = input.yPos or 1
+	self.xLength = input.xLength or 51
+	self.yLength = input.yLength or 19
+	self.nilClick = input.nilClick or false
+	self.windowBuffer = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength)
+	for i,v in pairs(input.Button) do
+		self:addButton(input.Button[i])
+	end
+	for i,v in pairs(input.Toggle) do
+		self:addToggle(input.Toggle[i])
+	end
+	for i,v in pairs(input.ColorField) do
+		self:addColorField(input.ColorField[i])
+	end
+	for i,v in pairs(input.BetterPaint) do
+		self:addBetterPaint(input.BetterPaint[i])
+	end
+	for i,v in pairs(input.Text) do
+		self:addText(input.Text[i])
+	end
+	for i,v in pairs(input.TextBox) do
+		self:addTextBox(input.TextBox[i])
+	end
+	for i,v in pairs(input.Key) do
+		self:addKey(input.Key[i])
+	end
+	for i,v in pairs(input.Layout) do
+		self:addLayout(input.Layout[i])
+	end
+	self.BackgroundColor = input.BackgroundColor
+	self.nilClick = input.nilClick
+	return self
 end
 
 --Add element function--
@@ -275,7 +300,7 @@ Layout.addKey = function(self,_elementData)
 end
 
 Layout.addLayout = function(self,_elementData)
-	loadLayout(self.Layout[_elementData.name],_elementData)
+	self.Layout[_elementData.name] = Layout.new(_elementData)
 end
 
 Layout.draw = function(self,xPlus,yPlus)

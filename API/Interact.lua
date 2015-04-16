@@ -222,22 +222,20 @@ end
 Layout.new = function(input)
 	local self = {}
 	setmetatable(self,{__index = Layout})
-	self = {
-		Button = {},
-		Toggle = {},
-		ColorField = {},
-		BetterPaint = {},
-		Text = {},
-		TextBox = {},
-		Key = {},
-		Window = {},
-		BackgroundColor = 1,
-		xPos = input.xPos or 1,
-		yPos = input.yPos or 1,
-		xLength = input.xLength or 51,
-		yLength = input.yLength or 19,
-		nilClick = input.nilClick or false
-	}
+	self.Button = {}
+	self.Toggle = {}
+	self.ColorField = {}
+	self.BetterPaint = {}
+	self.Text = {}
+	self.TextBox = {}
+	self.Key = {}
+	self.Window = {}
+	self.BackgroundColor = 1
+	self.xPos = input.xPos or 1
+	self.yPos = input.yPos or 1
+	self.xLength = input.xLength or 51
+	self.yLength = input.yLength or 19
+	self.nilClick = input.nilClick or false
 	self.windowBuffer = Screen.new(term.current(),self.xPos,self.yPos,self.xLength,self.yLength)
 	return self
 end
@@ -316,9 +314,6 @@ Layout.draw = function(self,xPlus,yPlus)
 	end
 	for i,v in pairs(self.TextBox) do
 		textBoxFunctions.draw(v,self.xPos-1+xPlus,self.yPos-1+yPlus)
-	end
-	for i,v in pairs(self.Layout) do
-		layoutFunctions.draw(v,self.xPos-1+xPlus,self.yPos-1+yPlus)
 	end
 	term.redirect(oldTerm)
 end
