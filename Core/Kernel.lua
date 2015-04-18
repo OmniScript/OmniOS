@@ -39,6 +39,7 @@ local function drawClosed()
 end
 
 local function drawOpen()
+	term.setCursorBlink(false)
 	paintutils.drawFilledBox(w-15,1,w,h,colors.black)
 	local xVsProcess, curr = {}, 1
 	term.setTextColor(colors.white)
