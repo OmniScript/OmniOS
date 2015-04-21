@@ -126,7 +126,7 @@ function newRoutine(name,title,func,permission,...)
 		["permission"] = permission,
 		["path"] = path,
 		["routine"] = coroutine.create(func),
-		["window"] = window.create(currTerm,1,1,w-1,h,true),
+		["window"] = OmniWindow.create(currTerm,1,1,w-1,h,true),
 		["filter"] = "",
 	}
 
