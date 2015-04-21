@@ -1,0 +1,10 @@
+error('This is an image, not a program!')
+{
+  [ 11 ] = {
+    [ 9 ] = {
+      32768,
+      " ",
+      1,
+    },
+  },
+}

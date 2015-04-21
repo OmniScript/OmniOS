@@ -6,8 +6,6 @@
 term.current(term.native())
 local copyPath = ""
 local copyHelp = ""
-local settDir = "FTPconfig"
-local progsDir = "subPrograms"
 local textutilsserialize = textutils.serialize
 local textutilsunserialize = textutils.unserialize
 local w, h = term.getSize()

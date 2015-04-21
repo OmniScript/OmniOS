@@ -14,7 +14,7 @@ function newTask(name,title,...)
 	local mainPath = "OmniOS/Programs/"..name..".app/Main.lua"
 	local permissionPath = "OmniOS/Programs/"..name..".app/permission.data"
 	local file = fs.open(permissionPath,"r")
-	local permission = file.readAll and 
+	local permission = file.readAll and file.readAll() or "user"
 	file.close()
 	log.log("System","Opening app "..name..": retrieved permissions.")
 	if fs.exists(mainPath) then

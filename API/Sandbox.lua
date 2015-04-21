@@ -9,19 +9,13 @@
 local oldGetfenv = getfenv
 local oldLoadfile = loadfile
 local globalName = ""
+
 --Functions--
 
-function newEnv(permission, name)
+function newEnv(name)
 	globalName = name
-	if permission == "admin" then
-		return "global"
-	else
-		return "user" , customEnv()
-	end
-end
-
-local function customEnv()
-	local envToReturn = {
+	log.log("Sandbox",globalName)
+	return {
 		redstone = redstone,
 		gps = gps,
 		_VERSION = _VERSION,
@@ -110,6 +104,7 @@ local function customEnv()
 		vector = vectors,
 		select = select,
 		paintutils = paintutils,
+		System = System,
+		OmniOS = OmniOS,
 	}
-	return envToReturn
 end
