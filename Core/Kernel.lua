@@ -109,10 +109,12 @@ local function checkIfDead(routine)
 end
 
 function newRoutine(name,title,func,permission,...)
+	log.log("System","Launching task "..name..". By kernel")
 	local tries = 1
 	while routines[name .. tries] do tries = tries + 1 end
 	name = name .. tries
 	if permission == "userTest" then
+		log.log("System","Launching task "..name..": adding environment. By kernel")
 		local env = Sandbox.newEnv("user",name)
 		setfenv(func,env)
 	end

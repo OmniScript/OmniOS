@@ -10,15 +10,19 @@ function reboot()
 end
 
 function newTask(name,title,...)
+	log.log("System","Opening app "..name)
 	local mainPath = "OmniOS/Programs/"..name..".app/Main.lua"
 	local permissionPath = "OmniOS/Programs/"..name..".app/permission.data"
 	local file = fs.open(permissionPath,"r")
-	local permission = file.readAll()
+	local permission = file.readAll and 
 	file.close()
+	log.log("System","Opening app "..name..": retrieved permissions.")
 	if fs.exists(mainPath) then
 		local func, err = loadfile(mainPath)
 		if func then
+			log.log("System","Opening app "..name..": about to launch task.")
 			newRoutine(name,title,func,permission,...)
+			log.log("System","Opening app "..name..": launched task.")
 		end
 	end
 	return false

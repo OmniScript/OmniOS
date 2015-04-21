@@ -106,10 +106,10 @@ local function customEnv()
 		dofile = function(path) dofile("OmniOS/Programs/"..globalName..".app/"..path) end,
 		textutils = textutils,
 		term = term,
-		term.native = term.current,
 		colors = colors,
 		vector = vectors,
 		select = select,
-		paintutils 
-	},
+		paintutils = paintutils,
+	}
+	return envToReturn
 end
