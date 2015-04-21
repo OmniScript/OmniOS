@@ -36,7 +36,7 @@ local function customEnv()
 				oldGetfenv(a)
 			else
 				error("Expected function or number, got "..type(a))
-			end,
+			end end,
 		bit = bit,
 		rawset = rawset,
 		tonumber = tonumber,

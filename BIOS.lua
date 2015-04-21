@@ -3,6 +3,8 @@
 	for OmniOS
 ]]--
 
+term.redirect(term.native())
+
 --Variables--
 local gui = {}
 local OS = {}
