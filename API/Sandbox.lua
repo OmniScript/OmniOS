@@ -60,7 +60,7 @@ function newEnv(name)
 		pairs = pairs,
 		fs = {
 			combine = fs.combine,
-			isReadOnly = function(path) return fs.isReadOnly("OmniOS/Programs/"..globalName..".app/"..path) end,
+			isReadOnly = function(path) log.log("SandboxPath","OmniOS/Programs/"..globalName..".app/"..path) return fs.isReadOnly("OmniOS/Programs/"..globalName..".app/"..path) end,
 			getSize = function(path) return fs.getSize("OmniOS/Programs/"..globalName..".app/"..path) end,
 			move = function(path1,path2) return fs.move("OmniOS/Programs/"..globalName..".app/"..path1,"OmniOS/Programs/"..globalName..".app/"..path2) end,
 			exists = function(path) return fs.exists("OmniOS/Programs/"..globalName..".app/"..path) end,
@@ -71,7 +71,7 @@ function newEnv(name)
 			getDir = fs.getDir,
 			delete = function(path) return fs.delete("OmniOS/Programs/"..globalName..".app/"..path) end,
 			open = function(path,...) return fs.open("OmniOS/Programs/"..globalName..".app/"..path,...) end,
-			list = function(path) return fs.list("OmniOS/Programs/"..globalName..".app/"..path) end,
+			list = function(path) log.log("SandboxPath","OmniOS/Programs/"..globalName..".app/"..path) return fs.list("OmniOS/Programs/"..globalName..".app/"..path) end,
 			getDrive = function(path) return fs.getDrive("OmniOS/Programs/"..globalName..".app/"..path) end,
 			getName = fs.getName,
 			isDir = function(path) return fs.isDir("OmniOS/Programs/"..globalName..".app/"..path) end,
@@ -106,5 +106,6 @@ function newEnv(name)
 		paintutils = paintutils,
 		System = System,
 		OmniOS = OmniOS,
+		log = log,
 	}
 end
