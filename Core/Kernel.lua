@@ -112,7 +112,11 @@ function newRoutine(name,title,func,permission,...)
 	local tries = 1
 	while routines[name .. tries] do tries = tries + 1 end
 	name = name .. tries
-	
+	if permission == "userTest" then
+		local env = Sandbox.newEnv("user",name)
+		setfenv(func,env)
+	end
+
 	routines[name] = {
 		["title"] = title,
 		["permission"] = permission,
