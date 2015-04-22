@@ -15,7 +15,7 @@ local globalName = ""
 function newEnv(name)
 	globalName = name
 	log.log("Sandbox",globalName)
-	return {
+	toReturn = {
 		redstone = redstone,
 		gps = gps,
 		_VERSION = _VERSION,
@@ -52,10 +52,7 @@ function newEnv(name)
 		colours = colours,
 		pcall = pcall,
 		sleep = sleep,
-		loadfile = function(a) 
-			local func = oldLoadfile(a)
-			setfenv(func,getfenv(1))
-			end,
+		loadfile = function(path) return setfenv(loadfile("OmniOS/Programs/"..globalName..".app/"..path),envToReturn) end,
 		math = math,
 		pairs = pairs,
 		fs = {
@@ -108,4 +105,15 @@ function newEnv(name)
 		OmniOS = OmniOS,
 		log = log,
 	}
+	function env(tTable)
+		for i,v in pairs(tTable) do
+			local tType = type(v)
+			if tType == "table" then
+				env(v)
+			elseif tType == "function" then
+				setfenv(v,toReturn)
+			end
+		end
+	end
+	return toReturn
 end
