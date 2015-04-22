@@ -5,7 +5,7 @@ if #tArgs == 0 then
 	term.setBackgroundColour(colors.black)
 	term.clear()
     term.write("Path please!")
-    tArgs[1] = "OmniOS/Data/"..read()
+    tArgs[1] =read()
 end
 
 -- Error checking
