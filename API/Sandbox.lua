@@ -9,6 +9,13 @@
 local oldGetfenv = getfenv
 local oldLoadfile = loadfile
 local globalName = ""
+local protectedFuncs = {
+	OmniOS = {
+		loadAPI = true,
+		getFile = true,
+		
+	}
+}
 
 --Functions--
 
@@ -115,5 +122,17 @@ function newEnv(name)
 			end
 		end
 	end
+	env(toReturn)
+	function globalEnv(tTable)
+		for i,v in pairs(tTable) do
+			local tType = type(v)
+			if tType == "table" then
+				globalEnv(v)
+			elseif tType == "function" then
+				setfenv(v,_G)
+			end
+		end
+	end
+	globalEnv(toReturn.OmniOS)
 	return toReturn
 end

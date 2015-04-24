@@ -1,3 +1,25 @@
+local function readFile(_path)
+	local file = fs.open(_path,"r")
+	local data = file.readAll()
+	file.close()
+	return data
+end
+
+local w,h = term.getSize()
+
+local buffer = readFile(programPath.."Settings")
+Settings = textutils.unserialize( buffer )
+
+local buffer = readFile(programPath.."MatchingColors")
+MatchingColors = textutilsunserialize(buffer)
+
+local buffer = readFile(programPath.."Settings")
+Settings = textutils.unserialize( buffer )
+
+local buffer = readFile(programPath.."MatchingColors")
+MatchingColors = textutilsunserialize(buffer)
+
+
 local function loadShortcuts()
 	local buffer = readFile(programPath.."Shortcuts")
 	local sBuffer = textutilsunserialize(buffer)
@@ -21,6 +43,13 @@ local function loadShortcuts()
 	end
 	Main.BetterPaint = nBuffer
 end
+
+Main = {
+	xPos = 1,
+	yPos = 1,
+	xLength = w,
+	yLength = h,
+}
 
 Main.Button = {
 		quickSettings = {

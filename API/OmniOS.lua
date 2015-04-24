@@ -1,6 +1,7 @@
 version = "alpha"
 tag = "15w16a"
 loadAPI = function(_sPath)
+	_sPath = fs.exists("OmniOS/API/".._sPath) and "OmniOS/API/".._sPath or "OmniOS/lib/".._sPath
 	local sName = fs.getName( _sPath )
 	local tEnv = {}
 	setmetatable( tEnv, { __index = _G } )
@@ -49,3 +50,13 @@ requireAPI = function(_sPath)
 	end
 	return tAPI	
 end
+function getFile(path)
+	if fs.exists(path) and not fs. isDir(path) then
+		local file = fs.open(path,"r")
+		local data = file.readAll()
+		file.close()
+		return data
+	end
+	return false
+end
+FS = fs
