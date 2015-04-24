@@ -68,11 +68,12 @@ function goOn()
 	if err then print(err) os.pullEvent() log.log("Error",err) end
 	local startup, err = loadfile("OmniOS/Programs/Startup.app/Main.lua")
 	if err then print(err) os.pullEvent() log.log("Error",err) end
-	kernel("Startup","Startup",startup,"user")
+	kernel("Startup","Startup",startup,"admin")
 end
 
 ok, err = pcall(goOn)
 
 if not ok then
+	log.log("Crash",err)
 	pcall(shell.run("OmniOS/Core/Crash.lua "..err))
 end

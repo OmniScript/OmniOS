@@ -117,7 +117,7 @@ function newRoutine(name,title,func,permission,...)
 	if permission == "userTest" then
 		log.log("System","Launching task "..name..": adding environment. By kernel")
 		local env = Sandbox.newEnv(oldName)
-		--log.log("SandboxOutput",textutils.serialize(env))
+		log.log("System","Environment was successful")
 		setfenv(func,env)
 	end
 

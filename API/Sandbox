@@ -13,7 +13,9 @@ local protectedFuncs = {
 	OmniOS = {
 		loadAPI = true,
 		getFile = true,
-		
+	},
+	System = {
+		newTask = true
 	}
 }
 
@@ -21,7 +23,6 @@ local protectedFuncs = {
 
 function newEnv(name)
 	globalName = name
-	log.log("Sandbox",globalName)
 	toReturn = {
 		redstone = redstone,
 		gps = gps,
@@ -124,6 +125,7 @@ function newEnv(name)
 	end
 	env(toReturn)
 	function globalEnv(tTable)
+		if not type(tTable) == "table" then error("Expected table",2) end
 		for i,v in pairs(tTable) do
 			local tType = type(v)
 			if tType == "table" then
@@ -134,5 +136,6 @@ function newEnv(name)
 		end
 	end
 	globalEnv(toReturn.OmniOS)
+	globalEnv(toReturn.System)
 	return toReturn
 end
