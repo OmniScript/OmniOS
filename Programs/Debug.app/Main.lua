@@ -2,7 +2,7 @@
 	OmniOS debug
 	app
 ]]--
---System.newTask("FileX","FileX")
+System.newTask("FileX","FileX")
 
 
 --[[
@@ -14,9 +14,8 @@ textColour = colours.white
 bgColour = colours.black
 
 local function run(command,...)
-	if fs.exists("OmniOS/Programs/Debug.app/Commands/"..command) and not fs.isDir("OmniOS/Programs/Debug.app/Commands/"..command) then
-		local func, err = loadfile("OmniOS/Programs/Debug.app/Commands/"..command)
-		print(err)
+	if fs.exists("OmniOS/Programs/Debug.app/Commands/"..command..".lua") and not fs.isDir("OmniOS/Programs/Debug.app/Commands/"..command..".lua") then
+		local func, err = loadfile("OmniOS/Programs/Debug.app/Commands/"..command..".lua")
 		setfenv(func,_G)
 		if ... then 
 			func(unpack({...}))

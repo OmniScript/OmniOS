@@ -11,7 +11,6 @@
 	finalizing and bug fixing it.
 ]]--
 
-local routines = {}
 local logMessage = ""
 local history = {}
 local w,h = term.getSize()
@@ -163,8 +162,28 @@ end
 
 
 
-function getPermission(program)
+function Kernel.getPermission(program)
 	return routines[program].permission or "Not a valid program"
+end
+
+function Kernel.kill(thread)
+	if thread == "Debug1" then
+		return "Cannot kill debug, instead use kill !zygote"
+	else
+		if thread == activeRoutine then
+			activeRoutine = "Debug1"
+			routines[activeRoutine].window.setVisible(true)
+		end
+		routines[thread] = nil
+	end
+end
+
+function Kernel.list()
+	local buffer = {}
+	for i,v in pairs(routines) do
+		buffer[#buffer+1] = i
+	end
+	return buffer
 end
 
 drawClosed()
@@ -189,13 +208,15 @@ while true do
 		end
 	else
 		for i,v in safePairs(routines) do
-			term.redirect(routines[i].window)
-			logMessage, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
-			if not logMessage then
-				log.log(i,"Error: "..tostring(routines[i].filter),i)
+			if routines[i] then
+				term.redirect(routines[i].window)
+				logMessage, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
+				if not logMessage then
+					log.log(i,"Error: "..tostring(routines[i].filter),i)
+				end
+				term.redirect(currTerm)
+				checkIfDead(i)
 			end
-			term.redirect(currTerm)
-			checkIfDead(i)
 		end
 	end
 end

@@ -1,7 +1,0 @@
-local tArgs = {...}
-
-if tArgs[1] then
-	System.newTask(tArgs[2] or tArgs[1],tArgs[1])
-else
-	print("You have to specify a program!")
-end
