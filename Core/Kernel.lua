@@ -67,7 +67,7 @@ local function drawOpen()
 					routines[activeRoutine].window.setVisible( false )
 					activeRoutine = xVsProcess[evnt[4]]
 					routines[activeRoutine].window.setVisible(true)
-					history[#history+1] = activeRoutine
+					--history[#history+1] = activeRoutine
 					return
 				end
 			elseif w-14 == evnt[3] then
