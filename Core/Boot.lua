@@ -68,7 +68,7 @@ function goOn()
 	if err then print(err) os.pullEvent() log.log("Error",err) end
 	local startup, err = loadfile("OmniOS/Programs/Debug.app/Main.lua")
 	if err then print(err) os.pullEvent() log.log("Error",err) end
-	kernel("Startup","Debug",startup,"admin")
+	kernel("Debug","Debug",startup,"admin")
 end
 
 ok, err = pcall(goOn)

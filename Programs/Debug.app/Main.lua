@@ -1,4 +1,4 @@
-System.newTask("Desktop","Desktop")
+--System.newTask("Desktop","Desktop")
 System.newTask("FileX","FileX")
 local a = 0
 while true do

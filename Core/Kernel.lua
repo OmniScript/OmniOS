@@ -27,7 +27,7 @@ local function safePairs(t)
   local i = 0
   return function()
 	i = i + 1
-	return keys[i], t[keys[i]]
+	return keys[i], t[keys[i]] 
   end
 end
 
@@ -62,6 +62,7 @@ local function drawOpen()
 
 	while true do
 		local evnt = {os.pullEventRaw()}
+		log.log("Close",xVsProcess[evnt[4]])
 		if evnt[1] == "mouse_click" then
 			if w-12 <= evnt[3] and evnt[3] <= w then
 				if xVsProcess[evnt[4]] then
@@ -138,10 +139,7 @@ function newRoutine(name,title,func,permission,...)
 	routines[activeRoutine].window.setVisible(true)
 	logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
 	if not logMessage then
-		log.log(activeRoutine,
-			"Error: "..
-			tostring(routines[activeRoutine].filter),
-			activeRoutine)
+		log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
 	end
 	term.redirect(currTerm)
 	checkIfDead(activeRoutine)
