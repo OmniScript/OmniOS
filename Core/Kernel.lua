@@ -135,17 +135,30 @@ function Kernel.newRoutine(name,title,func,permission,...)
 	}
 
 	--Run it!
-	if routines[activeRoutine] then routines[activeRoutine].window.setVisible(false) end
-	activeRoutine = name
-	term.redirect(routines[activeRoutine].window)
-	routines[activeRoutine].window.setVisible(true)
-	logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
-	if not logMessage then
-		log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
+	if routines[activeRoutine] then
+		term.redirect(routines[name].window)
+		routines[name].window.setVisible(false)
+		logMessage, routines[name].filter = coroutine.resume(routines[name].routine,...)
+		if not logMessage then
+			log.log(name,"Error: "..tostring(routines[name].filter),name)
+		end
+		term.redirect(currTerm)
+		checkIfDead(name)
+		--history[#history+1] = activeRoutine
+		term.redirect(routines[activeRoutine].window)
+		routines[activeRoutine].window.redraw()
+	else
+		activeRoutine = name
+		term.redirect(routines[activeRoutine].window)
+		routines[activeRoutine].window.setVisible(true)
+		logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
+		if not logMessage then
+			log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
+		end
+		term.redirect(currTerm)
+		checkIfDead(activeRoutine)
+		--history[#history+1] = activeRoutine
 	end
-	term.redirect(currTerm)
-	checkIfDead(activeRoutine)
-	history[#history+1] = activeRoutine
 end
 
 
