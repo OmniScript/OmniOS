@@ -114,5 +114,6 @@ function newEnv(name)
 		local fenv = getfenv(env)
 		return fenv
 	end
+	toReturn.getfenv = localGetfenv
 	return toReturn
 end

@@ -21,8 +21,8 @@ function newTask(name,title,...)
 		local func, err = loadfile(mainPath)
 		if func then
 			log.log("System","Opening app "..name..": about to launch task.")
-			if newRoutine then
-				newRoutine(name,title,func,permission,...)
+			if Kernel.newRoutine then
+				Kernel.newRoutine(name,title,func,permission,...)
 			else
 				return func
 			end

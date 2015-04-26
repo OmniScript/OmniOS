@@ -110,7 +110,9 @@ local function checkIfDead(routine)
 	else return false end
 end
 
-function newRoutine(name,title,func,permission,...)
+Kernel = {}
+
+function Kernel.newRoutine(name,title,func,permission,...)
 	log.log("System","Launching task "..name..". By kernel")
 	local oldName = name
 	local tries = 1
@@ -146,13 +148,15 @@ function newRoutine(name,title,func,permission,...)
 	history[#history+1] = activeRoutine
 end
 
+
+
 function getPermission(program)
 	return routines[program].permission or "Not a valid program"
 end
 
 drawClosed()
 
-newRoutine(...)
+Kernel.newRoutine(...)
 
 while true do
 	local event = #eventBuffer == 0 and {os.pullEventRaw()} or table.remove(eventBuffer,1)

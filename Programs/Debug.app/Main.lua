@@ -1,8 +1,7 @@
---System.newTask("Desktop","Desktop")
+term.setCursorPos(1,1)
+print("OmniOS > Debug")
+print(">")
 System.newTask("FileX","FileX")
-local a = 0
 while true do
 	sleep(1)
-	print(a)
-	a = a+1
 end
