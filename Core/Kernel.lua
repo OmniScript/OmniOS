@@ -1,7 +1,7 @@
 --[[
 	TheOS Kernel
 	by Creator
-	for TheOS &
+	for OmniOS &
 	you to learn
 	from it! (Yeah learn, rather become dumber)
 	theoriginalbit
@@ -11,6 +11,7 @@
 	finalizing and bug fixing it.
 ]]--
 
+local routines = {}
 local logMessage = ""
 local history = {}
 local w,h = term.getSize()
@@ -71,7 +72,7 @@ local function drawOpen()
 					return
 				end
 			elseif w-14 == evnt[3] then
-				if xVsProcess[evnt[4]] and xVsProcess[evnt[4]] ~= "Desktop1" then
+				if xVsProcess[evnt[4]] and xVsProcess[evnt[4]] ~= "Debug1" then
 					if activeRoutine == xVsProcess[evnt[4]] then
 						--history[#history] = nil
 						--for i,v in pairs(history) do
@@ -79,7 +80,7 @@ local function drawOpen()
 						--		table.remove(history,i)
 						--	end
 						--activeRoutine = history[#history]
-						activeRoutine = "Desktop1"
+						activeRoutine = "Debug1"
 						routines[activeRoutine].window.setVisible(true)
 					end
 					routines[xVsProcess[evnt[4]]] = nil
@@ -101,7 +102,7 @@ local function checkIfDead(routine)
 				end
 			end
 			activeRoutine = history[#history]]--
-			activeRoutine = "Desktop1"
+			activeRoutine = "Debug1"
 			routines[activeRoutine].window.setVisible(true)
 		end
 		return true
@@ -137,7 +138,10 @@ function newRoutine(name,title,func,permission,...)
 	routines[activeRoutine].window.setVisible(true)
 	logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,...)
 	if not logMessage then
-		log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
+		log.log(activeRoutine,
+			"Error: "..
+			tostring(routines[activeRoutine].filter),
+			activeRoutine)
 	end
 	term.redirect(currTerm)
 	checkIfDead(activeRoutine)
