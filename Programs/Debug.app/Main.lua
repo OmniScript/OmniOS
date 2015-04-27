@@ -44,7 +44,10 @@ local function tokenise( ... )
     return tWords
 end
 
-local function shellrun( ... )
+if not OmniOS then OmniOS = {} end
+OmniOS.debug = {}
+
+function OmniOS.debug.run( ... )
 	local tWords = tokenise( ... )
 	local sCommand = tWords[1]
 	if sCommand then
@@ -68,5 +71,5 @@ while true do
 
     local sLine = read( nil, tCommandHistory )
     table.insert( tCommandHistory, sLine )
-    shellrun( sLine )
+    OmniOS.debug.run( sLine )
 end
