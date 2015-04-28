@@ -71,5 +71,8 @@ while true do
 
     local sLine = read( nil, tCommandHistory )
     table.insert( tCommandHistory, sLine )
-    OmniOS.debug.run( sLine )
+    local data = {OmniOS.debug.run( sLine )}
+    for i,v in pairs(data) do
+        print(v)
+    end
 end

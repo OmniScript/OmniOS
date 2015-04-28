@@ -14,6 +14,7 @@
 local logMessage = ""
 local history = {}
 local w,h = term.getSize()
+local monitors = {}
 local currTerm, routines, activeRoutine, eventBuffer = term.current(), {}, "", {}
 local eventFilter = {["key"] = true, ["mouse_click"] = true, ["monitor_touch"] = true, ["paste"] = true,
 	["char"] = true, ["terminate"] = true, ["mouse_scroll"] = true, ["mouse_drag"] = true}
@@ -160,7 +161,34 @@ function Kernel.newRoutine(name,title,func,permission,...)
 	end
 end
 
+function Kernel.newRoutineMon(side,name,title,func,permission,...)
+	if monitors[side] then
+		return "A program is using the monitor!"
+	end
+	if not peripheral.isPresent(side) then
+		return "The monitor does not exist!"
+	end
+	if not peripheral.getType(side) == "monitor" then
+		return "The peripheral is not a monitor!"
+	end
 
+	monitors[side] = {
+		["title"] = title,
+		["permission"] = permission,
+		["path"] = path,
+		["routine"] = coroutine.create(func),
+		["window"] = peripheral.wrap(side),
+		["filter"] = "",
+		["name"] = name,
+	}
+	term.redirect(monitors[side].window)
+	logMessage, monitors[side].filter = coroutine.resume(monitors[side].routine,...)
+	term.redirect(currTerm)
+	if not logMessage then
+		log.log(activeRoutine,"Error: "..tostring(monitors[side].filter),monitors[side].name)
+	end
+	return true
+end
 
 function Kernel.getPermission(program)
 	return routines[program].permission or "Not a valid program"
