@@ -18,9 +18,11 @@ local function run(command,...)
 		local func, err = loadfile("OmniOS/Programs/Debug.app/Commands/"..command..".lua")
 		setfenv(func,_G)
 		if ... then 
-			func(unpack({...}))
+			local ok, data = pcall(func,unpack({...}))
+            if not ok then log.log("Debug",data) end
 		else
-			func()
+			local ok, data = pcall(func)
+            if not ok then log.log("Debug",data) end
 		end
 	else
 		print("Command is non-existent! Pay more attention when writting!")
@@ -44,7 +46,7 @@ local function tokenise( ... )
     return tWords
 end
 
-if not OmniOS then OmniOS = {} end
+if not OmniOS or not type(OmniOS) == "table" then OmniOS = {} end
 OmniOS.debug = {}
 
 function OmniOS.debug.run( ... )
@@ -71,8 +73,5 @@ while true do
 
     local sLine = read( nil, tCommandHistory )
     table.insert( tCommandHistory, sLine )
-    local data = {OmniOS.debug.run( sLine )}
-    for i,v in pairs(data) do
-        print(v)
-    end
+    OmniOS.debug.run( sLine )
 end

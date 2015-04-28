@@ -46,7 +46,7 @@ function newTaskMon(side,name,title,...)
 		if func then
 			log.log("System","Opening app "..name..": about to launch task.")
 			if Kernel.newRoutineMon then
-				local data = {Kernel.newRoutineMon(side,name,title,func,permission,...)}
+				Kernel.newRoutineMon(side,name,title,func,permission,...)
 				log.log("System","Opening app on monitor "..side.." "..name..": launched task.")
 			else
 				return false

@@ -16,7 +16,7 @@ local history = {}
 local w,h = term.getSize()
 local monitors = {}
 local currTerm, routines, activeRoutine, eventBuffer = term.current(), {}, "", {}
-local eventFilter = {["key"] = true, ["mouse_click"] = true, ["monitor_touch"] = true, ["paste"] = true,
+local eventFilter = {["key"] = true, ["mouse_click"] = true, ["paste"] = true,
 	["char"] = true, ["terminate"] = true, ["mouse_scroll"] = true, ["mouse_drag"] = true}
 
 local function safePairs(t)
@@ -92,22 +92,28 @@ local function drawOpen()
 	end
 end
 
-local function checkIfDead(routine)
-	if coroutine.status(routines[routine].routine) == "dead" then
-		routines[routine] = nil
-		if routine == activeRoutine then
-			--history[#history] = nil
-			--[[for i,v in pairs(history) do
-				if routine == v then
-					table.remove(history,i)
+local function checkIfDead(routine,parent)
+	if parent == "term" then
+		if coroutine.status(routines[routine].routine) == "dead" then
+			routines[routine] = nil
+			if routine == activeRoutine then
+				--history[#history] = nil
+				--[[for i,v in pairs(history) do
+					if routine == v then
+						table.remove(history,i)
+					end
 				end
+				activeRoutine = history[#history]]--
+				activeRoutine = "Debug1"
+				routines[activeRoutine].window.setVisible(true)
 			end
-			activeRoutine = history[#history]]--
-			activeRoutine = "Debug1"
-			routines[activeRoutine].window.setVisible(true)
-		end
-		return true
-	else return false end
+			return true
+		else return false end
+	else
+		if coroutine.status(monitors[routine].routine) == "dead" then
+			monitors[routine] = nil
+		else return false end
+	end
 end
 
 Kernel = {}
@@ -143,7 +149,7 @@ function Kernel.newRoutine(name,title,func,permission,...)
 			log.log(name,"Error: "..tostring(routines[name].filter),name)
 		end
 		term.redirect(currTerm)
-		checkIfDead(name)
+		checkIfDead(name,"term")
 		--history[#history+1] = activeRoutine
 		term.redirect(routines[activeRoutine].window)
 		routines[activeRoutine].window.redraw()
@@ -156,7 +162,7 @@ function Kernel.newRoutine(name,title,func,permission,...)
 			log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
 		end
 		term.redirect(currTerm)
-		checkIfDead(activeRoutine)
+		checkIfDead(activeRoutine,"term")
 		--history[#history+1] = activeRoutine
 	end
 end
@@ -182,6 +188,10 @@ function Kernel.newRoutineMon(side,name,title,func,permission,...)
 		["name"] = name,
 	}
 	term.redirect(monitors[side].window)
+	term.setBackgroundColor(colors.black)
+	term.setTextColor(colors.white)
+	term.clear()
+	ter.setCursorPos(1,1)
 	logMessage, monitors[side].filter = coroutine.resume(monitors[side].routine,...)
 	term.redirect(currTerm)
 	if not logMessage then
@@ -232,18 +242,39 @@ while true do
 				log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
 			end
 			term.redirect(currTerm)
-			checkIfDead(activeRoutine)
+			checkIfDead(activeRoutine,"term")
+		end
+	elseif event[1] == "monitor_touch" then
+		if monitors[event[2]] and monitors[event[2]].filter == "monitor_touch" or monitors[event[2]].filter == nil then
+			term.redirect(monitors[event[2]].window)
+			logMessage, monitors[event[2]].filter = coroutine.resume(monitors[event[2]].routine,"mouse_click",1,unpack(event,3))
+			term.redirect(currTerm)
+			if not logMessage then
+				log.log(activeRoutine,"Error: "..tostring(monitors[event[2]].filter),monitors[event[2]].name)
+			end
+			checkIfDead(event[2],"monitor")
 		end
 	else
 		for i,v in safePairs(routines) do
-			if routines[i] then
+			if routines[i] and routines[i].filter == event[1] or routines[i].filter == nil then
 				term.redirect(routines[i].window)
 				logMessage, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
 				if not logMessage then
 					log.log(i,"Error: "..tostring(routines[i].filter),i)
 				end
 				term.redirect(currTerm)
-				checkIfDead(i)
+				checkIfDead(i,"term")
+			end
+		end
+		for i,v in safePairs(monitors) do
+			if monitors[i] and monitors[i].filter == event[1] or monitors[i].filter == nil then
+				term.redirect(monitors[i].window)
+				logMessage, monitors[i].filter = coroutine.resume(monitors[i].routine,unpack(event))
+				term.redirect(currTerm)
+				if not logMessage then
+					log.log(activeRoutine,"Error: "..tostring(monitors[i].filter),monitors[i].name)
+				end
+				checkIfDead(i,"monitor")
 			end
 		end
 	end

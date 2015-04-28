@@ -37,6 +37,5 @@ end
 for i,v in pairs(apis) do
 	loadAPI("OmniOS/API/"..v)
 	term.setTextColor(colors.black)
-	print(v)
+	nPrint(v:match("[^%.]+"))
 end
-os.pullEvent()

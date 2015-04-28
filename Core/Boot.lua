@@ -18,7 +18,7 @@ local hideLogo = paintutils.loadImage("OmniOS/Media/Boot/Boot_Hide.nfp")
 local logoWide = 18
 --Functions--
 
-local function nPrint(text)
+function nPrint(text)
 	finishedTasks = finishedTasks + 1
 	local txt = "OmniOS by Creator"
 	term.setBackgroundColor(colors.white)
