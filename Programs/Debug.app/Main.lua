@@ -21,7 +21,8 @@ local function run(command,firstArg,...)
         if command == "kill" then
                 func(firstArg,unpack(overArgs))
         elseif firstArg then 
-			local ok, data = pcall(func,firstArg,unpack(overArgs))
+			local ok, data = pcall(func,firstArg,
+                unpack(overArgs))
             if not ok then log.log("Debug",data) end
             print(data)
 		else
