@@ -142,7 +142,7 @@ function Kernel.newRoutine(name,title,func,permission,...)
 
 	--Run it!
 	if routines[activeRoutine] then
-		term.redirect(routines[name].window)
+		local outputBuffer = term.redirect(routines[name].window)
 		routines[name].window.setVisible(false)
 		logMessage, routines[name].filter = coroutine.resume(routines[name].routine,...)
 		if not logMessage then
@@ -150,8 +150,7 @@ function Kernel.newRoutine(name,title,func,permission,...)
 		end
 		term.redirect(currTerm)
 		checkIfDead(name,"term")
-		--history[#history+1] = activeRoutine
-		term.redirect(routines[activeRoutine].window)
+		term.redirect(outputBuffer)
 		routines[activeRoutine].window.redraw()
 	else
 		activeRoutine = name
@@ -163,7 +162,6 @@ function Kernel.newRoutine(name,title,func,permission,...)
 		end
 		term.redirect(currTerm)
 		checkIfDead(activeRoutine,"term")
-		--history[#history+1] = activeRoutine
 	end
 end
 
@@ -187,7 +185,6 @@ function Kernel.newRoutineMon(side,name,title,func,permission,...)
 		["filter"] = "",
 		["name"] = name,
 	}
-	term.redirect(monitors[side].window)
 	term.setBackgroundColor(colors.black)
 	term.setTextColor(colors.white)
 	term.clear()
@@ -197,6 +194,7 @@ function Kernel.newRoutineMon(side,name,title,func,permission,...)
 	if not logMessage then
 		log.log(activeRoutine,"Error: "..tostring(monitors[side].filter),monitors[side].name)
 	end
+	term.redirect(routines[activeRoutine].window)
 	return true
 end
 
