@@ -151,7 +151,7 @@ function Kernel.newRoutine(name,title,func,permission,...)
 		term.redirect(currTerm)
 		checkIfDead(name,"term")
 		term.redirect(outputBuffer)
-		routines[activeRoutine].window.redraw()
+		outputBuffer.redraw()
 	else
 		activeRoutine = name
 		term.redirect(routines[activeRoutine].window)
@@ -167,12 +167,15 @@ end
 
 function Kernel.newRoutineMon(side,name,title,func,permission,...)
 	if monitors[side] then
+		log.log("Processes/Mon","A program is using the monitor!")
 		return "A program is using the monitor!"
 	end
 	if not peripheral.isPresent(side) then
+		log.log("Processes/Mon","The monitor does not exist!")
 		return "The monitor does not exist!"
 	end
 	if not peripheral.getType(side) == "monitor" then
+		log.log("Processes/Mon","The peripheral is not a monitor!")
 		return "The peripheral is not a monitor!"
 	end
 
@@ -185,16 +188,17 @@ function Kernel.newRoutineMon(side,name,title,func,permission,...)
 		["filter"] = "",
 		["name"] = name,
 	}
+	local outputBuffer = term.redirect(monitors[side].window)
 	term.setBackgroundColor(colors.black)
 	term.setTextColor(colors.white)
 	term.clear()
-	ter.setCursorPos(1,1)
+	term.setCursorPos(1,1)
 	logMessage, monitors[side].filter = coroutine.resume(monitors[side].routine,...)
-	term.redirect(currTerm)
 	if not logMessage then
 		log.log(activeRoutine,"Error: "..tostring(monitors[side].filter),monitors[side].name)
 	end
-	term.redirect(routines[activeRoutine].window)
+	term.redirect(outputBuffer)
+	outputBuffer.redraw()
 	return true
 end
 
