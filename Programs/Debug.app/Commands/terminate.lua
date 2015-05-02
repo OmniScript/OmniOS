@@ -1,0 +1,1 @@
+errot("OmniOS is being terminated...")

@@ -4,9 +4,9 @@ if tArgs[1] == "launch" then
 		print("Fine")
 		return System.newTaskMon(tArgs[2], tArgs[4] or tArgs[3],tArgs[3])
 	elseif not tArgs[2] then
-		return "You need a monitor!"
+		print("You need a monitor!")
 	else
-		return "You need a program!"
+		print("You need a program!")
 	end
 elseif tArgs[1] == "list" then
 	print("The available monitors are:")

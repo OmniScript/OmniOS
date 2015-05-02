@@ -13,20 +13,15 @@ promptColour = colours.yellow
 textColour = colours.white
 bgColour = colours.black
 
-local function run(command,firstArg,...)
+local function run(command,...)
 	if fs.exists("OmniOS/Programs/Debug.app/Commands/"..command..".lua") and not fs.isDir("OmniOS/Programs/Debug.app/Commands/"..command..".lua") then
 		local func, err = loadfile("OmniOS/Programs/Debug.app/Commands/"..command..".lua")
         local overArgs = {...}
 		setfenv(func,_G)
-        if command == "kill" then
+        if command == "kill" or command == "terminate" then
                 func(firstArg,unpack(overArgs))
-        elseif firstArg then 
-			local ok, data = pcall(func,firstArg,
-                unpack(overArgs))
-            if not ok then log.log("Debug",data) end
-            print(data)
-		else
-			local ok, data = pcall(func)
+        else 
+			local ok, data = pcall(func,unpack(overArgs))
             if not ok then log.log("Debug",data) end
             print(data)
 		end
