@@ -254,6 +254,7 @@ while true do
 	if fs.exists("OmniOS/Drivers/"..event[1]..".lua") then
 		local func = loadfile("OmniOS/Drivers/"..event[1]..".lua")
 		func(unpack(event))
+		routines[activeRoutine].window.redraw()
 	else
 		if (event[1] == "mouse_click" or event[1] == "monitor_touch") and event[3] == w then
 			drawOpen()
