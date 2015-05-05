@@ -23,7 +23,6 @@ local function run(command,...)
         else 
 			local ok, data = pcall(func,unpack(overArgs))
             if not ok then log.log("Debug",data) end
-            print(data)
 		end
 	else
 		print("Command is non-existent! Pay more attention when writting!")

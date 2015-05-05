@@ -150,6 +150,8 @@ function Kernel.newRoutine(name,title,func,permission,...)
 		end
 		term.redirect(currTerm)
 		checkIfDead(name,"term")
+		term.redirect(routines[activeRoutine].window)
+		routines[activeRoutine].window.redraw()
 		term.redirect(outputBuffer)
 		outputBuffer.redraw()
 	else
@@ -193,6 +195,7 @@ function Kernel.newRoutineMon(side,name,title,func,permission,...)
 	term.setTextColor(colors.white)
 	term.clear()
 	term.setCursorPos(1,1)
+	monitors[side].window.setTextScale(0.5)
 	logMessage, monitors[side].filter = coroutine.resume(monitors[side].routine,...)
 	if not logMessage then
 		log.log(activeRoutine,"Error: "..tostring(monitors[side].filter),monitors[side].name)
