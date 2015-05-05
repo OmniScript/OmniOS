@@ -22,7 +22,7 @@ function newTask(name,title,...)
 		if func then
 			log.log("System","Opening app "..name..": about to launch task.")
 			if Kernel.newRoutine then
-				Kernel.newRoutine(name,title,func,permission,...)
+				Kernel.newRoutine(name,title or name,func,permission,...)
 			else
 				return false
 			end

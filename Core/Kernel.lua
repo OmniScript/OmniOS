@@ -12,6 +12,7 @@
 ]]--
 
 local logMessage = ""
+local newRoutine = ""
 local history = {}
 local w,h = term.getSize()
 local monitors = {}
@@ -37,6 +38,14 @@ local function drawClosed()
 	term.setBackgroundColor(colors.black)
 	term.setCursorPos(w,h/2+2)
 	term.write("<")
+end
+
+local function switch()
+	if routines[newRoutine] then
+	routines[activeRoutine].window.setVisible( false )
+	activeRoutine = newRoutine
+	routines[activeRoutine].window.setVisible(true)
+	end
 end
 
 local function drawOpen()
@@ -226,7 +235,14 @@ function Kernel.list()
 	for i,v in pairs(routines) do
 		buffer[#buffer+1] = i
 	end
+	for i,v in pairs(monitors) do
+		buffer[#buffer+1] = i
+	end
 	return buffer
+end
+
+function Kernel.switch(newTask)
+	newRoutine = newTask
 end
 
 drawClosed()

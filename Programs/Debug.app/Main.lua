@@ -2,16 +2,26 @@
 	OmniOS debug
 	app
 ]]--
-System.newTask("FileX","FileX")
+--Startup
+local file = fs.open("OmniOS/Programs/Debug.app/startup.txt","r")
+local data = file.readAll()
+file.close()
+local toOpen = {}
+for token in data:gmatch("[^\n]+") do
+    toOpen[#toOpen+1] = token
+end
+for i,v in pairs(toOpen) do
+    System.newTask(v,v)
+end
 
 
 --[[
     Modified version of Shell
 ]]--
-
 promptColour = colours.yellow
 textColour = colours.white
 bgColour = colours.black
+
 
 local function run(command,...)
 	if fs.exists("OmniOS/Programs/Debug.app/Commands/"..command..".lua") and not fs.isDir("OmniOS/Programs/Debug.app/Commands/"..command..".lua") then
