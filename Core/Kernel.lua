@@ -251,51 +251,56 @@ Kernel.newRoutine(...)
 
 while true do
 	local event = #eventBuffer == 0 and {os.pullEventRaw()} or table.remove(eventBuffer,1)
-	if (event[1] == "mouse_click" or event[1] == "monitor_touch") and event[3] == w then
-		drawOpen()
-		drawClosed()
-		routines[activeRoutine].window.redraw()
-	elseif eventFilter[event[1]] then
-		if routines[activeRoutine].filter == nil or routines[activeRoutine].filter == "" or routines[activeRoutine].filter == event[1] then
-			term.redirect(routines[activeRoutine].window)
-			logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,unpack(event))
-			if not logMessage then
-				log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
-			end
-			term.redirect(currTerm)
-			checkIfDead(activeRoutine,"term")
-		end
-	elseif event[1] == "monitor_touch" then
-		if monitors[event[2]] and monitors[event[2]].filter == "monitor_touch" or monitors[event[2]].filter == nil then
-			term.redirect(monitors[event[2]].window)
-			logMessage, monitors[event[2]].filter = coroutine.resume(monitors[event[2]].routine,"mouse_click",1,unpack(event,3))
-			term.redirect(currTerm)
-			if not logMessage then
-				log.log(activeRoutine,"Error: "..tostring(monitors[event[2]].filter),monitors[event[2]].name)
-			end
-			checkIfDead(event[2],"monitor")
-		end
+	if fs.exists("OmniOS/Drivers/"..event[1]..".lua") then
+		local func = loadfile("OmniOS/Drivers/"..event[1]..".lua")
+		func(unpack(event))
 	else
-		for i,v in safePairs(routines) do
-			if routines[i] and routines[i].filter == event[1] or routines[i].filter == nil then
-				term.redirect(routines[i].window)
-				logMessage, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
+		if (event[1] == "mouse_click" or event[1] == "monitor_touch") and event[3] == w then
+			drawOpen()
+			drawClosed()
+			routines[activeRoutine].window.redraw()
+		elseif eventFilter[event[1]] then
+			if routines[activeRoutine].filter == nil or routines[activeRoutine].filter == "" or routines[activeRoutine].filter == event[1] then
+				term.redirect(routines[activeRoutine].window)
+				logMessage, routines[activeRoutine].filter = coroutine.resume(routines[activeRoutine].routine,unpack(event))
 				if not logMessage then
-					log.log(i,"Error: "..tostring(routines[i].filter),i)
+					log.log(activeRoutine,"Error: "..tostring(routines[activeRoutine].filter),activeRoutine)
 				end
 				term.redirect(currTerm)
-				checkIfDead(i,"term")
+				checkIfDead(activeRoutine,"term")
 			end
-		end
-		for i,v in safePairs(monitors) do
-			if monitors[i] and monitors[i].filter == event[1] or monitors[i].filter == nil then
-				term.redirect(monitors[i].window)
-				logMessage, monitors[i].filter = coroutine.resume(monitors[i].routine,unpack(event))
+		elseif event[1] == "monitor_touch" then
+			if monitors[event[2]] and monitors[event[2]].filter == "monitor_touch" or monitors[event[2]].filter == nil then
+				term.redirect(monitors[event[2]].window)
+				logMessage, monitors[event[2]].filter = coroutine.resume(monitors[event[2]].routine,"mouse_click",1,unpack(event,3))
 				term.redirect(currTerm)
 				if not logMessage then
-					log.log(activeRoutine,"Error: "..tostring(monitors[i].filter),monitors[i].name)
+					log.log(activeRoutine,"Error: "..tostring(monitors[event[2]].filter),monitors[event[2]].name)
 				end
-				checkIfDead(i,"monitor")
+				checkIfDead(event[2],"monitor")
+			end
+		else
+			for i,v in safePairs(routines) do
+				if routines[i] and routines[i].filter == event[1] or routines[i].filter == nil then
+					term.redirect(routines[i].window)
+					logMessage, routines[i].filter = coroutine.resume(routines[i].routine,unpack(event))
+					if not logMessage then
+						log.log(i,"Error: "..tostring(routines[i].filter),i)
+					end
+					term.redirect(currTerm)
+					checkIfDead(i,"term")
+				end
+			end
+			for i,v in safePairs(monitors) do
+				if monitors[i] and monitors[i].filter == event[1] or monitors[i].filter == nil then
+					term.redirect(monitors[i].window)
+					logMessage, monitors[i].filter = coroutine.resume(monitors[i].routine,unpack(event))
+					term.redirect(currTerm)
+					if not logMessage then
+						log.log(activeRoutine,"Error: "..tostring(monitors[i].filter),monitors[i].name)
+					end
+					checkIfDead(i,"monitor")
+				end
 			end
 		end
 	end
